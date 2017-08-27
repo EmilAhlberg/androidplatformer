@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Cat Scourge</string>
+    <string name="new_game">I\'m a good boy!</string>
+    <string name="game_description">Save yourself (and the world!)</string>
+    <string name="next_level">I must woff deeper!</string>
+    <string name="level_cleared">Good boy!</string>
+    <string name="retry_level">Revive dog!</string>
+    <string name="select_level">Check le\' yard!</string>
+    <string name="level_1">Level 1</string>
+    <string name="level_2">Level 2</string>
+    <string name="level_3">Level 3</string>
+</resources>
