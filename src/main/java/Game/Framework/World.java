@@ -14,12 +14,12 @@ import Game.Movers.Player;
 
 public class World {
 
-    private Player p;
+    private Player player;
 
     private ArrayList<GameObject> objects;
 
     public World(ArrayList<GameObject> objects) {
-        p = (Player)objects.get(0);
+        player = (Player)objects.get(0);
     }
 
     public void updateWorld() {
@@ -31,6 +31,6 @@ public class World {
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
-
+        player.decodeTouchEvent(event, p);
     }
 }
