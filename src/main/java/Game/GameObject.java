@@ -3,6 +3,8 @@ package Game;
         import android.graphics.Canvas;
         import android.graphics.Rect;
 
+        import Game.Util.IDHandler;
+
 
 /**
  * Created by Emil on 2016-11-20.
@@ -15,6 +17,7 @@ public abstract class GameObject {
 
     public GameObject(Rect rect) {
         this.rect = rect;
+        picture = new Picture(IDHandler.getID(this.getClass()), rect);
     }
 
     /**
@@ -24,6 +27,14 @@ public abstract class GameObject {
      */
     public void move(double x, double y) {
         rect.offset((int)(x - rect.left), (int)(y - rect.top));
+    }
+
+    /**
+     * Returns the hitbox/bounds of the object
+     * @return Hitbox of the object
+     */
+    public Rect getRect() {
+        return rect;
     }
 
     /**

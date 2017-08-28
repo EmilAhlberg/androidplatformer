@@ -12,7 +12,7 @@ import Game.Util.IDs;
  * Created by Emil on 23/08/2017.
  */
 
-public abstract class Picture {
+public class Picture {
 
     private Drawable sprite;
 
