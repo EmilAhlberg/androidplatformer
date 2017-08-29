@@ -1,5 +1,6 @@
 package com.example.emil.Framework;
 
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,9 +47,9 @@ public class GameActivity extends AppActivity {
         ll = (LinearLayout) findViewById(R.id.gameActivity);
         display = new GameDisplay(this);
 
-        ArrayList<GameObject> objects = levelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
-        world = new World(objects, display);
-        gameLoop = new GameLoop(world, gameLoopThread);
+        levelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
+        world = new World();
+        gameLoop = new GameLoop(this, gameLoopThread);
         gameLoop.startLoop();
     }
 
@@ -74,5 +75,20 @@ public class GameActivity extends AppActivity {
         getWindowManager().getDefaultDisplay().getSize(p); //behvös denna?
         world.decodeTouchEvent(event, p);
         return true;
+    }
+
+    public void updateWorld() {
+        //handle gameTime here? if syncing with clock --> send timeParam to world.update
+        world.update();
+    }
+
+    public void drawWorld() {
+        Rect r = LevelCreator.getPlayer().getRect();
+        display.beginDraw(new Point(r.left, r.top));
+        Canvas c = display.getCanvas();
+
+        world.draw(c);
+
+        display.endDraw();
     }
 }

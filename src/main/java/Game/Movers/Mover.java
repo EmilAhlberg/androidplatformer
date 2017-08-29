@@ -4,6 +4,8 @@ import android.graphics.Rect;
 
 import Game.*;
 import Game.Framework.LevelCreator;
+import Game.InAnimates.Block;
+import Game.Util.IDs;
 
 import java.util.ArrayList;
 
@@ -14,7 +16,13 @@ import java.util.ArrayList;
 
 public abstract class Mover extends GameObject {
 
+
     public Mover(Rect rect) {
         super(rect);
     }
+
+
+
+
+
 }

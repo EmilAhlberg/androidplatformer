@@ -17,4 +17,10 @@ public class Block extends GameObject {
     public Block(Point p) {
         super(new Rect(p.x, p.y, p.x + BLOCK_WIDTH, p.y + BLOCK_HEIGHT));
     }
+
+    @Override
+    public void update() {
+        //BOMB -> ensures this is not used
+        throw new NoSuchMethodError();
+    }
 }

@@ -2,12 +2,9 @@ package Game.Framework;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-
-import Game.GameObject;
+import Game.Container;
 import Game.Movers.Player;
 
 /**
@@ -17,27 +14,31 @@ import Game.Movers.Player;
 public class World {
 
     private Player player;
-    private GameDisplay display;
-    private ArrayList<GameObject> objects;
+    private Container blocks;
 
-    public World(ArrayList<GameObject> objects, GameDisplay display) {
-        player = (Player)objects.get(0);
-        this.objects = objects;
-        this.display = display;
+    //private Container enemies;
+
+    public World() {
+        player = LevelCreator.getPlayer();
+        blocks = LevelCreator.getBlocks();
+        //enemies = LevelCreator.getEnemies();
     }
 
-    public void updateWorld() {
+    public void update() {
+        player.update();
+        //enemies.update();
 
+        CollisionHandler.handleAllCollisions(player, blocks);
     }
 
-    public void drawWorld() {
-        Rect r = player.getRect();
-        display.beginDraw(new Point(r.left, r.top));
-        Canvas c = display.getCanvas();
-        for (GameObject g : objects) {
-            g.draw(c);
-        }
-        display.endDraw();
+
+
+    public void draw(Canvas canvas) {
+        player.draw(canvas);
+        //enemies.draw(canvas);
+        blocks.draw(canvas);
+
+
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

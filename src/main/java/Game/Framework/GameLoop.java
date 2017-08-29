@@ -3,19 +3,21 @@ package Game.Framework;
 import android.os.Handler;
 import android.os.Message;
 
+import com.example.emil.Framework.GameActivity;
+
 /**
  * Created by Emil on 2016-11-04.
  */
 
 public class GameLoop {
 
-    private World world;
+    private GameActivity game;
     private final int timeLimit = 15;
     private Handler handler;
     private boolean running;
 
-    public GameLoop(World world, Handler handler) {
-        this.world = world;
+    public GameLoop(GameActivity game, Handler handler) {
+        this.game = game;
         this.handler = handler;
     }
 
@@ -38,8 +40,8 @@ public class GameLoop {
 
     private void updateLoop() {
         //long millis = System.currentTimeMillis();
-        world.updateWorld();
-        world.drawWorld();
+        game.updateWorld();
+        game.drawWorld();
         //Log.d("updateLoop", "Update world: " + (System.currentTimeMillis() - millis));
         //millis = System.currentTimeMillis();
         Message m = handler.obtainMessage();

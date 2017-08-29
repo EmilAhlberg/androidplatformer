@@ -4,6 +4,7 @@ package Game;
         import android.graphics.Rect;
 
         import Game.Util.IDHandler;
+        import Game.Util.IDs;
 
 
 /**
@@ -14,10 +15,12 @@ public abstract class GameObject {
 
     protected Rect rect;
     private Picture picture;
+    protected IDs id;
 
     public GameObject(Rect rect) {
         this.rect = rect;
-        picture = new Picture(IDHandler.getID(this.getClass()), rect);
+        this.id = IDHandler.getID(this.getClass());
+        picture = new Picture(id, rect);
     }
 
     /**
@@ -33,6 +36,15 @@ public abstract class GameObject {
      * Returns the hitbox/bounds of the object
      * @return Hitbox of the object
      */
+
+    public abstract void update(); //this is required, but doesnt have to be implemented / called on blocks etc.
+
+    public IDs getID() {
+        return id;
+    }
+
+
+
     public Rect getRect() {
         return rect;
     }
@@ -44,4 +56,6 @@ public abstract class GameObject {
     public void draw(Canvas c) {
         picture.draw(c);
     }
+
+
 }

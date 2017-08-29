@@ -20,25 +20,33 @@ import Game.Movers.Player;
 
 public class LevelCreator {
 
-    public static ArrayList<GameObject> createLevel(GameActivity ga, int level) {
-        ArrayList<GameObject> temp = new ArrayList<GameObject>();
+    private static Player player;
+    private static Container blocks;
+    //private static Container enemies;
+
+    public static void createLevel(GameActivity ga, int level) {
+        //ArrayList<GameObject> temp = new ArrayList<GameObject>();
         String[] mapString = getLevelArray(ga, level);
+
+        ArrayList<GameObject> bs = new ArrayList<GameObject>();
+
+        //enemies = new Container();
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
                 Point p = new Point((k-1) * Block.BLOCK_WIDTH, i * Block.BLOCK_HEIGHT); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'B':
                         Block b = new Block(p);
-                        temp.add(b);
+                        bs.add(b);
                         break;
                     case 'P':
-                        Player player = new Player(p);
-                        temp.add(0, player);
+                        player = new Player(p);
                         break;
                 }
             }
         }
-        return temp;
+
+        blocks = new Container(bs);
     }
 
     private static String[] getLevelArray(GameActivity ga, int level) {
@@ -81,5 +89,17 @@ public class LevelCreator {
         Object[] objects = strings.toArray();
         String[] stringArray = Arrays.copyOf(objects, objects.length, String[].class);
         return stringArray;
+    }
+
+//    public static Container getEnemies() {
+//        return enemies;
+//    }
+
+    public static Container getBlocks() {
+        return blocks;
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 }
