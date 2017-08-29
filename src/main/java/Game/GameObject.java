@@ -28,14 +28,18 @@ public abstract class GameObject {
      * @param x x coordinate
      * @param y y coordinate
      */
-    public void move(double x, double y) {
+    public void moveTo(double x, double y) {
         rect.offset((int)(x - rect.left), (int)(y - rect.top));
     }
 
     /**
-     * Returns the hitbox/bounds of the object
-     * @return Hitbox of the object
+     * Moves the gameObject a certain distance
+     * @param x horizontal distance
+     * @param y vertical distance
      */
+    public void move(double x, double y) {
+        rect.offset((int)x, (int)y);
+    }
 
     public abstract void update(); //this is required, but doesnt have to be implemented / called on blocks etc.
 
@@ -43,8 +47,10 @@ public abstract class GameObject {
         return id;
     }
 
-
-
+    /**
+     * Returns the hitbox/bounds of the object
+     * @return Hitbox of the object
+     */
     public Rect getRect() {
         return rect;
     }

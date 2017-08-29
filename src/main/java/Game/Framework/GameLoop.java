@@ -15,6 +15,7 @@ public class GameLoop {
     private final int timeLimit = 15;
     private Handler handler;
     private boolean running;
+    private Thread t;
 
     public GameLoop(GameActivity game, Handler handler) {
         this.game = game;
@@ -23,7 +24,7 @@ public class GameLoop {
 
     public void startLoop() {
         running = true;
-        new Thread(new Runnable() {
+        t = new Thread(new Runnable() {
             public void run() {
                 double currentTime = System.currentTimeMillis();
                 double newTime = 0;
@@ -35,7 +36,12 @@ public class GameLoop {
                     newTime = System.currentTimeMillis();
                 }
             }
-        }).start();
+        });
+        t.start();
+    }
+
+    public void interrupt() {
+        t.interrupt();
     }
 
     private void updateLoop() {

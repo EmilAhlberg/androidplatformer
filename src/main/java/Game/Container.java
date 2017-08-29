@@ -1,6 +1,7 @@
 package Game;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,9 @@ public class Container {
             g.update();
     }
     public void draw(Canvas canvas) {
-        for (GameObject g : gameObjects)
+        for (GameObject g : gameObjects) {
             g.draw(canvas);
+        }
     }
     public ArrayList<GameObject> getColliders() {
         return gameObjects;

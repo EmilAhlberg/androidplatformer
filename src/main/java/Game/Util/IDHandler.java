@@ -1,6 +1,8 @@
 package Game.Util;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 
 import java.util.HashMap;
 

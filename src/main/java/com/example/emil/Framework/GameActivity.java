@@ -77,6 +77,13 @@ public class GameActivity extends AppActivity {
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameLoop.interrupt();
+        finish();
+    }
+
     public void updateWorld() {
         //handle gameTime here? if syncing with clock --> send timeParam to world.update
         world.update();
