@@ -19,8 +19,13 @@ public abstract class Collider extends Mover {
     public static final int COLLISION_BOTTOM = 3;
     public static final int COLLISION_TOP = 4;
 
+    protected int wallJumpDirection;
+    protected double friction;
+
     public Collider(Rect rect) {
         super(rect);
+        wallJumpDirection = 0;
+        friction = 0.2;
     }
 
     /**
@@ -36,8 +41,8 @@ public abstract class Collider extends Mover {
         {
             Rect myTemp, oTemp;
 
-            double hd = myRect.centerX() - oRect.centerX(); //Math.abs((myRect.centerX() * myRect.centerX()) + (oRect.centerX() * oRect.centerX())); wtf?
-            double vd = myRect.centerY() - oRect.centerY(); //Math.abs((myRect.centerY() * myRect.centerY()) + (oRect.centerY() * oRect.centerY()));
+            double hd = myRect.centerX() - oRect.centerX();
+            double vd = myRect.centerY() - oRect.centerY();
 
             int width = myRect.width(), height = myRect.height();
 
@@ -122,15 +127,16 @@ public abstract class Collider extends Mover {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height());
             mh.verticalSpeed = 0;
+            friction = g.getFriction();
         } else if (collisionType == COLLISION_TOP) {
             moveTo(rect.left, g.getRect().bottom);
             mh.verticalSpeed = 0;
         } else if (collisionType == COLLISION_LEFT) {
-            //TODO: Change the value of some kind of variable related to walljump
+            wallJumpDirection = 1;
             moveTo(g.getRect().right, rect.top);
             mh.horizontalSpeed = 0;
         } else if (collisionType == COLLISION_RIGHT) {
-            //TODO: Change the value of some kind of variable related to walljump
+            wallJumpDirection = -1;
             moveTo(g.getRect().left-rect.width(), rect.top);
             mh.horizontalSpeed = 0;
         }

@@ -17,13 +17,14 @@ import Game.Util.TouchEventDecoder;
 
 public class Player extends Collider {
 
-    private final double X_FORCE = 60;
-    private final double Y_FORCE = 350;
+    private final int X_FORCE = 60;
+    private final int Y_FORCE = 350;
+    private final double WALLJUMP_FORCE = 650;
     private TouchEventDecoder ted;
     private Point clickPos;
 
     public Player(Point p) {
-        super(new Rect(p.x, p.y, p.x + Block.BLOCK_WIDTH, p.y + Block.BLOCK_HEIGHT));
+        super(new Rect(p.x, p.y, p.x + 15, p.y + 30));
         ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
     }
 
@@ -35,7 +36,7 @@ public class Player extends Collider {
     @Override
     public void update() {
         performAction();
-        mh.updateSpeed(0.2); //TODO: Fixa så att blocket man står på har en friktion som skickas in som parameter (typ låg friktion på is och i luft, hög på de vanliga blocken osv.)
+        mh.updateSpeed(friction, grounded);
         move(mh.horizontalSpeed, mh.verticalSpeed);
     }
 
@@ -49,8 +50,13 @@ public class Player extends Collider {
             if (grounded) {
                 jump(Y_FORCE);
                 grounded = false;
+                friction = 0.2;
+            } else if (wallJumpDirection != 0) {
+                mh.applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
+                friction = 0.2;
             }
         }
+        wallJumpDirection = 0;
     }
 
     @Override

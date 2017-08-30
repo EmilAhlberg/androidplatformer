@@ -23,7 +23,7 @@ public class MovementHandler {
      * Updates the horizontal and vertical speeds of the mover
      * @param friction Value between 0 and 1 that determines how slippery the ground is, where 0 is frictionless.
      */
-    public void updateSpeed(double friction) {
+    public void updateSpeed(double friction, boolean grounded) {
         updateAcceleration();
         verticalForce = GRAVITY;
         horizontalForce = 0;
@@ -34,8 +34,10 @@ public class MovementHandler {
         horizontalSpeed *= (1-friction);
         horizontalSpeed = horizontalSpeed + horizontalAcceleration;
         temp = Math.abs(horizontalSpeed);
-        if (temp > MAX_HORIZONTAL_SPEED)
-            horizontalSpeed = horizontalSpeed/temp * MAX_HORIZONTAL_SPEED;
+        if (temp > MAX_HORIZONTAL_SPEED && grounded)
+                horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED;
+        else if (temp > MAX_HORIZONTAL_SPEED * 4)
+                horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED * 4;
     }
 
     private void updateAcceleration() {

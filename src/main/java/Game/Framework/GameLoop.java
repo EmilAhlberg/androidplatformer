@@ -58,6 +58,4 @@ public class GameLoop {
     public void pauseLoop() {
         running = false;
     }
-
-
 }
