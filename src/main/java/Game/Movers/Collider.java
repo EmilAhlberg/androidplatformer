@@ -19,8 +19,6 @@ public abstract class Collider extends Mover {
     public static final int COLLISION_BOTTOM = 3;
     public static final int COLLISION_TOP = 4;
 
-    protected boolean grounded = false;
-
     public Collider(Rect rect) {
         super(rect);
     }
@@ -124,6 +122,9 @@ public abstract class Collider extends Mover {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height());
             mh.verticalSpeed = 0;
+        } else if (collisionType == COLLISION_TOP) {
+            moveTo(rect.left, g.getRect().bottom);
+            mh.verticalSpeed = 0;
         } else if (collisionType == COLLISION_LEFT) {
             //TODO: Change the value of some kind of variable related to walljump
             moveTo(g.getRect().right, rect.top);
@@ -133,6 +134,5 @@ public abstract class Collider extends Mover {
             moveTo(g.getRect().left-rect.width(), rect.top);
             mh.horizontalSpeed = 0;
         }
-        //TODO -handle block collisions (should be equal for all movers). Everything is not implemented
     }
 }

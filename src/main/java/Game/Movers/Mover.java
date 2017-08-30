@@ -18,9 +18,19 @@ import java.util.ArrayList;
 public abstract class Mover extends GameObject {
 
     protected MovementHandler mh;
+    protected boolean grounded;
 
     public Mover(Rect rect) {
         super(rect);
         mh = new MovementHandler();
+        grounded = false;
+    }
+
+    /**
+     * Makes the mover jump
+     * @param force The force of the jump, the higher the value the higher the mover jumps
+     */
+    protected void jump (double force) {
+        mh.applyForce(0, -force);
     }
 }

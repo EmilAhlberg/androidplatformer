@@ -18,6 +18,7 @@ import Game.Util.TouchEventDecoder;
 public class Player extends Collider {
 
     private final double X_FORCE = 60;
+    private final double Y_FORCE = 350;
     private TouchEventDecoder ted;
     private Point clickPos;
 
@@ -40,11 +41,15 @@ public class Player extends Collider {
 
     private void performAction() {
         int fingers = ted.getNbrFingersDown();
-        if (fingers > 1) {
-
-        } else if (fingers > 0) {
+        if (fingers > 0) {
             double temp = clickPos.x - GameDisplay.WINDOW_WIDTH/2;
             mh.applyForce(X_FORCE * temp / Math.abs(temp), 0);
+        }
+        if (fingers > 1) {
+            if (grounded) {
+                jump(Y_FORCE);
+                grounded = false;
+            }
         }
     }
 

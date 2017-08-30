@@ -9,7 +9,8 @@ import Game.InAnimates.Block;
 public class MovementHandler {
 
     private final int GRAVITY = 20;
-    private final int MAX_SPEED = Block.BLOCK_HEIGHT/2;
+    private final int MAX_HORIZONTAL_SPEED = Block.BLOCK_HEIGHT/3;
+    private final int MAX_VERTICAL_SPEED = Block.BLOCK_HEIGHT * 2/3;
     private double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration;
     public double horizontalSpeed, verticalSpeed;
 
@@ -28,13 +29,13 @@ public class MovementHandler {
         horizontalForce = 0;
         verticalSpeed = verticalSpeed + verticalAcceleration;
         double temp = Math.abs(verticalSpeed);
-        if (temp > MAX_SPEED)
-            verticalSpeed = verticalSpeed/temp * MAX_SPEED;
+        if (temp > MAX_VERTICAL_SPEED)
+            verticalSpeed = verticalSpeed/temp * MAX_VERTICAL_SPEED;
         horizontalSpeed *= (1-friction);
         horizontalSpeed = horizontalSpeed + horizontalAcceleration;
         temp = Math.abs(horizontalSpeed);
-        if (temp > MAX_SPEED)
-            horizontalSpeed = horizontalSpeed/temp * MAX_SPEED;
+        if (temp > MAX_HORIZONTAL_SPEED)
+            horizontalSpeed = horizontalSpeed/temp * MAX_HORIZONTAL_SPEED;
     }
 
     private void updateAcceleration() {
