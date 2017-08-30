@@ -1,5 +1,5 @@
 #Fixlist:#
-//skriv upp alla möjliga  idéer/problem  här
+Fixa så att grounded = false när man faller av en plattform
 
 ##Refactoring suggestions ##
 
