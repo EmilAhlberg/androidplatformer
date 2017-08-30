@@ -38,8 +38,8 @@ public class MovementHandler {
     }
 
     private void updateAcceleration() {
-        verticalAcceleration = verticalForce;
-        horizontalAcceleration = horizontalForce;
+        verticalAcceleration = verticalForce / 30;
+        horizontalAcceleration = horizontalForce / 30;
     }
 
     public void applyForce(double horizontalChange, double verticalChange) {

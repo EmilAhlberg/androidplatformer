@@ -8,6 +8,7 @@ import android.view.TouchDelegate;
 
 import Game.Framework.GameDisplay;
 import Game.GameObject;
+import Game.InAnimates.Block;
 import Game.Util.TouchEventDecoder;
 
 /**
@@ -16,12 +17,12 @@ import Game.Util.TouchEventDecoder;
 
 public class Player extends Collider {
 
-    private final double X_FORCE = 2;
+    private final double X_FORCE = 60;
     private TouchEventDecoder ted;
     private Point clickPos;
 
     public Player(Point p) {
-        super(new Rect(p.x, p.y, p.x + 20, p.y + 20));
+        super(new Rect(p.x, p.y, p.x + Block.BLOCK_WIDTH, p.y + Block.BLOCK_HEIGHT));
         ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
     }
 
@@ -33,7 +34,7 @@ public class Player extends Collider {
     @Override
     public void update() {
         performAction();
-        mh.updateSpeed(0.95); //TODO: Fixa så att blocket man står på har en friktion som skickas in som parameter (typ låg friktion på is och i luft, hög på de vanliga blocken osv.)
+        mh.updateSpeed(0.2); //TODO: Fixa så att blocket man står på har en friktion som skickas in som parameter (typ låg friktion på is och i luft, hög på de vanliga blocken osv.)
         move(mh.horizontalSpeed, mh.verticalSpeed);
     }
 
