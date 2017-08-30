@@ -25,10 +25,14 @@ public abstract class Collider extends Mover {
         super(rect);
     }
 
+    /**
+     * Check if this "Collider" intersects with another GameObject
+     * @param other The object to check intersection with
+     * @return An integer representing the kind of intersection
+     */
     public int intersects(GameObject other) {
         Rect myRect = getRect();
         Rect oRect = other.getRect();
-
 
         if (Rect.intersects(myRect, oRect))
         {
