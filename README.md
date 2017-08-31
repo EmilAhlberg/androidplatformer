@@ -10,6 +10,7 @@ Kollisionshanteringen funkar bara ~98% av gångerna. Inget allvarligt fel, bara a
 
 
 ##Gameplay suggestions ##
+Fler snygga bilder ;)
 
 
 ##Bugs##
