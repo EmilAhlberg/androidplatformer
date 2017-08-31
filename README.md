@@ -5,6 +5,10 @@ Börjar lagga lite efter ett tag
 
 Kollisionshanteringen funkar bara ~98% av gångerna. Inget allvarligt fel, bara att upplevelsen inte blir lika nice.
 
+Kalla på gameLoop.interrupt(); i onDestroy i gameActivity
+
+Ev. göra blockkollisioner i "storleksordning"
+
 ##Refactoring suggestions ##
 
 
