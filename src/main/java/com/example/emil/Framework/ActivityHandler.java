@@ -2,13 +2,19 @@ package com.example.emil.Framework;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.emil.app.R;
 
 public class ActivityHandler extends AppActivity {
+
+    private AnimationDrawable bkgAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +22,10 @@ public class ActivityHandler extends AppActivity {
         setFullscreen();
         Log.d("onCreate: ", "1");
         setContentView(R.layout.activity_splash_screen);
+        View v = findViewById(R.id.activity_splash_screen);
+        v.setBackgroundResource(R.drawable.background_animation);
+        bkgAnimation = (AnimationDrawable) v.getBackground();
+
 
         Thread myThread = new Thread() {
             @Override
@@ -31,6 +41,14 @@ public class ActivityHandler extends AppActivity {
             }
         };
         myThread.start();
+    }
+
+    /*
+       Called immediately after onCreate. Can't start background animation sooner.
+    */
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        bkgAnimation.start();
     }
 
     private Intent createIntent(Bundle extras) {

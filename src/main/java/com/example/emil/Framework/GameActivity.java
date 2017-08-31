@@ -3,6 +3,7 @@ package com.example.emil.Framework;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,26 +32,27 @@ public class GameActivity extends AppActivity {
     //private Handler levelCreatorThread;
     private LinearLayout ll;
     private GameLoop gameLoop;
-    private LevelCreator levelCreator;
+    //private LevelCreator levelCreator;
     private GameDisplay display;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+        ll = (LinearLayout) findViewById(R.id.gameActivity);
         loadDrawables();
         setFullscreen();
         handlerSetup();
-        setContentView(R.layout.activity_game);
+        display = new GameDisplay(this, ll);
 
-        ll = (LinearLayout) findViewById(R.id.gameActivity);
-        display = new GameDisplay(this);
-
-        levelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
+        LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
         world = new World();
         gameLoop = new GameLoop(this, gameLoopThread);
         gameLoop.startLoop();
+
     }
 
     private void loadDrawables() {
