@@ -19,7 +19,7 @@ public class Player extends Collider {
 
     private final int X_FORCE = 60;
     private final int Y_FORCE = 350;
-    private final double WALLJUMP_FORCE = 650;
+    private final double WALLJUMP_FORCE = 400;
     private TouchEventDecoder ted;
     private Point clickPos;
 
@@ -54,6 +54,8 @@ public class Player extends Collider {
             } else if (wallJumpDirection != 0) {
                 mh.applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
                 friction = 0.2;
+                ted.switchPositions();
+                clickPos = ted.getFirstClickPos();
             }
         }
         wallJumpDirection = 0;

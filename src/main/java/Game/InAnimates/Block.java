@@ -11,8 +11,8 @@ import Game.*;
 
 public class Block extends GameObject {
 
-    public static final int BLOCK_WIDTH = 18;
-    public static final int BLOCK_HEIGHT = 18;
+    public static final int BLOCK_WIDTH = 20;
+    public static final int BLOCK_HEIGHT = 20;
     private final double FRICTION = 0.2;
 
     public Block(Point p) {

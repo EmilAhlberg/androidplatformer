@@ -34,10 +34,10 @@ public class MovementHandler {
         horizontalSpeed *= (1-friction);
         horizontalSpeed = horizontalSpeed + horizontalAcceleration;
         temp = Math.abs(horizontalSpeed);
-        if (temp > MAX_HORIZONTAL_SPEED && grounded)
+        if (temp > MAX_HORIZONTAL_SPEED /*&& grounded*/)
                 horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED;
-        else if (temp > MAX_HORIZONTAL_SPEED * 4)
-                horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED * 4;
+        /*else if (temp > MAX_HORIZONTAL_SPEED * 4)
+                horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED * 4;*/
     }
 
     private void updateAcceleration() {

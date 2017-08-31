@@ -73,6 +73,16 @@ public class TouchEventDecoder {
         //debugMultiTouch();
     }
 
+    public void switchPositions() {
+        if (firstPointerId == 0)
+            firstPointerId = 1;
+        else
+            firstPointerId = 0;
+        Point temp = firstClickPos;
+        firstClickPos = secondClickPos;
+        secondClickPos = temp;
+    }
+
     private void debugMultiTouch() {
         if (touchAction == MotionEvent.ACTION_DOWN) {
             Log.d("MultiTouch", "ACTION_DOWN");
