@@ -80,10 +80,9 @@ public class GameActivity extends AppActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         gameLoop.interrupt();
-        finish();
     }
 
     public void updateWorld() {
