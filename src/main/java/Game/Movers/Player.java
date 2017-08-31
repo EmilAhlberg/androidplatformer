@@ -24,7 +24,7 @@ public class Player extends Collider {
     private Point clickPos;
 
     public Player(Point p) {
-        super(new Rect(p.x, p.y, p.x + 15, p.y + 30));
+        super(new Rect(p.x, p.y, p.x + Block.BLOCK_WIDTH, p.y + Block.BLOCK_HEIGHT));
         ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
     }
 

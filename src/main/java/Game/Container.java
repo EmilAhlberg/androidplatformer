@@ -1,6 +1,8 @@
 package Game;
 
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -24,12 +26,14 @@ public class Container {
         for (GameObject g : gameObjects)
             g.update();
     }
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Rect pRect) {
         for (GameObject g : gameObjects) {
-            g.draw(canvas);
+            Rect gRect = g.getRect();
+            if (Math.sqrt(Math.pow(pRect.left - gRect.left, 2) + Math.pow(pRect.top - gRect.top, 2)) < 500/*933*/)
+                g.draw(canvas);
         }
     }
-    public ArrayList<GameObject> getColliders() {
+    public ArrayList<GameObject> getObjects() {
         return gameObjects;
     }
 

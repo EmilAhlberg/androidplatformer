@@ -18,8 +18,6 @@ public class Background {
     public Background(Bitmap bitmap) {
         bkg = bitmap;
         //y = bkg.getHeight() - GameDisplay.WINDOW_HEIGHT;
-
-
     }
 
     private void update() {

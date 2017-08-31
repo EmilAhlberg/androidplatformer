@@ -2,6 +2,7 @@ package Game.Framework;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.example.emil.Framework.GameActivity;
 
@@ -45,14 +46,16 @@ public class GameLoop {
     }
 
     private void updateLoop() {
-        //long millis = System.currentTimeMillis();
+        long millis = System.currentTimeMillis();
         game.updateWorld();
+        Log.d("updateLoop", "Update world: " + (System.currentTimeMillis() - millis));
+        millis = System.currentTimeMillis();
         game.drawWorld();
-        //Log.d("updateLoop", "Update world: " + (System.currentTimeMillis() - millis));
-        //millis = System.currentTimeMillis();
+        Log.d("updateLoop", "Draw world: " + (System.currentTimeMillis() - millis));
+        millis = System.currentTimeMillis();
         Message m = handler.obtainMessage();
         m.sendToTarget();
-        //Log.d("updateLoop", "Handle messages: " + (System.currentTimeMillis() - millis));
+        Log.d("updateLoop", "Handle messages: " + (System.currentTimeMillis() - millis));
     }
 
     public void pauseLoop() {

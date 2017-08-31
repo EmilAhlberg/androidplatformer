@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -13,6 +14,9 @@ import android.widget.LinearLayout;
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
 
+import java.util.ArrayList;
+
+import Game.GameObject;
 import Game.Util.Background;
 
 /**
@@ -23,7 +27,7 @@ public class GameDisplay {
     private Bitmap bitmap;
     private Bitmap tempmap;
     private Canvas canvas;
-    private Drawable backgroundImage;
+    //private Drawable backgroundImage;
     private Background bkg;
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
@@ -39,7 +43,6 @@ public class GameDisplay {
         WINDOW_WIDTH = getCanvas().getWidth();
         WINDOW_HEIGHT = getCanvas().getHeight();
     }
-
 
     public void beginDraw(Point p) {
         centerPlayer(p.x, p.y); //player  position
