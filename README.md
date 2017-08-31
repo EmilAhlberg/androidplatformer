@@ -7,6 +7,8 @@ Kollisionshanteringen funkar bara ~98% av gångerna. Inget allvarligt fel, bara a
 
 Ev. göra blockkollisioner i "storleksordning"
 
+Sätta ihop block bredvid varandra till större blocks
+
 ##Refactoring suggestions ##
 
 
