@@ -3,12 +3,7 @@ package Game.Movers;
 import android.graphics.Rect;
 
 import Game.*;
-import Game.Framework.LevelCreator;
-import Game.InAnimates.Block;
-import Game.Util.IDs;
 import Game.Util.MovementHandler;
-
-import java.util.ArrayList;
 
 
 /**

@@ -3,8 +3,8 @@ package Game;
         import android.graphics.Canvas;
         import android.graphics.Rect;
 
-        import Game.Util.IDHandler;
-        import Game.Util.IDs;
+        import Game.Draw.IDHandler;
+        import Game.Draw.IDs;
 
 
 /**

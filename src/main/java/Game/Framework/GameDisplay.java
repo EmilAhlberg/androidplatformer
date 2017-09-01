@@ -5,19 +5,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
 
-import java.util.ArrayList;
-
-import Game.GameObject;
-import Game.Util.Background;
+import Game.Draw.Background;
 
 /**
  * Created by Emil on 2016-12-29.

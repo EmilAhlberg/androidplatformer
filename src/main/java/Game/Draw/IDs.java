@@ -1,4 +1,4 @@
-package Game.Util;
+package Game.Draw;
 
 /**
  * Enumerates object types, first enumerable.ordinal() == 0.

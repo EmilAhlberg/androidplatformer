@@ -1,11 +1,10 @@
 package Game.Movers;
 
 import android.graphics.Rect;
-import android.util.Log;
 
 import Game.GameObject;
 import Game.InAnimates.Block;
-import Game.Util.IDs;
+import Game.Draw.IDs;
 
 /**
  * Created by Emil on 29/08/2017.

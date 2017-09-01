@@ -1,14 +1,9 @@
 package Game;
 
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 
 import java.util.ArrayList;
-
-import Game.InAnimates.Block;
-import Game.Util.IDs;
 
 /**
  * Created by Emil on 29/08/2017.

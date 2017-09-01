@@ -3,11 +3,9 @@ package Game;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 
-import Game.Util.IDHandler;
-import Game.Util.IDs;
-import Game.Util.Sprite;
+import Game.Draw.IDs;
+import Game.Draw.Sprite;
 
 /**
  * Created by Emil on 23/08/2017.
@@ -19,14 +17,12 @@ public class Picture {
     private Rect rect;
 
     public Picture(IDs id, Rect rect) {
-        sprite = new Sprite(id, rect.height());
+        sprite = new Sprite(id);
         this.rect = rect;
     }
 
     public void draw(Canvas canvas) {
-
-        sprite.updatePosition(rect);
-        sprite.draw(canvas);
+        sprite.draw(canvas, rect);
     }
 
     public void setBounds(Rect rect) {

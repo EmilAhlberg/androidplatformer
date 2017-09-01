@@ -1,4 +1,4 @@
-package Game.Util;
+package Game.Draw;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -17,7 +17,6 @@ public class Background {
 
     public Background(Bitmap bitmap) {
         bkg = bitmap;
-        //y = bkg.getHeight() - GameDisplay.WINDOW_HEIGHT;
     }
 
     private void update() {

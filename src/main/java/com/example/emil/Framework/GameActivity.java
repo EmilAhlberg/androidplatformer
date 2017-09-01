@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,16 +15,13 @@ import android.widget.LinearLayout;
 
 import com.example.emil.app.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import Game.Framework.GameDisplay;
 import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
-import Game.GameObject;
-import Game.Util.IDHandler;
-import Game.Util.IDs;
+import Game.Draw.IDHandler;
+import Game.Draw.IDs;
+import Game.Draw.SpriteSheet;
 
 public class GameActivity extends AppActivity {
 
@@ -59,15 +55,7 @@ public class GameActivity extends AppActivity {
 
     private void loadDrawables() {
         if (IDHandler.bitmaps[0] == null) { //makes sure images are only loaded once (during first gameActivity onCreate)
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            //opts.inDither = true;
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inScaled = false; //skalade om bildstorlek innan, wtf
-
-            IDHandler.bitmaps[IDs.DEFAULT.ordinal()] = BitmapFactory.decodeResource(getResources(), R.drawable.startscreen, options);  //default pic
-
-            IDHandler.bitmaps[IDs.PLAYER.ordinal()] = BitmapFactory.decodeResource(getResources(), R.drawable.player, options);
-            IDHandler.bitmaps[IDs.BLOCK.ordinal()] = BitmapFactory.decodeResource(getResources(), R.drawable.block, options);
+            IDHandler.initialize(this);
         }
     }
 
