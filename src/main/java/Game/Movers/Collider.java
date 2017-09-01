@@ -112,7 +112,7 @@ public abstract class Collider extends Mover {
     }
 
     public void collision(int collisionType, GameObject g) {
-        if (g.getID() == IDs.BLOCK)
+        if (g instanceof Block)
             handleBlockCollision(collisionType, (Block)g);
         else
             handleCollision(collisionType, g);

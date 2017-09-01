@@ -19,12 +19,14 @@ public class World {
 
     private Player player;
     private Container blocks;
+    private Container hazards;
 
     //private Container enemies;
 
-    public World(GameDisplay display) {
+    public World() {
         player = LevelCreator.getPlayer();
         blocks = LevelCreator.getBlocks();
+        hazards = LevelCreator.getHazards();
         //enemies = LevelCreator.getEnemies();
     }
 
@@ -39,6 +41,7 @@ public class World {
         player.draw(canvas);
         //enemies.draw(canvas);
         blocks.draw(canvas, player.getRect());
+        hazards.draw(canvas, player.getRect());
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

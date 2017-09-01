@@ -9,6 +9,8 @@ import com.example.emil.app.R;
 import java.util.HashMap;
 
 import Game.InAnimates.Block;
+import Game.InAnimates.Fire;
+import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
 
 /**
@@ -38,7 +40,8 @@ public class IDHandler {
     private static HashMap<Class, IDs> typeToID = new HashMap<Class, IDs>() {
         {
             put(Player.class, IDs.PLAYER);
-            put(Block.class, IDs.BLOCK);
+            put(StandardBlock.class, IDs.STANDARDBLOCK);
+            put(Fire.class, IDs.FIRE);
         }
     };
 
@@ -63,8 +66,11 @@ public class IDHandler {
         IDHandler.bitmaps[IDs.PLAYER.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.player, options);
         IDHandler.sheets[IDs.PLAYER.ordinal()] = new SpriteSheet(IDs.PLAYER, 40);
 
-        IDHandler.bitmaps[IDs.BLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.block, options);
-        IDHandler.sheets[IDs.BLOCK.ordinal()] = new SpriteSheet(IDs.BLOCK, 20);
+        IDHandler.bitmaps[IDs.STANDARDBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.block, options);
+        IDHandler.sheets[IDs.STANDARDBLOCK.ordinal()] = new SpriteSheet(IDs.STANDARDBLOCK, 20);
+
+        IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.hot_fire, options);
+        IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20);
 
         AnimationInfo.initAnimationInfo();
     }

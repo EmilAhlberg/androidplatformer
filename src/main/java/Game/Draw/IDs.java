@@ -18,8 +18,8 @@ public enum IDs {
 
     DEFAULT,
     PLAYER,
-    BLOCK,
-
+    STANDARDBLOCK,
+    FIRE,
 }
 
 

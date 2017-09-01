@@ -1,5 +1,6 @@
 package Game.Framework;
 
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.Log;
 
@@ -11,8 +12,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 
 import Game.InAnimates.Block;
+import Game.InAnimates.Fire;
+import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
 
 /**
@@ -23,12 +27,14 @@ public class LevelCreator {
 
     private static Player player;
     private static Container blocks;
+    private static Container hazards;
     //private static Container enemies;
 
     public static void createLevel(GameActivity ga, int level) {
         String[] mapString = getLevelArray(ga, level);
 
         ArrayList<GameObject> bs = new ArrayList<>();
+        ArrayList<GameObject> hs = new ArrayList<>();
 
         //enemies = new Container();
         for (int i = 0; i < mapString.length; i++) {
@@ -36,16 +42,20 @@ public class LevelCreator {
                 Point p = new Point((k-1) * Block.BLOCK_WIDTH, i * Block.BLOCK_HEIGHT); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'B':
-                        bs.add(new Block(p));
+                        bs.add(new StandardBlock(p));
                         break;
                     case 'P':
                         player = new Player(p);
+                        break;
+                    case 'F':
+                        hs.add(new Fire(p));
                         break;
                 }
             }
         }
 
         blocks = new Container(bs);
+        hazards = new Container(hs);
     }
 
     private static String[] getLevelArray(GameActivity ga, int level) {
@@ -93,6 +103,10 @@ public class LevelCreator {
 //    public static Container getEnemies() {
 //        return enemies;
 //    }
+
+    public static Container getHazards() {
+        return hazards;
+    }
 
     public static Container getBlocks() {
         return blocks;

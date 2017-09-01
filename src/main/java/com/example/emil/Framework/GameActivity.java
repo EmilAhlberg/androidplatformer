@@ -47,7 +47,7 @@ public class GameActivity extends AppActivity {
         display = new GameDisplay(this, ll);
 
         LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
-        world = new World(display);
+        world = new World();
         gameLoop = new GameLoop(this, gameLoopThread);
         gameLoop.startLoop();
 
