@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public abstract class Mover extends GameObject {
 
     protected MovementHandler mh;
-    protected boolean grounded;
+    public boolean grounded;
 
     public Mover(Rect rect) {
         super(rect);
