@@ -1,5 +1,7 @@
 package com.example.emil.Framework;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -56,10 +58,16 @@ public class GameActivity extends AppActivity {
     }
 
     private void loadDrawables() {
-        if (IDHandler.drawables[0] == null) { //makes sure images are only loaded once (during first gameActivity onCreate)
-            IDHandler.drawables[IDs.DEFAULT.ordinal()] = getResources().getDrawable(R.drawable.startscreen); //default
-            IDHandler.drawables[IDs.PLAYER.ordinal()] = getResources().getDrawable(R.drawable.player);
-            IDHandler.drawables[IDs.BLOCK.ordinal()] = getResources().getDrawable(R.drawable.block1);
+        if (IDHandler.bitmaps[0] == null) { //makes sure images are only loaded once (during first gameActivity onCreate)
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            //opts.inDither = true;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inScaled = false; //skalade om bildstorlek innan, wtf
+
+            IDHandler.bitmaps[IDs.DEFAULT.ordinal()] = BitmapFactory.decodeResource(getResources(), R.drawable.startscreen, options);  //default pic
+
+            IDHandler.bitmaps[IDs.PLAYER.ordinal()] = BitmapFactory.decodeResource(getResources(), R.drawable.player, options);
+            IDHandler.bitmaps[IDs.BLOCK.ordinal()] = BitmapFactory.decodeResource(getResources(), R.drawable.block, options);
         }
     }
 

@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 
 import Game.Util.IDHandler;
 import Game.Util.IDs;
+import Game.Util.Sprite;
 
 /**
  * Created by Emil on 23/08/2017.
@@ -14,16 +15,17 @@ import Game.Util.IDs;
 
 public class Picture {
 
-    private Drawable sprite;
+    private Sprite sprite;
     private Rect rect;
 
     public Picture(IDs id, Rect rect) {
-        sprite = IDHandler.getDrawable(id);
+        sprite = new Sprite(id, rect.height());
         this.rect = rect;
     }
 
     public void draw(Canvas canvas) {
-        sprite.setBounds(rect);
+
+        sprite.updatePosition(rect);
         sprite.draw(canvas);
     }
 

@@ -20,11 +20,13 @@ public class Player extends Collider {
     private final int X_FORCE = 60;
     private final int Y_FORCE = 350;
     private final double WALLJUMP_FORCE = 400;
+    private static final int PLAYER_WIDTH = 40;
+    private static final int PLAYER_HEIGHT = 40;
     private TouchEventDecoder ted;
     private Point clickPos;
 
     public Player(Point p) {
-        super(new Rect(p.x, p.y, p.x + Block.BLOCK_WIDTH, p.y + Block.BLOCK_HEIGHT));
+        super(new Rect(p.x, p.y, p.x + PLAYER_WIDTH, p.y + PLAYER_HEIGHT));
         ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
     }
 

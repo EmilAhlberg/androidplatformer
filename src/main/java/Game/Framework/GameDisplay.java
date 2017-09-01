@@ -51,7 +51,6 @@ public class GameDisplay {
         tempmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         canvas.setBitmap(tempmap);
         bkg.draw(canvas);
-
         //backgroundImage.draw(canvas);
         //bkgAnimation.draw(canvas);
     }

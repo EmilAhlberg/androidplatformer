@@ -1,6 +1,8 @@
 package Game.Util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
@@ -15,13 +17,21 @@ import Game.Movers.Player;
 
 public class IDHandler {
 
-    public static Drawable[] drawables = new Drawable[100];
+    public static Bitmap[] bitmaps = new Bitmap[100];
 
-    public static Drawable getDrawable(IDs id) {
-       if (drawables[id.ordinal()] != null)
-           return drawables[id.ordinal()];
-       else
-           return drawables[IDs.DEFAULT.ordinal()];
+//    public static Bitmap getDrawable(IDs id) {
+//       if (bitmaps[id.ordinal()] != null)
+//           return bitmaps[id.ordinal()];
+//       else
+//           return bitmaps[IDs.DEFAULT.ordinal()];
+//    }
+
+    //100% safe?
+    public static Bitmap getBitmap(IDs id) {
+        if (bitmaps[id.ordinal()] != null)
+            return bitmaps[id.ordinal()];
+        else
+            return bitmaps[IDs.DEFAULT.ordinal()];
     }
 
     private static HashMap<Class, IDs> typeToID = new HashMap<Class, IDs>() {
@@ -30,6 +40,8 @@ public class IDHandler {
             put(Block.class, IDs.BLOCK);
         }
     };
+
+
 
     public static IDs getID(Class c) {
         if (typeToID.containsKey(c))
