@@ -34,6 +34,7 @@ public class CollisionHandler {
 
 
     public static void handleAllCollisions(Player player, Container blocks) {
+        player.grounded = false;
         CollisionHandler.handleCollisions(player, blocks.getObjects());
         //when enemies are implemented
         //CollisionHandler.handleAllCollisions(player, enemies);
