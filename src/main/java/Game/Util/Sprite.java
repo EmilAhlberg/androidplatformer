@@ -24,7 +24,7 @@ public class Sprite {
     private int currentCol =0;
     private int currentRow = 0;
     private int animationCounter = 0;
-    private int animationThreshold = 10;
+    private int animationThreshold = 10git;
 
     public Sprite (IDs id, int gridSize) {
         bitmap = IDHandler.getBitmap(id);
