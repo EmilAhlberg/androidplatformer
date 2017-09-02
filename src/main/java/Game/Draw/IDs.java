@@ -18,8 +18,10 @@ public enum IDs {
 
     DEFAULT,
     PLAYER,
-    STANDARDBLOCK,
     FIRE,
+
+    //Objects after StandardBlock will not be animated. StandardBlock should be first item following this comment.
+    STANDARDBLOCK,
 }
 
 

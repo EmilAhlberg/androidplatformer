@@ -19,8 +19,10 @@ import Game.Movers.Player;
 
 public class IDHandler {
 
-    public static Bitmap[] bitmaps = new Bitmap[100];
-    public static SpriteSheet[] sheets = new SpriteSheet[100];
+    public final static int IMAGE_CAP = 100;
+
+    public static Bitmap[] bitmaps = new Bitmap[IMAGE_CAP];
+    public static SpriteSheet[] sheets = new SpriteSheet[IMAGE_CAP];
 
     public static SpriteSheet getSpriteSheet(IDs id) {
        if (sheets[id.ordinal()] != null)
@@ -29,7 +31,7 @@ public class IDHandler {
            return sheets[IDs.DEFAULT.ordinal()];
     }
 
-    //100% safe?
+
     public static Bitmap getBitmap(IDs id) {
         if (bitmaps[id.ordinal()] != null)
             return bitmaps[id.ordinal()];
