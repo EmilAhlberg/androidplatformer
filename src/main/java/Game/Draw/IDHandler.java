@@ -45,8 +45,6 @@ public class IDHandler {
         }
     };
 
-
-
     public static IDs getID(Class c) {
         if (typeToID.containsKey(c))
             return typeToID.get(c);
@@ -69,7 +67,7 @@ public class IDHandler {
         IDHandler.bitmaps[IDs.STANDARDBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.block, options);
         IDHandler.sheets[IDs.STANDARDBLOCK.ordinal()] = new SpriteSheet(IDs.STANDARDBLOCK, 20);
 
-        IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.hot_fire, options);
+        IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.fire_sprite, options);
         IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20);
 
         AnimationInfo.initAnimationInfo();

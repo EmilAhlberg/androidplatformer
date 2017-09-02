@@ -1,6 +1,7 @@
 package Game.Draw;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,20 +21,19 @@ public class SpriteSheet {
     public SpriteSheet(IDs id, int gridSize) {
         bitmap = IDHandler.getBitmap(id);
         this.gridSize = gridSize;
-        init();
+        init(id);
     }
 
 
-    private void init() {
+    private void init(IDs id) {
         cols = 0;
         rows = 0;
         for(int i = gridSize; i < bitmap.getHeight(); i+= gridSize) {
-            cols++;
-        }
-        for (int j = gridSize; j < bitmap.getWidth(); j += gridSize) {
             rows++;
         }
-
+        for (int j = gridSize; j < bitmap.getWidth(); j += gridSize) {
+            cols++;
+        }
     }
 
     public Bitmap getBitmap() {

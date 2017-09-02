@@ -2,6 +2,7 @@ package Game.Draw;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Created by Emil on 01/09/2017.
@@ -69,11 +70,9 @@ public class Sprite {
             if (currentCol == sheet.getCols()) {
                 if (currentRow == sheet.getRows()) {
                     currentRow = 0;
-
                 } else
                     currentRow++;
                 currentCol = 0;
-
             } else
                 currentCol++;
         }
