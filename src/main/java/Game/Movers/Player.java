@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
 
+import Game.Draw.AnimationInfo;
 import Game.Framework.GameDisplay;
 import Game.GameObject;
 import Game.InAnimates.Block;
@@ -44,18 +45,20 @@ public class Player extends Collider {
 
     private void performAction() {
         int fingers = ted.getNbrFingersDown();
-        if (fingers > 0) {
+        if (fingers == 0) {
+            animationType = AnimationInfo.DEFAULT;
+        } else {
             double temp = clickPos.x - GameDisplay.WINDOW_WIDTH/2;
             mh.applyForce(X_FORCE * temp / Math.abs(temp), 0);
+            if (grounded)
+                animationType = AnimationInfo.RUNNING;
         }
         if (fingers > 1) {
             if (grounded) {
                 jump(Y_FORCE);
                 grounded = false;
-                friction = 0.2;
             } else if (wallJumpDirection != 0) {
                 mh.applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
-                friction = 0.2;
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();
             }

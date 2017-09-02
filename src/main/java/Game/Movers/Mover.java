@@ -13,12 +13,10 @@ import Game.Util.MovementHandler;
 public abstract class Mover extends GameObject {
 
     protected MovementHandler mh;
-    public boolean grounded;
 
     public Mover(Rect rect) {
         super(rect);
         mh = new MovementHandler();
-        grounded = false;
     }
 
     /**

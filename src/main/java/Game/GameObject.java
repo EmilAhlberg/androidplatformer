@@ -25,13 +25,10 @@ public abstract class GameObject {
     public GameObject(Rect rect) {
         this.rect = rect;
         this.id = IDHandler.getID(this.getClass());
-
         if (id.ordinal() >= IDs.STANDARDBLOCK.ordinal())
             sprite = new StaticSprite(id);
         else
             sprite = new AnimatedSprite(id);
-
-
     }
 
     /**

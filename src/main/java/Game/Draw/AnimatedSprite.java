@@ -2,6 +2,7 @@ package Game.Draw;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Created by Emil on 02/09/2017.
@@ -21,7 +22,13 @@ public class AnimatedSprite extends Sprite {
 
     @Override
     public void draw(Canvas canvas, Rect destination, int animationType) {
+        if (animationType != oldAnimationType) {
+            currentCol = 0;
+            currentRow = 0;
+            animationCounter = 0;
+        }
         Rect src =  animate(animationType);
+        oldAnimationType = animationType;
         canvas.drawBitmap(sheet.getBitmap(), src,destination,null);
     }
 

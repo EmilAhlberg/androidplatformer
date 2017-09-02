@@ -19,12 +19,14 @@ public abstract class Collider extends Mover {
     public static final int COLLISION_TOP = 4;
 
     protected int wallJumpDirection;
-    protected double friction;
+    public double friction;
+    public boolean grounded;
 
     public Collider(Rect rect) {
         super(rect);
         wallJumpDirection = 0;
         friction = 0.2;
+        grounded = false;
     }
 
     /**

@@ -1,5 +1,8 @@
 package Game.Draw;
 
+import android.graphics.drawable.Drawable;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -32,8 +35,8 @@ public class AnimationInfo {
         //SETUP PART
         animationInfos = new HashMap[IDHandler.IMAGE_CAP];
         for (int i = 0; i < animationInfos.length; i++) {
-            animationInfos[i] = new HashMap<Integer, AnimationInfo>();
-            animationInfos[i].put(DEFAULT, new AnimationInfo(0,0,0,0)); // remove? (default animation pattern)
+            animationInfos[i] = new HashMap<>();
+            animationInfos[i].put(DEFAULT, new AnimationInfo(0,0,0,0));
         }
 
         //PLAYER
@@ -42,6 +45,10 @@ public class AnimationInfo {
 
 
         //BLOCK
+
+        //HAZARDS
+        AnimationInfo fire = new AnimationInfo(0, 0, 2, 0);
+        animationInfos[IDs.FIRE.ordinal()].put(DEFAULT, fire);
 
         //etc
 

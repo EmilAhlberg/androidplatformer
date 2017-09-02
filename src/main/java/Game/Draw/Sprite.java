@@ -18,8 +18,4 @@ public abstract class Sprite {
     }
 
     public abstract void draw(Canvas canvas, Rect destination, int animationType);
-
-
-
-
 }

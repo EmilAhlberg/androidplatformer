@@ -10,6 +10,8 @@ import Game.GameObject;
 
 public abstract class Hazard extends GameObject{
 
+    //A hazard is always static, moving hazards are enemies
+
     public Hazard(Rect rect) {
         super(rect);
     }
