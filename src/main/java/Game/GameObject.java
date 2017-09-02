@@ -2,6 +2,8 @@ package Game;
 
         import android.graphics.Canvas;
         import android.graphics.Rect;
+        import android.graphics.pdf.PdfDocument;
+        import android.util.Log;
 
         import Game.Draw.AnimatedSprite;
         import Game.Draw.AnimationInfo;
@@ -9,6 +11,7 @@ package Game;
         import Game.Draw.IDs;
         import Game.Draw.Sprite;
         import Game.Draw.StaticSprite;
+        import Game.Movers.Player;
 
 
 /**
@@ -70,6 +73,4 @@ public abstract class GameObject {
     public void draw(Canvas c) {
         sprite.draw(c, rect, animationType);
     }
-
-
 }

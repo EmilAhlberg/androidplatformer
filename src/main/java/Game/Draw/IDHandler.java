@@ -61,16 +61,16 @@ public class IDHandler {
         options.inScaled = false; //skalade om bildstorlek innan, wtf
 
         IDHandler.bitmaps[IDs.DEFAULT.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.startscreen, options);  //default pic
-        IDHandler.sheets[IDs.DEFAULT.ordinal()] = new SpriteSheet(IDs.DEFAULT, 20);
+        IDHandler.sheets[IDs.DEFAULT.ordinal()] = new SpriteSheet(IDs.DEFAULT, 20, 20);
 
-        IDHandler.bitmaps[IDs.PLAYER.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.player, options);
-        IDHandler.sheets[IDs.PLAYER.ordinal()] = new SpriteSheet(IDs.PLAYER, 40);
+        IDHandler.bitmaps[IDs.PLAYER.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.player_moves, options);
+        IDHandler.sheets[IDs.PLAYER.ordinal()] = new SpriteSheet(IDs.PLAYER, 20, 30);
 
         IDHandler.bitmaps[IDs.STANDARDBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.block, options);
-        IDHandler.sheets[IDs.STANDARDBLOCK.ordinal()] = new SpriteSheet(IDs.STANDARDBLOCK, 20);
+        IDHandler.sheets[IDs.STANDARDBLOCK.ordinal()] = new SpriteSheet(IDs.STANDARDBLOCK, 20, 20);
 
         IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.fire_sprite, options);
-        IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20);
+        IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20, 20);
 
         AnimationInfo.initAnimationInfo();
     }

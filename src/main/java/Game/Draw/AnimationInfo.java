@@ -14,7 +14,8 @@ public class AnimationInfo {
 
     public final static int DEFAULT = 0;
     public final static int RUNNING = 1;
-    public final static int JUMPING = 2;
+    public final static int JUMPING_LEFT = 2;
+    public final static int JUMPING_RIGHT = 3;
 
     private static HashMap<Integer, AnimationInfo>[] animationInfos;
 
@@ -40,9 +41,14 @@ public class AnimationInfo {
         }
 
         //PLAYER
-        AnimationInfo pRunning = new AnimationInfo(0, 1, 2, 1);
+        AnimationInfo pRunning = new AnimationInfo(0, 0, 2, 0);
         animationInfos[IDs.PLAYER.ordinal()].put(RUNNING, pRunning);
 
+        AnimationInfo pLeftJumping = new AnimationInfo(0, 1, 0, 1);
+        animationInfos[IDs.PLAYER.ordinal()].put(JUMPING_LEFT, pLeftJumping);
+
+        AnimationInfo pRightJumping = new AnimationInfo(1, 1, 1, 1);
+        animationInfos[IDs.PLAYER.ordinal()].put(JUMPING_RIGHT, pRightJumping);
 
         //BLOCK
 

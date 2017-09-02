@@ -21,8 +21,8 @@ public class Player extends Collider {
     private final int X_FORCE = 60;
     private final int Y_FORCE = 350;
     private final double WALLJUMP_FORCE = 400;
-    private static final int PLAYER_WIDTH = 40;
-    private static final int PLAYER_HEIGHT = 40;
+    private static final int PLAYER_WIDTH = 20;
+    private static final int PLAYER_HEIGHT = 30;
     private TouchEventDecoder ted;
     private Point clickPos;
 
@@ -52,6 +52,13 @@ public class Player extends Collider {
             mh.applyForce(X_FORCE * temp / Math.abs(temp), 0);
             if (grounded)
                 animationType = AnimationInfo.RUNNING;
+            else {
+                if (mh.horizontalSpeed > 0) {
+                    animationType = AnimationInfo.JUMPING_RIGHT;
+                }
+                else
+                    animationType = AnimationInfo.JUMPING_LEFT;
+            }
         }
         if (fingers > 1) {
             if (grounded) {

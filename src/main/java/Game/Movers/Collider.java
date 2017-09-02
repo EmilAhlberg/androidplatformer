@@ -1,6 +1,7 @@
 package Game.Movers;
 
 import android.graphics.Rect;
+import android.util.Log;
 
 import Game.GameObject;
 import Game.InAnimates.Block;
@@ -84,8 +85,6 @@ public abstract class Collider extends Mover {
             } else
                 oTemp = oRect;
 
-            //TODO: Förstå hur dessa funkar och fixa dem, det är inte 100% rätt nu. UPDATE: Tror att det funkar nu, för alla rektanglar.
-
             // Calculate the vertical and horizontal
             // length between the centres of rectangles
             hd = Math.abs(myTemp.centerX() - oTemp.centerX());
@@ -126,7 +125,7 @@ public abstract class Collider extends Mover {
     private void handleBlockCollision(int collisionType, Block g) {
         if (collisionType == COLLISION_BOTTOM) {
             grounded = true;
-            moveTo(rect.left, g.getRect().top - rect.height());
+            moveTo(rect.left, g.getRect().top - rect.height()+1);
             mh.verticalSpeed = 0;
             friction = g.getFriction();
         } else if (collisionType == COLLISION_TOP) {

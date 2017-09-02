@@ -14,10 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 
+import Game.InAnimates.BigBlock;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
+import Game.Util.MovementHandler;
 
 /**
  * Created by Emil on 2016-11-22.
@@ -36,14 +38,67 @@ public class LevelCreator {
         ArrayList<GameObject> bs = new ArrayList<>();
         ArrayList<GameObject> hs = new ArrayList<>();
 
+        //Create and add the big blocks
+        int temp = 0;
+        Point p = new Point(0, 0);
+        for (int i = 0; i < mapString.length; i++) {
+            for (int k = 0; k < mapString[i].length(); k++) {
+                if (mapString[i].charAt(k) == 'B') {
+                    if (temp == 0)
+                        p = new Point((k-1) * StandardBlock.BLOCK_WIDTH, i * StandardBlock.BLOCK_HEIGHT);
+                    temp++;
+                } else if (temp > 0) {
+                    if (temp > 1)
+                        bs.add(new BigBlock(p, temp, 0));
+                    temp = 0;
+                }
+            }
+            if (temp > 0) {
+                if (temp > 1)
+                    bs.add(new BigBlock(p, temp, 0));
+                temp = 0;
+            }
+        }
+
+        int lengths[] = new int[mapString.length];
+        int max = 0;
+        for (int i = 0; i < mapString.length; i++) {
+            int l = mapString[i].length();
+            lengths[i] = l;
+            if (l > max)
+                max = l;
+        }
+
+        for (int i = 0; i < max; i++) {
+            for (int k = 0; k < mapString.length; k++) {
+                if (i < lengths[k]) {
+                    if (mapString[k].charAt(i) == 'B') {
+                        if (temp == 0)
+                            p = new Point((i-1) * StandardBlock.BLOCK_WIDTH, k * StandardBlock.BLOCK_HEIGHT);
+                        temp++;
+                    } else if (temp > 0) {
+                        if (temp > 1)
+                            bs.add(new BigBlock(p, temp));
+                        temp = 0;
+                    }
+                } else if (temp > 0) {
+                    if (temp > 1)
+                        bs.add(new BigBlock(p, temp));
+                    temp = 0;
+                }
+            }
+            if (temp > 0) {
+                if (temp > 1)
+                    bs.add(new BigBlock(p, temp));
+                temp = 0;
+            }
+        }
+
         //enemies = new Container();
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
-                Point p = new Point((k-1) * Block.BLOCK_WIDTH, i * Block.BLOCK_HEIGHT); //k-1 vänsterorienterar objekt
+                p = new Point((k-1) * StandardBlock.BLOCK_WIDTH, i * StandardBlock.BLOCK_HEIGHT); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
-                    case 'B':
-                        bs.add(new StandardBlock(p));
-                        break;
                     case 'P':
                         player = new Player(p);
                         break;

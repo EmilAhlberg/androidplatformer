@@ -16,11 +16,13 @@ public class SpriteSheet {
     private int rows;
 
     private Bitmap bitmap;
-    private int gridSize; //quadratic grid!
+    private int width;
+    private int height;
 
-    public SpriteSheet(IDs id, int gridSize) {
+    public SpriteSheet(IDs id, int width, int height) {
         bitmap = IDHandler.getBitmap(id);
-        this.gridSize = gridSize;
+        this.height = height;
+        this.width = width;
         init(id);
     }
 
@@ -28,10 +30,10 @@ public class SpriteSheet {
     private void init(IDs id) {
         cols = 0;
         rows = 0;
-        for(int i = gridSize; i < bitmap.getHeight(); i+= gridSize) {
+        for(int i = height; i < bitmap.getHeight(); i+= height) {
             rows++;
         }
-        for (int j = gridSize; j < bitmap.getWidth(); j += gridSize) {
+        for (int j = width; j < bitmap.getWidth(); j += width) {
             cols++;
         }
     }
@@ -40,8 +42,12 @@ public class SpriteSheet {
         return bitmap;
     }
 
-    public int getGridSize() {
-        return gridSize;
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public int getCols() {

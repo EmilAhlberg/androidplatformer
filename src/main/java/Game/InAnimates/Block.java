@@ -11,12 +11,10 @@ import Game.*;
 
 public abstract class Block extends GameObject {
 
-    public static final int BLOCK_WIDTH = 20;
-    public static final int BLOCK_HEIGHT = 20;
     private double friction;
 
-    public Block(Point p, double friction) {
-        super(new Rect(p.x, p.y, p.x + BLOCK_WIDTH, p.y + BLOCK_HEIGHT));
+    public Block(Rect rect, double friction) {
+        super(rect);
         this.friction = friction;
     }
 

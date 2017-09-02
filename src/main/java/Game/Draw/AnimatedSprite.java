@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 
+import Game.Movers.Player;
+
 /**
  * Created by Emil on 02/09/2017.
  */
@@ -23,11 +25,12 @@ public class AnimatedSprite extends Sprite {
     @Override
     public void draw(Canvas canvas, Rect destination, int animationType) {
         if (animationType != oldAnimationType) {
-            currentCol = 0;
-            currentRow = 0;
+            AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
+            currentCol = temp.getStartColumn();
+            currentRow = temp.getStartRow();
             animationCounter = 0;
         }
-        Rect src =  animate(animationType);
+        Rect src = animate(animationType);
         oldAnimationType = animationType;
         canvas.drawBitmap(sheet.getBitmap(), src,destination,null);
     }
@@ -38,8 +41,9 @@ public class AnimatedSprite extends Sprite {
     }
 
     private Rect animate(int animationType) {
-        int gridSize = sheet.getGridSize();
-        Rect src = new Rect(currentCol*gridSize, currentRow*gridSize,currentCol*gridSize + gridSize, currentRow*gridSize + gridSize);
+        int width = sheet.getWidth();
+        int height = sheet.getHeight();
+        Rect src = new Rect(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height);
         if (animationCounter == animationThreshold) {
             animationCounter = 0;
 
@@ -56,7 +60,7 @@ public class AnimatedSprite extends Sprite {
             } else
                 currentCol++;
         }
-            animationCounter++;
+        animationCounter++;
 
 
 //

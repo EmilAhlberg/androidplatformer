@@ -5,6 +5,8 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 
+import Game.InAnimates.BigBlock;
+
 /**
  * Created by Emil on 29/08/2017.
  */
@@ -22,10 +24,15 @@ public class Container {
             g.update();
     }
     public void draw(Canvas canvas, Rect pRect) {
+        int radius = 500/*933*/;
         for (GameObject g : gameObjects) {
-            Rect gRect = g.getRect();
-            if (Math.sqrt(Math.pow(pRect.left - gRect.left, 2) + Math.pow(pRect.top - gRect.top, 2)) < 500/*933*/)
-                g.draw(canvas);
+            if (g instanceof BigBlock) {
+                ((BigBlock) g).drawSome(pRect, canvas, radius);
+            } else {
+                Rect gRect = g.getRect();
+                if (Math.sqrt(Math.pow(pRect.left - gRect.left, 2) + Math.pow(pRect.top - gRect.top, 2)) < radius)
+                    g.draw(canvas);
+            }
         }
     }
     public ArrayList<GameObject> getObjects() {
