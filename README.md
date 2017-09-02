@@ -1,9 +1,9 @@
 #Fixlist:#
-Kollisionshanteringen funkar bara ~98% av gångerna. Inget allvarligt fel, bara att upplevelsen inte blir lika nice.
+Kollisionshanteringen funkar bara ~99% av gångerna. Inget allvarligt fel, bara att upplevelsen inte blir lika nice.
 
 Ev. göra blockkollisioner i "storleksordning"
 
-Sätta ihop block bredvid varandra till större blocks
+Sätta ihop block bredvid varandra till större blocks FIXAT: för vanliga block, man borde kunna göra det mer generellt så det funkar för t.ex potentiella "isblock" eller andra block.
 
 ##Refactoring suggestions ##
 
@@ -16,7 +16,7 @@ Goal
 
 Enemies
 
-Hazards
+Hazards - fixa kollision till fire
 
 ##Bugs##
 
