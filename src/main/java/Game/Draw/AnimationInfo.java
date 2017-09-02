@@ -1,6 +1,5 @@
 package Game.Draw;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,6 +9,7 @@ import java.util.HashMap;
 
 public class AnimationInfo {
 
+    public final static int DEFAULT = 0;
     public final static int RUNNING = 1;
     public final static int JUMPING = 2;
 
@@ -30,9 +30,10 @@ public class AnimationInfo {
     public static void initAnimationInfo() {
 
         //SETUP PART
-        animationInfos = new HashMap[100];
+        animationInfos = new HashMap[IDHandler.IMAGE_CAP];
         for (int i = 0; i < animationInfos.length; i++) {
             animationInfos[i] = new HashMap<Integer, AnimationInfo>();
+            animationInfos[i].put(DEFAULT, new AnimationInfo(0,0,0,0)); // remove? (default animation pattern)
         }
 
         //PLAYER

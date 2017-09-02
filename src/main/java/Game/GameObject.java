@@ -3,8 +3,12 @@ package Game;
         import android.graphics.Canvas;
         import android.graphics.Rect;
 
+        import Game.Draw.AnimatedSprite;
+        import Game.Draw.AnimationInfo;
         import Game.Draw.IDHandler;
         import Game.Draw.IDs;
+        import Game.Draw.Sprite;
+        import Game.Draw.StaticSprite;
 
 
 /**
@@ -14,13 +18,20 @@ package Game;
 public abstract class GameObject {
 
     protected Rect rect;
-    private Picture picture;
+    private Sprite sprite;
     protected IDs id;
+    protected int animationType = AnimationInfo.DEFAULT;
 
     public GameObject(Rect rect) {
         this.rect = rect;
         this.id = IDHandler.getID(this.getClass());
-        picture = new Picture(id, rect);
+
+        if (id.ordinal() >= IDs.STANDARDBLOCK.ordinal())
+            sprite = new StaticSprite(id);
+        else
+            sprite = new AnimatedSprite(id);
+
+
     }
 
     /**
@@ -41,7 +52,7 @@ public abstract class GameObject {
         rect.offset((int)x, (int)y);
     }
 
-    public abstract void update(); //this is required, but doesnt have to be implemented / called on blocks etc.
+    public abstract void update(); //this is required, but doesn't have to be implemented / called on blocks etc.
 
     public IDs getID() {
         return id;
@@ -60,7 +71,7 @@ public abstract class GameObject {
      * @param c Canvas to be drawn on
      */
     public void draw(Canvas c) {
-        picture.draw(c);
+        sprite.draw(c, rect, animationType);
     }
 
 
