@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    §
-    §
-    §
-    §
     §BBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-    §B                           B
-    §B                           B
-    §B                           B
-    §B                           B
-    §B                           B
-    §B     BBBBBBB               B
-    §B     B                     B
+    §B              B            B
+    §B              B            B
+    §B              B            B
+    §B              B            B
+    §B              B            B
+    §B     BBBBBBBBBB            B
+    §B     B                     BFFFFFFFFFFFFFFFFFF
     §B     B                     BBBBBBBBBBBBBBBBBBB
     §B     B                     B                 B
     §B     B                     B                 B
     §B     B                     B                 B
-    §B     B                     B        B        B
-    §B     B                     B        B        B
-    §B     B                     B        B        B
-    §B                                    B        B
-    §B                                    B        B
-    §B                                    B        B
+    §B     B                     B                 B
+    §B     B                     B                 B
+    §B     B                     B                 B
+    §B                                             B
+    §B                                             B
+    §B                                             B
+    §B                                             B
     §BBBBBBBBBBBBBBFFFFFFBBBBBBBBBBBBBBBBBB        B
+    §B                                    B        B
+    §B                                    B        B
+    §B                                    B        B
     §B                                    B        B
     §B                                    B        B
     §B                                    B        B
@@ -48,6 +48,6 @@
     §B                                    B
     §B    P                               B
     §B                                    B
-    §B                                    B
+    §B                BFFFFB              B
     §BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 </selector>

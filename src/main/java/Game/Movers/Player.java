@@ -1,15 +1,22 @@
 package Game.Movers;
 
+import android.app.Notification;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.TouchDelegate;
 
+import com.example.emil.Framework.ActivityConstants;
+
 import Game.Draw.AnimationInfo;
 import Game.Framework.GameDisplay;
+import Game.Framework.World;
 import Game.GameObject;
 import Game.InAnimates.Block;
+import Game.InAnimates.Hazard;
 import Game.Util.TouchEventDecoder;
 
 /**
@@ -25,6 +32,7 @@ public class Player extends Collider {
     private static final int PLAYER_HEIGHT = 30;
     private TouchEventDecoder ted;
     private Point clickPos;
+    private World world;
 
     public Player(Point p) {
         super(new Rect(p.x, p.y, p.x + PLAYER_WIDTH, p.y + PLAYER_HEIGHT));
@@ -75,6 +83,17 @@ public class Player extends Collider {
 
     @Override
     public void handleCollision(int collisionType, GameObject g) {
+        if (g instanceof Hazard) {
+            if (collisionType == Collider.COLLISION_TOP) { //There is a small strip of "block" at the bottom of the fire
+                moveTo(rect.left, g.getRect().bottom);
+            } else {
+                Log.d("pHandleCollision: ", "ok");
+                world.gameOver(); //Possible to change to lose lives or something instead of dying outright
+            }
+        }
+    }
 
+    public void setWorld(World world) {
+        this.world = world;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.emil.Framework;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -10,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
@@ -20,21 +20,14 @@ import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
 import Game.Draw.IDHandler;
-import Game.Draw.IDs;
-import Game.Draw.SpriteSheet;
 
 public class GameActivity extends AppActivity {
 
     private World world;
     private Handler gameLoopThread;
-    //private Handler levelCreatorThread;
     private LinearLayout ll;
-    private GameLoop gameLoop;
-    //private LevelCreator levelCreator;
+    GameLoop gameThread;
     private GameDisplay display;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +40,9 @@ public class GameActivity extends AppActivity {
         display = new GameDisplay(this, ll);
 
         LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
-        world = new World();
-        gameLoop = new GameLoop(this, gameLoopThread);
-        gameLoop.startLoop();
-
+        gameThread = new GameLoop(this, gameLoopThread);
+        world = new World(this);
+        gameThread.start();
     }
 
     private void loadDrawables() {
@@ -58,7 +50,6 @@ public class GameActivity extends AppActivity {
             IDHandler.initialize(this);
         }
     }
-
 
     private void handlerSetup() {
         gameLoopThread = new Handler(Looper.getMainLooper()) {
@@ -78,7 +69,17 @@ public class GameActivity extends AppActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gameLoop.interrupt();
+        gameThread.interrupt();
+    }
+
+    public void gameOver() {
+        Log.d("gaGameOver: ", "ok");
+        gameThread.pause();
+        Intent intent = new Intent (getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("ActivityConstant", ActivityConstants.GAMEOVER);
+        intent.putExtra("level", getIntent().getExtras().getInt("level"));
+        startActivity(intent);
+        finish();
     }
 
     public void updateWorld() {

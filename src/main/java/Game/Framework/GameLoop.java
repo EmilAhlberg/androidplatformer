@@ -10,39 +10,29 @@ import com.example.emil.Framework.GameActivity;
  * Created by Emil on 2016-11-04.
  */
 
-public class GameLoop {
+public class GameLoop extends Thread {
 
     private GameActivity game;
-    private final int timeLimit = 15;
     private Handler handler;
-    private boolean running;
-    private Thread t;
+    private final int timeLimit = 15;
+    private boolean running = true;
 
     public GameLoop(GameActivity game, Handler handler) {
         this.game = game;
         this.handler = handler;
     }
 
-    public void startLoop() {
-        running = true;
-        t = new Thread(new Runnable() {
-            public void run() {
-                double currentTime = System.currentTimeMillis();
-                double newTime = 0;
-                while (running) {
-                    if (newTime - currentTime > timeLimit) {
-                        updateLoop();
-                        currentTime = newTime;
-                    }
-                    newTime = System.currentTimeMillis();
-                }
+    @Override
+    public void run() {
+        double currentTime = System.currentTimeMillis();
+        double newTime = 0;
+        while (running) {
+            if (newTime - currentTime > timeLimit) {
+                updateLoop();
+                currentTime = newTime;
             }
-        });
-        t.start();
-    }
-
-    public void interrupt() {
-        t.interrupt();
+            newTime = System.currentTimeMillis();
+        }
     }
 
     private void updateLoop() {
@@ -58,7 +48,7 @@ public class GameLoop {
         //Log.d("updateLoop", "Handle messages: " + (System.currentTimeMillis() - millis));
     }
 
-    public void pauseLoop() {
+    public void pause() {
         running = false;
     }
 }

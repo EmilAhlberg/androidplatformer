@@ -5,8 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
+
+import com.example.emil.Framework.GameActivity;
 
 import Game.Container;
 import Game.Movers.Player;
@@ -21,10 +24,14 @@ public class World {
     private Container blocks;
     private Container hazards;
 
+    private GameActivity gameActivity;
+
     //private Container enemies;
 
-    public World() {
+    public World(GameActivity ga) {
+        gameActivity = ga;
         player = LevelCreator.getPlayer();
+        player.setWorld(this);
         blocks = LevelCreator.getBlocks();
         hazards = LevelCreator.getHazards();
         //enemies = LevelCreator.getEnemies();
@@ -34,7 +41,7 @@ public class World {
         player.update();
         //enemies.update();
 
-        CollisionHandler.handleAllCollisions(player, blocks);
+        CollisionHandler.handleAllCollisions(player, blocks, hazards);
     }
 
     public void draw(Canvas canvas) {
@@ -42,6 +49,11 @@ public class World {
         //enemies.draw(canvas);
         blocks.draw(canvas, player.getRect());
         hazards.draw(canvas, player.getRect());
+    }
+
+    public void gameOver() {
+        Log.d("wGameOver: ", "ok");
+        gameActivity.gameOver();
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
