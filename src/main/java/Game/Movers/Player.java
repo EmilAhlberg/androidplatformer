@@ -85,6 +85,7 @@ public class Player extends Collider {
     public void handleCollision(int collisionType, GameObject g) {
         if (g instanceof Hazard) {
             if (collisionType == Collider.COLLISION_TOP) { //There is a small strip of "block" at the bottom of the fire
+                mh.verticalSpeed = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
                 Log.d("pHandleCollision: ", "ok");

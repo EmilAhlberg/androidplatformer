@@ -23,6 +23,7 @@ public class World {
     private Player player;
     private Container blocks;
     private Container hazards;
+    private CollisionHandler ch;
 
     private GameActivity gameActivity;
 
@@ -35,13 +36,15 @@ public class World {
         blocks = LevelCreator.getBlocks();
         hazards = LevelCreator.getHazards();
         //enemies = LevelCreator.getEnemies();
+
+        ch = new CollisionHandler();
     }
 
     public void update() {
         player.update();
         //enemies.update();
 
-        CollisionHandler.handleAllCollisions(player, blocks, hazards);
+        ch.handleAllCollisions(player, blocks, hazards);
     }
 
     public void draw(Canvas canvas) {
