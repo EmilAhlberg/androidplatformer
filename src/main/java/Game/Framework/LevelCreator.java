@@ -103,6 +103,7 @@ public class LevelCreator {
                         player = new Player(p);
                         break;
                     case 'F':
+                        p.y+=StandardBlock.BLOCK_HEIGHT - 16;
                         hs.add(new Fire(p));
                         break;
                 }

@@ -25,14 +25,14 @@
     §B                                    B        B
     §B                                    B        B
     §B                                    B        B
-    §B                                    B        B
-    §B                                    B        B
-    §B                                    B        B
-    §B                                    B        B
     §B      BBBBBBBBBBBBBBBBBBBBBBB       B        B
     §B      B                             B        B
     §B      B                             B        B
-    §B      B   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB     B
+    §B      B                             B        B
+    §B      B                             B        B
+    §B      B                             B        B
+    §B      B                             B        B
+    §B      B   BBBBBBBBBBBBBBBBBBBFFFFFFFBBBB     B
     §B      B                                B     B
     §B      B                                B     B
     §B      BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB  B     B
@@ -48,6 +48,6 @@
     §B                                    B
     §B    P                               B
     §B                                    B
-    §B                BFFFFB              B
-    §BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    §B                                    B
+    §BBBBBBBBBBBBBBBBBBFFFFFBBBBBBBBBBBBBBB
 </selector>
