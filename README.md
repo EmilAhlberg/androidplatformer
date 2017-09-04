@@ -16,7 +16,7 @@ Goal
 
 Enemies
 
-Hazards - fixa kollision till fire
+Hazards
 
 ##Bugs##
 
