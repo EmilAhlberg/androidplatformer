@@ -28,15 +28,18 @@ public class Player extends Collider {
     private final int X_FORCE = 60;
     private final int Y_FORCE = 350;
     private final double WALLJUMP_FORCE = 400;
+    private final int WALLJUMP_FRAMES = 27;
     private static final int PLAYER_WIDTH = 20;
     private static final int PLAYER_HEIGHT = 30;
     private TouchEventDecoder ted;
     private Point clickPos;
     private World world;
+    private int wallJumpCounter;
 
     public Player(Point p) {
         super(new Rect(p.x, p.y, p.x + PLAYER_WIDTH, p.y + PLAYER_HEIGHT));
         ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
+        wallJumpCounter = 0;
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
@@ -52,15 +55,27 @@ public class Player extends Collider {
     }
 
     private void performAction() {
+        if (grounded || wallJumpDirection != 0) {
+            wallJumpCounter = 0;
+        } else if (wallJumpCounter > 0) {
+            wallJumpCounter--;
+        }
         int fingers = ted.getNbrFingersDown();
         if (fingers == 0) {
             animationType = AnimationInfo.DEFAULT;
         } else {
             double temp = clickPos.x - GameDisplay.WINDOW_WIDTH/2;
-            mh.applyForce(X_FORCE * temp / Math.abs(temp), 0);
-            if (grounded)
+            double force = X_FORCE * temp / Math.abs(temp);
+            if (wallJumpCounter > 0) {
+                if (force * mh.horizontalSpeed > 0) {
+                    mh.applyForce(force, 0);
+                }
+            } else {
+                mh.applyForce(force, 0);
+            }
+            if (grounded) {
                 animationType = AnimationInfo.RUNNING;
-            else {
+            } else {
                 if (mh.horizontalSpeed > 0) {
                     animationType = AnimationInfo.JUMPING_RIGHT;
                 }
@@ -73,6 +88,7 @@ public class Player extends Collider {
                 jump(Y_FORCE);
                 grounded = false;
             } else if (wallJumpDirection != 0) {
+                wallJumpCounter = WALLJUMP_FRAMES;
                 mh.applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();
