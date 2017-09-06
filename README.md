@@ -14,8 +14,6 @@ Fixa till gameLoop-tråden
 ##Gameplay suggestions ##
 Fler snygga bilder ;)
 
-Goal
-
 Enemies
 
 Hazards
