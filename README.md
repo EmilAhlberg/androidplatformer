@@ -5,6 +5,8 @@ Fixa så man inte accelererar när man glider nedåt mot en vägg
 
 Mer generell bigblock/bighazard + effektivare uppritning med större bitmap
 
+Fixa till gameLoop-tråden
+
 ##Refactoring suggestions ##
 
 
