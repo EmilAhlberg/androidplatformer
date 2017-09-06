@@ -17,6 +17,7 @@ import Game.Framework.World;
 import Game.GameObject;
 import Game.InAnimates.Block;
 import Game.InAnimates.Hazard;
+import Game.InAnimates.Interactive;
 import Game.Util.TouchEventDecoder;
 
 /**
@@ -104,9 +105,10 @@ public class Player extends Collider {
                 mh.verticalSpeed = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
-                Log.d("pHandleCollision: ", "ok");
                 world.gameOver(); //Possible to change to lose lives or something instead of dying outright
             }
+        } else if (g instanceof Interactive) {
+            ((Interactive) g).affectPlayer(world);
         }
     }
 

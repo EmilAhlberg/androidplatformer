@@ -72,8 +72,17 @@ public class GameActivity extends AppActivity {
         gameThread.interrupt();
     }
 
+    public void nextLevel() {
+        Log.d("nextLevel: ", "OK");
+        gameThread.pause();
+        Intent intent = new Intent (getApplicationContext(), ActivityHandler.class);
+        intent.putExtra("ActivityConstant", ActivityConstants.LEVELCLEARED);
+        intent.putExtra("level", getIntent().getExtras().getInt("level"));
+        startActivity(intent);
+        finish();
+    }
+
     public void gameOver() {
-        Log.d("gaGameOver: ", "ok");
         gameThread.pause();
         Intent intent = new Intent (getApplicationContext(), ActivityHandler.class);
         intent.putExtra("ActivityConstant", ActivityConstants.GAMEOVER);

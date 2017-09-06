@@ -24,13 +24,13 @@ public class Container {
             g.update();
     }
     public void draw(Canvas canvas, Rect pRect) {
-        int radius = 500/*933*/;
+        int radius = 933;
         for (GameObject g : gameObjects) {
             if (g instanceof BigBlock) {
                 ((BigBlock) g).drawSome(pRect, canvas, radius);
             } else {
                 Rect gRect = g.getRect();
-                if (Math.sqrt(Math.pow(pRect.left - gRect.left, 2) + Math.pow(pRect.top - gRect.top, 2)) < radius)
+                if (Math.sqrt((pRect.left - gRect.left)*(pRect.left - gRect.left) + (pRect.top - gRect.top)*(pRect.top - gRect.top)) < radius)
                     g.draw(canvas);
             }
         }

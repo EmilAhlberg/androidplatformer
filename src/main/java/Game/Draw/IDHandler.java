@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
+import Game.InAnimates.Goal;
 import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
 
@@ -44,6 +45,7 @@ public class IDHandler {
             put(Player.class, IDs.PLAYER);
             put(StandardBlock.class, IDs.STANDARDBLOCK);
             put(Fire.class, IDs.FIRE);
+            put(Goal.class, IDs.GOAL);
         }
     };
 
@@ -71,6 +73,9 @@ public class IDHandler {
 
         IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.fire_sprite, options);
         IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20, 20);
+
+        IDHandler.bitmaps[IDs.GOAL.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.goal, options);
+        IDHandler.sheets[IDs.GOAL.ordinal()] = new SpriteSheet(IDs.GOAL, 40, 40);
 
         AnimationInfo.initAnimationInfo();
     }

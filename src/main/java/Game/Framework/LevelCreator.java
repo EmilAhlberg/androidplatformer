@@ -17,6 +17,7 @@ import java.util.ConcurrentModificationException;
 import Game.InAnimates.BigBlock;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
+import Game.InAnimates.Goal;
 import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
 import Game.Util.MovementHandler;
@@ -30,6 +31,7 @@ public class LevelCreator {
     private static Player player;
     private static Container blocks;
     private static Container hazards;
+    private static Container interactives;
     //private static Container enemies;
 
     public static void createLevel(GameActivity ga, int level) {
@@ -37,6 +39,7 @@ public class LevelCreator {
 
         ArrayList<GameObject> bs = new ArrayList<>();
         ArrayList<GameObject> hs = new ArrayList<>();
+        ArrayList<GameObject> is = new ArrayList<>();
 
         //Create and add the big blocks
         int temp = 0;
@@ -106,12 +109,16 @@ public class LevelCreator {
                         p.y+=StandardBlock.BLOCK_HEIGHT - 16;
                         hs.add(new Fire(p));
                         break;
+                    case 'G':
+                        is.add(new Goal(p));
+                        break;
                 }
             }
         }
 
         blocks = new Container(bs);
         hazards = new Container(hs);
+        interactives = new Container(is);
     }
 
     private static String[] getLevelArray(GameActivity ga, int level) {
@@ -120,6 +127,9 @@ public class LevelCreator {
             switch (level) {
                 case 1:
                     map = getStringArrayFromFile(ga, R.raw.level1);
+                    break;
+                case 2:
+                    map = getStringArrayFromFile(ga, R.raw.level2);
                     break;
                 default:
                     map = null;
@@ -166,6 +176,10 @@ public class LevelCreator {
 
     public static Container getBlocks() {
         return blocks;
+    }
+
+    public static Container getInteractives() {
+        return interactives;
     }
 
     public static Player getPlayer() {

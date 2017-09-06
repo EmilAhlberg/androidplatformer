@@ -23,6 +23,7 @@ public class World {
     private Player player;
     private Container blocks;
     private Container hazards;
+    private Container interactives;
     private CollisionHandler ch;
 
     private GameActivity gameActivity;
@@ -35,6 +36,7 @@ public class World {
         player.setWorld(this);
         blocks = LevelCreator.getBlocks();
         hazards = LevelCreator.getHazards();
+        interactives = LevelCreator.getInteractives();
         //enemies = LevelCreator.getEnemies();
 
         ch = new CollisionHandler();
@@ -44,7 +46,7 @@ public class World {
         player.update();
         //enemies.update();
 
-        ch.handleAllCollisions(player, blocks, hazards);
+        ch.handleAllCollisions(player, blocks, hazards, interactives);
     }
 
     public void draw(Canvas canvas) {
@@ -52,11 +54,15 @@ public class World {
         //enemies.draw(canvas);
         blocks.draw(canvas, player.getRect());
         hazards.draw(canvas, player.getRect());
+        interactives.draw(canvas, player.getRect());
     }
 
     public void gameOver() {
-        Log.d("wGameOver: ", "ok");
         gameActivity.gameOver();
+    }
+
+    public void nextLevel() {
+        gameActivity.nextLevel();
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

@@ -25,8 +25,11 @@ public class ActivityHandler extends AppActivity {
         View v = findViewById(R.id.activity_splash_screen);
         v.setBackgroundResource(R.drawable.background_animation);
         bkgAnimation = (AnimationDrawable) v.getBackground();
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
         Thread myThread = new Thread() {
             @Override
             public void run() {
