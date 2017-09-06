@@ -8,14 +8,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/startscreen"
+    android:background="@drawable/good_boy"
     tools:context="com.example.emil.Framework.StartMenuActivity">
 
     <Button
         android:layout_centerInParent="true"
         android:layout_height = "wrap_content"
         android:layout_width="wrap_content"
+        android:backgroundTint="@color/levelClearedColor"
+        android:textColor="@color/descriptionColor"
         android:id="@+id/start_game"
+        android:textStyle="bold"
         android:text="@string/new_game"
         android:onClick="newGame"/>
     <TextView
@@ -23,8 +26,8 @@
         android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/descriptionColor"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="@string/game_description"/>
-
-
 </RelativeLayout>
