@@ -19,15 +19,15 @@ public class SpriteSheet {
     private int width;
     private int height;
 
-    public SpriteSheet(IDs id, int width, int height) {
-        bitmap = IDHandler.getBitmap(id);
+    public SpriteSheet(Bitmap bitmap, int width, int height) {
+        this.bitmap = bitmap;
         this.height = height;
         this.width = width;
-        init(id);
+        init();
     }
 
 
-    private void init(IDs id) {
+    private void init() {
         cols = 0;
         rows = 0;
         for(int i = height; i < bitmap.getHeight(); i+= height) {

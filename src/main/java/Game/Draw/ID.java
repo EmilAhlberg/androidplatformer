@@ -14,15 +14,14 @@ package Game.Draw;
  * Created by Emil on 25/08/2017.
  */
 
-public enum IDs {
+public enum ID {
 
     DEFAULT,
     PLAYER,
     FIRE,
 
-    //Objects after StandardBlock will not be animated. StandardBlock should be first item following this comment.
-    STANDARDBLOCK,
-    BIGBLOCK,
+    //Objects after Block will not be animated. Block should be first item following this comment.
+    BLOCK,
     GOAL,
 }
 

@@ -1,8 +1,6 @@
 package Game.Framework;
 
-import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
 
 import com.example.emil.Framework.GameActivity;
 import com.example.emil.app.R;
@@ -12,15 +10,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.ConcurrentModificationException;
 
-import Game.InAnimates.BigBlock;
+import Game.Draw.ID;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
-import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
-import Game.Util.MovementHandler;
 
 /**
  * Created by Emil on 2016-11-22.
@@ -48,17 +43,17 @@ public class LevelCreator {
             for (int k = 0; k < mapString[i].length(); k++) {
                 if (mapString[i].charAt(k) == 'B') {
                     if (temp == 0)
-                        p = new Point((k-1) * StandardBlock.BLOCK_WIDTH, i * StandardBlock.BLOCK_HEIGHT);
+                        p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK));
                     temp++;
                 } else if (temp > 0) {
                     if (temp > 1)
-                        bs.add(new BigBlock(p, temp, true));
+                        bs.add(new Block(p, temp, true));
                     temp = 0;
                 }
             }
             if (temp > 0) {
                 if (temp > 1)
-                    bs.add(new BigBlock(p, temp, true));
+                    bs.add(new Block(p, temp, true));
                 temp = 0;
             }
         }
@@ -77,22 +72,22 @@ public class LevelCreator {
                 if (i < lengths[k]) {
                     if (mapString[k].charAt(i) == 'B') {
                         if (temp == 0)
-                            p = new Point((i-1) * StandardBlock.BLOCK_WIDTH, k * StandardBlock.BLOCK_HEIGHT);
+                            p = new Point((i-1) * Stats.width(ID.BLOCK), k * Stats.height(ID.BLOCK));
                         temp++;
                     } else if (temp > 0) {
                         if (temp > 1)
-                            bs.add(new BigBlock(p, temp, false));
+                            bs.add(new Block(p, temp, false));
                         temp = 0;
                     }
                 } else if (temp > 0) {
                     if (temp > 1)
-                        bs.add(new BigBlock(p, temp, false));
+                        bs.add(new Block(p, temp, false));
                     temp = 0;
                 }
             }
             if (temp > 0) {
                 if (temp > 1)
-                    bs.add(new BigBlock(p, temp, false));
+                    bs.add(new Block(p, temp, false));
                 temp = 0;
             }
         }
@@ -100,14 +95,14 @@ public class LevelCreator {
         //enemies = new Container();
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
-                p = new Point((k-1) * StandardBlock.BLOCK_WIDTH, i * StandardBlock.BLOCK_HEIGHT); //k-1 vänsterorienterar objekt
+                p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'P':
                         player = new Player(p);
                         break;
                     case 'F':
-                        p.y+=StandardBlock.BLOCK_HEIGHT - 16;
-                        hs.add(new Fire(p));
+                        p.y+= Stats.height(ID.BLOCK) - Stats.height(ID.FIRE);
+                        hs.add(new Fire(p, 1, false));
                         break;
                     case 'G':
                         is.add(new Goal(p));

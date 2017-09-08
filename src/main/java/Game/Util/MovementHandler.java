@@ -1,6 +1,8 @@
 package Game.Util;
 
-import Game.InAnimates.StandardBlock;
+import Game.Draw.ID;
+import Game.InAnimates.Block;
+import Game.Stats;
 
 /**
  * Created by Emil on 8/29/2017.
@@ -9,8 +11,8 @@ import Game.InAnimates.StandardBlock;
 public class MovementHandler {
 
     private final int GRAVITY = 20;
-    private final int MAX_HORIZONTAL_SPEED = StandardBlock.BLOCK_HEIGHT/3;
-    private final int MAX_VERTICAL_SPEED = StandardBlock.BLOCK_HEIGHT * 2/3;
+    private final int MAX_HORIZONTAL_SPEED = Stats.height(ID.BLOCK)/3;
+    private final int MAX_VERTICAL_SPEED = Stats.height(ID.BLOCK) * 2/3;
     private double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration;
     public double horizontalSpeed, verticalSpeed;
 

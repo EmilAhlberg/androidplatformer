@@ -28,17 +28,17 @@ public class GameDisplay {
     public GameDisplay(GameActivity gameActivity, LinearLayout ll) {
         bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
         canvas = new Canvas(bitmap);
-        //backgroundImage = gameActivity.getResources().getDrawable(R.drawable.background);
+        //backgroundImage = gameActivity.getResources().getDrawable(R.drawable.bkg_game);
         //backgroundImage.setBounds(0, 0, 2000, 1000); //(left, top, right, bottom)
-        //ll.setBackgroundResource(R.drawable.background_animation);
-        bkg = new Background(BitmapFactory.decodeResource(gameActivity.getResources(), R.drawable.background));
+        //ll.setBackgroundResource(R.drawable.bkg_load_animation);
+        bkg = new Background(BitmapFactory.decodeResource(gameActivity.getResources(), R.drawable.bkg_game));
 
         WINDOW_WIDTH = getCanvas().getWidth();
         WINDOW_HEIGHT = getCanvas().getHeight();
     }
 
     public void beginDraw(Point p) {
-        centerPlayer(p.x, p.y); //player  position
+        centerPlayer(p.x, p.y); //obj_debug  position
 
 
         tempmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);

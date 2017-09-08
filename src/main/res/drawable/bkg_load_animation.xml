@@ -1,0 +1,5 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bkg_load1" android:duration="80" />
+    <item android:drawable="@drawable/bkg_load2" android:duration="80" />
+    <item android:drawable="@drawable/bkg_load3" android:duration="80" />
+</animation-list>

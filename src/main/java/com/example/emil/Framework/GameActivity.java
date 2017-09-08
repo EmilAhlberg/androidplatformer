@@ -46,7 +46,7 @@ public class GameActivity extends AppActivity {
     }
 
     private void loadDrawables() {
-        if (IDHandler.bitmaps[0] == null) { //makes sure images are only loaded once (during first gameActivity onCreate)
+        if (IDHandler.sheets[0] == null) { //makes sure images are only loaded once (during first gameActivity onCreate)
             IDHandler.initialize(this);
         }
     }

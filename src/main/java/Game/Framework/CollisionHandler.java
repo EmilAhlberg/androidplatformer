@@ -59,7 +59,7 @@ public class CollisionHandler {
         handleCollisions(player, hazards.getObjects());
         handleCollisions(player, interactives.getObjects());
         //when enemies are implemented
-        //CollisionHandler.handleAllCollisions(player, enemies);
+        //CollisionHandler.handleAllCollisions(obj_debug, enemies);
         //CollisionHandler.handleAllCollisions(enemies, blocks);
 
     }

@@ -1,12 +1,10 @@
 package Game.Movers;
 
+import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 
 import Game.GameObject;
-import Game.InAnimates.BigBlock;
 import Game.InAnimates.Block;
-import Game.Draw.IDs;
 
 /**
  * Created by Emil on 29/08/2017.
@@ -24,8 +22,8 @@ public abstract class Collider extends Mover {
     public double friction;
     public boolean grounded;
 
-    public Collider(Rect rect) {
-        super(rect);
+    public Collider(Point p) {
+        super(p);
         wallJumpDirection = 0;
         friction = 0.2;
         grounded = false;
@@ -94,18 +92,18 @@ public abstract class Collider extends Mover {
             // Now compare them to know the side of collision
             if (hd < vd) {
                 if (myTemp.centerY() > oTemp.centerY()) {
-                    // Collision on top side of player
+                    // Collision on top side of obj_debug
                     return COLLISION_TOP;
                 } else {
-                    // Collision on bottom side of player
+                    // Collision on bottom side of obj_debug
                     return COLLISION_BOTTOM;
                 }
             } else {
                 if (myTemp.centerX() < oTemp.centerX()) {
-                    // Collision on right side of player
+                    // Collision on right side of obj_debug
                     return COLLISION_RIGHT;
                 } else {
-                    // Collision on left side of player
+                    // Collision on left side of obj_debug
                     return COLLISION_LEFT;
                 }
             }
@@ -114,8 +112,8 @@ public abstract class Collider extends Mover {
     }
 
     public void collision(int collisionType, GameObject g) {
-        if (g instanceof BigBlock) //typ
-            handleBlockCollision(collisionType, (BigBlock)g);
+        if (g instanceof Block) //typ
+            handleBlockCollision(collisionType, (Block)g);
         else
             handleCollision(collisionType, g);
 
@@ -123,7 +121,7 @@ public abstract class Collider extends Mover {
 
     public abstract void handleCollision(int collisionType, GameObject g);
 
-    private void handleBlockCollision(int collisionType, BigBlock g) {
+    private void handleBlockCollision(int collisionType, Block g) {
         if (collisionType == COLLISION_BOTTOM) {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height()+1);

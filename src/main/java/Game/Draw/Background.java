@@ -13,7 +13,7 @@ public class Background {
 
     private Bitmap bkg;
     private int x,y;
-    private int scrollSpeed = 3;
+    private int scrollSpeed = 3;      //!
 
     public Background(Bitmap bitmap) {
         bkg = bitmap;

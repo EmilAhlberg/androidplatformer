@@ -8,12 +8,11 @@ import com.example.emil.app.R;
 
 import java.util.HashMap;
 
-import Game.InAnimates.BigBlock;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
-import Game.InAnimates.StandardBlock;
 import Game.Movers.Player;
+import Game.Stats;
 
 /**
  * Created by Emil on 25/08/2017.
@@ -23,64 +22,45 @@ public class IDHandler {
 
     public final static int IMAGE_CAP = 100;
 
-    public static Bitmap[] bitmaps = new Bitmap[IMAGE_CAP];
     public static SpriteSheet[] sheets = new SpriteSheet[IMAGE_CAP];
 
-    public static SpriteSheet getSpriteSheet(IDs id) {
+    public static SpriteSheet getSpriteSheet(ID id) {
        if (sheets[id.ordinal()] != null)
            return sheets[id.ordinal()];
        else
-           return sheets[IDs.DEFAULT.ordinal()];
+           return sheets[ID.DEFAULT.ordinal()];
     }
 
-
-    public static Bitmap getBitmap(IDs id) {
-        if (bitmaps[id.ordinal()] != null)
-            return bitmaps[id.ordinal()];
-        else
-            return bitmaps[IDs.DEFAULT.ordinal()];
-    }
-
-    private static HashMap<Class, IDs> typeToID = new HashMap<Class, IDs>() {
-        {
-            put(Player.class, IDs.PLAYER);
-            put(StandardBlock.class, IDs.STANDARDBLOCK);
-            put(Fire.class, IDs.FIRE);
-            put(Goal.class, IDs.GOAL);
-            put(BigBlock.class, IDs.BIGBLOCK);
-        }
-    };
-
-    public static IDs getID(Class c) {
+    public static ID getID(Class c) {
         if (typeToID.containsKey(c))
             return typeToID.get(c);
         else
-            return IDs.DEFAULT;
+            return ID.DEFAULT;
     }
+
+    private static HashMap<Class, ID> typeToID = new HashMap<Class, ID>() {
+        {
+            put(Player.class, ID.PLAYER);
+            put(Block.class, ID.BLOCK);
+            put(Fire.class, ID.FIRE);
+            put(Goal.class, ID.GOAL);
+        }
+    };
 
     public static void initialize(GameActivity gA) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        //opts.inDither = true;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        options.inScaled = false; //skalade om bildstorlek innan, wtf
+        options.inScaled = false;
 
-        IDHandler.bitmaps[IDs.DEFAULT.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.startscreen, options);  //default pic
-        IDHandler.sheets[IDs.DEFAULT.ordinal()] = new SpriteSheet(IDs.DEFAULT, 20, 20);
+        IDHandler.sheets[ID.DEFAULT.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_startscreen, options), 50, 50);
 
-        IDHandler.bitmaps[IDs.PLAYER.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.player_moves, options);
-        IDHandler.sheets[IDs.PLAYER.ordinal()] = new SpriteSheet(IDs.PLAYER, 20, 30);
+        IDHandler.sheets[ID.PLAYER.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_player, options), Stats.width(ID.PLAYER), Stats.height(ID.PLAYER));
 
-        IDHandler.bitmaps[IDs.STANDARDBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.block2, options);
-        IDHandler.sheets[IDs.STANDARDBLOCK.ordinal()] = new SpriteSheet(IDs.STANDARDBLOCK, 20, 20);
+        IDHandler.sheets[ID.BLOCK.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_block, options), Stats.width(ID.BLOCK), Stats.height(ID.BLOCK));
 
-        IDHandler.bitmaps[IDs.BIGBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.big_block, options);
-        IDHandler.sheets[IDs.BIGBLOCK.ordinal()] = new SpriteSheet(IDs.BIGBLOCK, 20, 20);
+        IDHandler.sheets[ID.FIRE.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_fire, options), Stats.width(ID.FIRE), Stats.height(ID.FIRE));
 
-        IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.fire_sprite, options);
-        IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20, 20);
-
-        IDHandler.bitmaps[IDs.GOAL.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.goal, options);
-        IDHandler.sheets[IDs.GOAL.ordinal()] = new SpriteSheet(IDs.GOAL, 40, 40);
+        IDHandler.sheets[ID.GOAL.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_goal, options), Stats.width(ID.GOAL), Stats.height(ID.GOAL));
 
         AnimationInfo.initAnimationInfo();
     }

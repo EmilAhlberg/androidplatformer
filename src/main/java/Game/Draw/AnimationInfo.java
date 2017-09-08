@@ -1,8 +1,5 @@
 package Game.Draw;
 
-import android.graphics.drawable.Drawable;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -42,19 +39,19 @@ public class AnimationInfo {
 
         //PLAYER
         AnimationInfo pRunning = new AnimationInfo(0, 0, 2, 0);
-        animationInfos[IDs.PLAYER.ordinal()].put(RUNNING, pRunning);
+        animationInfos[ID.PLAYER.ordinal()].put(RUNNING, pRunning);
 
         AnimationInfo pLeftJumping = new AnimationInfo(0, 1, 0, 1);
-        animationInfos[IDs.PLAYER.ordinal()].put(JUMPING_LEFT, pLeftJumping);
+        animationInfos[ID.PLAYER.ordinal()].put(JUMPING_LEFT, pLeftJumping);
 
         AnimationInfo pRightJumping = new AnimationInfo(1, 1, 1, 1);
-        animationInfos[IDs.PLAYER.ordinal()].put(JUMPING_RIGHT, pRightJumping);
+        animationInfos[ID.PLAYER.ordinal()].put(JUMPING_RIGHT, pRightJumping);
 
         //BLOCK
 
         //HAZARDS
         AnimationInfo fire = new AnimationInfo(0, 0, 2, 0);
-        animationInfos[IDs.FIRE.ordinal()].put(DEFAULT, fire);
+        animationInfos[ID.FIRE.ordinal()].put(DEFAULT, fire);
 
         //etc
 
@@ -76,7 +73,7 @@ public class AnimationInfo {
         return endRow;
     }
 
-    public static AnimationInfo getAnimationInfo(IDs id, int animationType) {
+    public static AnimationInfo getAnimationInfo(ID id, int animationType) {
         return animationInfos[id.ordinal()].get(animationType);
     }
 

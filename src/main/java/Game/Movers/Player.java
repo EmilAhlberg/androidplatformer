@@ -1,23 +1,17 @@
 package Game.Movers;
 
-import android.app.Notification;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.TouchDelegate;
-
-import com.example.emil.Framework.ActivityConstants;
 
 import Game.Draw.AnimationInfo;
 import Game.Framework.GameDisplay;
 import Game.Framework.World;
 import Game.GameObject;
-import Game.InAnimates.Block;
-import Game.InAnimates.Hazard;
-import Game.InAnimates.Interactive;
+//import Game.InAnimates.Hazard;
+import Game.InAnimates.Fire;
+//import Game.InAnimates.Interactive;
+import Game.InAnimates.Goal;
 import Game.Util.TouchEventDecoder;
 
 /**
@@ -30,15 +24,13 @@ public class Player extends Collider {
     private final int Y_FORCE = 350;
     private final double WALLJUMP_FORCE = 400;
     private final int WALLJUMP_FRAMES = 27;
-    private static final int PLAYER_WIDTH = 20;
-    private static final int PLAYER_HEIGHT = 30;
     private TouchEventDecoder ted;
     private Point clickPos;
     private World world;
     private int wallJumpCounter;
 
     public Player(Point p) {
-        super(new Rect(p.x, p.y, p.x + PLAYER_WIDTH, p.y + PLAYER_HEIGHT));
+        super(p);
         ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
         wallJumpCounter = 0;
     }
@@ -100,15 +92,15 @@ public class Player extends Collider {
 
     @Override
     public void handleCollision(int collisionType, GameObject g) {
-        if (g instanceof Hazard) {
-            if (collisionType == Collider.COLLISION_TOP) { //There is a small strip of "block" at the bottom of the fire
+        if (g instanceof Fire) {
+            if (collisionType == Collider.COLLISION_TOP) { //There is a small strip of "will_remove_block" at the bottom of the fire
                 mh.verticalSpeed = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
                 world.gameOver(); //Possible to change to lose lives or something instead of dying outright
             }
-        } else if (g instanceof Interactive) {
-            ((Interactive) g).affectPlayer(world);
+        } else if (g instanceof Goal) {
+            ((Goal) g).affectPlayer(world);
         }
     }
 

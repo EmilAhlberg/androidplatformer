@@ -4,18 +4,19 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 import Game.Framework.World;
+import Game.GameObject;
 
 /**
  * Created by Emil on 9/6/2017.
  */
 
-public class Goal extends Interactive {
+public class Goal extends GameObject {
 
     public Goal(Point p) {
-        super(new Rect(p.x, p.y, p.x+40, p.y+40));
+        super(p);
     }
 
-    @Override
+
     public void affectPlayer(World w) {
         w.nextLevel();
     }

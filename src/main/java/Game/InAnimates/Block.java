@@ -1,21 +1,27 @@
 package Game.InAnimates;
 
 import android.graphics.Point;
-import android.graphics.Rect;
 
-import Game.*;
+import Game.GameObject;
+import Game.Stats;
 
 /**
- * Created by Emil on 2016-11-22.
+ * Created by Emil on 9/1/2017.
  */
 
-public abstract class Block extends GameObject {
+public class Block extends GameObject {
 
     private double friction;
 
-    public Block(Rect rect, double friction) {
-        super(rect);
-        this.friction = friction;
+
+    public Block(Point p, int nbrBlocks, boolean horizontal) {
+        super(p, nbrBlocks, horizontal);
+        this.friction = Stats.friction(id);
+    }
+
+    @Override
+    public void update() {
+
     }
 
     public double getFriction () {

@@ -10,9 +10,9 @@ import android.graphics.Rect;
 public abstract class Sprite {
 
     protected SpriteSheet sheet;
-    protected IDs id;
+    protected ID id;
 
-    public Sprite(IDs id) {
+    public Sprite(ID id) {
         sheet = IDHandler.getSpriteSheet(id);
         this.id = id;
     }

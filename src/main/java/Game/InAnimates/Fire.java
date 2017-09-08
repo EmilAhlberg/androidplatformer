@@ -1,17 +1,22 @@
 package Game.InAnimates;
 
 import android.graphics.Point;
-import android.graphics.Rect;
+
+import Game.GameObject;
 
 /**
  * Created by Emil on 9/2/2017.
  */
 
-public class Fire extends Hazard {
+public class Fire extends GameObject{
 
-    public Fire(Point p) {
-        super(new Rect(p.x, p.y, p.x + 20, p.y + 16));
+
+    public Fire(Point p, int nbrFires, boolean horizontal)
+    {
+        super(p, nbrFires, horizontal);
     }
+
+
 
     @Override
     public void update() {

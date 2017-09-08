@@ -2,9 +2,6 @@ package Game.Draw;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
-
-import Game.Movers.Player;
 
 /**
  * Created by Emil on 02/09/2017.
@@ -16,10 +13,12 @@ public class AnimatedSprite extends Sprite {
     private int currentRow = 0;
     private int animationCounter = 0;
     private int animationThreshold = 10;
+    private Rect src;
     private int oldAnimationType = AnimationInfo.DEFAULT;
 
-    public AnimatedSprite (IDs id) {
+    public AnimatedSprite (ID id) {
         super(id);
+        src = new Rect(0,0,0,0);
     }
 
     @Override
@@ -35,15 +34,11 @@ public class AnimatedSprite extends Sprite {
         canvas.drawBitmap(sheet.getBitmap(), src,destination,null);
     }
 
-    public void draw(Canvas canvas, Rect destination) {
-
-
-    }
 
     private Rect animate(int animationType) {
         int width = sheet.getWidth();
         int height = sheet.getHeight();
-        Rect src = new Rect(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height);
+        src.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height);
         if (animationCounter == animationThreshold) {
             animationCounter = 0;
 
@@ -61,18 +56,6 @@ public class AnimatedSprite extends Sprite {
                 currentCol++;
         }
         animationCounter++;
-
-
-//
-//        Rect src = new Rect(currentCol*gridSize, currentRow*gridSize,currentCol*gridSize + gridSize, currentRow*gridSize + gridSize);
-//
-//        if (animationCounter == animationThreshold) {
-//            animationCounter = 0;
-//
-//            calculateFrame();
-//
-//        }
-//        animationCounter++;
 
         return src;
     }
@@ -96,7 +79,7 @@ public class AnimatedSprite extends Sprite {
     }
 
     private void calculateFrame() {
-        if (id == IDs.PLAYER) {
+        if (id == ID.PLAYER) {
             animateSequence(AnimationInfo.RUNNING);
 
         } else {

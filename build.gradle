@@ -22,7 +22,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.player.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.obj_debug.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -37,7 +37,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-//    androidTestCompile('com.android.support.player.espresso:espresso-core:2.2.2', {
+//    androidTestCompile('com.android.support.obj_debug.espresso:espresso-core:2.2.2', {
 //        exclude group: 'com.android.support', module: 'support-annotations'exclude module: 'support-annotations'
 //    }
 //    )

@@ -1,5 +1,6 @@
 package Game.Movers;
 
+import android.graphics.Point;
 import android.graphics.Rect;
 
 import Game.*;
@@ -14,8 +15,8 @@ public abstract class Mover extends GameObject {
 
     protected MovementHandler mh;
 
-    public Mover(Rect rect) {
-        super(rect);
+    public Mover(Point p) {
+        super(p);
         mh = new MovementHandler();
     }
 

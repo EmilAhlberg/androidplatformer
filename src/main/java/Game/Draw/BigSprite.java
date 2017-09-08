@@ -17,7 +17,7 @@ public class BigSprite extends Sprite {
     private boolean remainder;
     private final int maxNbr = 10; // size of sprite sheet matrix
 
-    public BigSprite(IDs id, int nbrBlocks, boolean horizontal, Rect object) {
+    public BigSprite(ID id, int nbrBlocks, boolean horizontal, Rect object) {
         super(id);
         this.horizontal = horizontal;
 //        this.nbrBlocks = nbrBlocks;
@@ -56,13 +56,13 @@ public class BigSprite extends Sprite {
             if (horizontal)
                 destinations[destinations.length - 1] = new Rect(object.left + x, object.top, object.left +x +  nbrBlocksMod * width, object.top + height);
             else
-                destinations[destinations.length - 1] = new Rect(object.left + x, object.top, object.left + width, object.top + y + nbrBlocksMod*height );
+                destinations[destinations.length - 1] = new Rect(object.left, object.top+ y, object.left + width, object.top + y + nbrBlocksMod*height );
 
         }
         //src rectangles
         if (horizontal) {
-            srcFull = new Rect(0,0, sheet.getWidth()*maxNbr, height);
-            srcRemainder = new Rect(0,0,sheet.getWidth()*nbrBlocksMod, height);
+            srcFull = new Rect(0,0, width*maxNbr, height);
+            srcRemainder = new Rect(0,0,width*nbrBlocksMod, height);
         }
         else {
             srcFull = new Rect(0,0, width, height*maxNbr);
