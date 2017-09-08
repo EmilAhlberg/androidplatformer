@@ -27,7 +27,8 @@ public class Container {
         int radius = 933;
         for (GameObject g : gameObjects) {
             if (g instanceof BigBlock) {
-                ((BigBlock) g).drawSome(pRect, canvas, radius);
+//                ((BigBlock) g).drawSome(pRect, canvas, radius);
+                g.draw(canvas);
             } else {
                 Rect gRect = g.getRect();
                 if (Math.sqrt((pRect.left - gRect.left)*(pRect.left - gRect.left) + (pRect.top - gRect.top)*(pRect.top - gRect.top)) < radius)

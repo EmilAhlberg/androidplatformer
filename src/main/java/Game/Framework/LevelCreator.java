@@ -52,13 +52,13 @@ public class LevelCreator {
                     temp++;
                 } else if (temp > 0) {
                     if (temp > 1)
-                        bs.add(new BigBlock(p, temp, 0));
+                        bs.add(new BigBlock(p, temp, true));
                     temp = 0;
                 }
             }
             if (temp > 0) {
                 if (temp > 1)
-                    bs.add(new BigBlock(p, temp, 0));
+                    bs.add(new BigBlock(p, temp, true));
                 temp = 0;
             }
         }
@@ -81,18 +81,18 @@ public class LevelCreator {
                         temp++;
                     } else if (temp > 0) {
                         if (temp > 1)
-                            bs.add(new BigBlock(p, temp));
+                            bs.add(new BigBlock(p, temp, false));
                         temp = 0;
                     }
                 } else if (temp > 0) {
                     if (temp > 1)
-                        bs.add(new BigBlock(p, temp));
+                        bs.add(new BigBlock(p, temp, false));
                     temp = 0;
                 }
             }
             if (temp > 0) {
                 if (temp > 1)
-                    bs.add(new BigBlock(p, temp));
+                    bs.add(new BigBlock(p, temp, false));
                 temp = 0;
             }
         }

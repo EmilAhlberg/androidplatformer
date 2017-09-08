@@ -1,17 +1,16 @@
 package Game;
 
         import android.graphics.Canvas;
+        import android.graphics.Point;
         import android.graphics.Rect;
-        import android.graphics.pdf.PdfDocument;
-        import android.util.Log;
 
         import Game.Draw.AnimatedSprite;
         import Game.Draw.AnimationInfo;
         import Game.Draw.IDHandler;
         import Game.Draw.IDs;
         import Game.Draw.Sprite;
-        import Game.Draw.StaticSprite;
-        import Game.Movers.Player;
+        import Game.Draw.BigSprite;
+        import Game.InAnimates.StandardBlock;
 
 
 /**
@@ -28,10 +27,17 @@ public abstract class GameObject {
     public GameObject(Rect rect) {
         this.rect = rect;
         this.id = IDHandler.getID(this.getClass());
-        if (id.ordinal() >= IDs.STANDARDBLOCK.ordinal())
-            sprite = new StaticSprite(id);
+        sprite = new AnimatedSprite(id);
+    }
+
+    public GameObject(Point p, int nbrBlocks, boolean horizontal) {
+        if (horizontal)
+            this.rect = new Rect(p.x, p.y, p.x + StandardBlock.BLOCK_WIDTH*nbrBlocks, p.y+StandardBlock.BLOCK_HEIGHT);
         else
-            sprite = new AnimatedSprite(id);
+            this.rect = new Rect(p.x, p.y, p.x + StandardBlock.BLOCK_WIDTH, p.y+StandardBlock.BLOCK_HEIGHT*nbrBlocks);
+        this.id = IDHandler.getID(this.getClass());
+        sprite = new BigSprite(id,nbrBlocks, horizontal, rect);
+
     }
 
     /**

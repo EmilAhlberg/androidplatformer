@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.util.Log;
 
 import Game.GameObject;
+import Game.InAnimates.BigBlock;
 import Game.InAnimates.Block;
 import Game.Draw.IDs;
 
@@ -113,8 +114,8 @@ public abstract class Collider extends Mover {
     }
 
     public void collision(int collisionType, GameObject g) {
-        if (g instanceof Block)
-            handleBlockCollision(collisionType, (Block)g);
+        if (g instanceof BigBlock) //typ
+            handleBlockCollision(collisionType, (BigBlock)g);
         else
             handleCollision(collisionType, g);
 
@@ -122,7 +123,7 @@ public abstract class Collider extends Mover {
 
     public abstract void handleCollision(int collisionType, GameObject g);
 
-    private void handleBlockCollision(int collisionType, Block g) {
+    private void handleBlockCollision(int collisionType, BigBlock g) {
         if (collisionType == COLLISION_BOTTOM) {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height()+1);

@@ -8,6 +8,7 @@ import com.example.emil.app.R;
 
 import java.util.HashMap;
 
+import Game.InAnimates.BigBlock;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
@@ -46,6 +47,7 @@ public class IDHandler {
             put(StandardBlock.class, IDs.STANDARDBLOCK);
             put(Fire.class, IDs.FIRE);
             put(Goal.class, IDs.GOAL);
+            put(BigBlock.class, IDs.BIGBLOCK);
         }
     };
 
@@ -70,6 +72,9 @@ public class IDHandler {
 
         IDHandler.bitmaps[IDs.STANDARDBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.block2, options);
         IDHandler.sheets[IDs.STANDARDBLOCK.ordinal()] = new SpriteSheet(IDs.STANDARDBLOCK, 20, 20);
+
+        IDHandler.bitmaps[IDs.BIGBLOCK.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.big_block, options);
+        IDHandler.sheets[IDs.BIGBLOCK.ordinal()] = new SpriteSheet(IDs.BIGBLOCK, 20, 20);
 
         IDHandler.bitmaps[IDs.FIRE.ordinal()] = BitmapFactory.decodeResource(gA.getResources(), R.drawable.fire_sprite, options);
         IDHandler.sheets[IDs.FIRE.ordinal()] = new SpriteSheet(IDs.FIRE, 20, 20);
