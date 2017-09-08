@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public class AnimationInfo {
 
+    public final static int NO_ANIMATION = -1;
     public final static int DEFAULT = 0;
     public final static int RUNNING = 1;
     public final static int JUMPING_LEFT = 2;

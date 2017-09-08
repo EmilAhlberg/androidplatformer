@@ -4,13 +4,12 @@ package Game;
         import android.graphics.Point;
         import android.graphics.Rect;
 
-        import Game.Draw.AnimatedSprite;
+        import Game.Draw.NormalSprite;
         import Game.Draw.AnimationInfo;
         import Game.Draw.IDHandler;
         import Game.Draw.ID;
         import Game.Draw.Sprite;
         import Game.Draw.BigSprite;
-        import Game.InAnimates.Block;
 
 
 /**
@@ -27,7 +26,7 @@ public abstract class GameObject {
     public GameObject(Point p) {
         this.id = IDHandler.getID(this.getClass());
         this.rect = new Rect(p.x, p.y, p.x + Stats.width(id), p.y + Stats.height(id));
-        sprite = new AnimatedSprite(id);
+        sprite = new NormalSprite(id);
     }
 
     public GameObject(Point p, int nbrBlocks, boolean horizontal) {
@@ -45,7 +44,7 @@ public abstract class GameObject {
      * @param x x coordinate
      * @param y y coordinate
      */
-    public void moveTo(double x, double y) {                            // typisk movermetod?
+    public void moveTo(double x, double y) {
         rect.offset((int)(x - rect.left), (int)(y - rect.top));
     }
 

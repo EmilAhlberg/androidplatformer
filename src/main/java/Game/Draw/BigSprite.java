@@ -16,11 +16,11 @@ public class BigSprite extends Sprite {
     private boolean horizontal;
     private boolean remainder;
     private final int maxNbr = 10; // size of sprite sheet matrix
+    private int nbrBlocksMod;
 
     public BigSprite(ID id, int nbrBlocks, boolean horizontal, Rect object) {
         super(id);
         this.horizontal = horizontal;
-//        this.nbrBlocks = nbrBlocks;
         remainder = !(nbrBlocks%maxNbr == 0);
         if (remainder)
             destinations = new Rect[nbrBlocks/maxNbr + 1];
@@ -34,7 +34,7 @@ public class BigSprite extends Sprite {
         int y = 0;
         int width = sheet.getWidth();
         int height = sheet.getHeight();
-        int nbrBlocksMod = nbrBlocks % maxNbr;
+        nbrBlocksMod = nbrBlocks % maxNbr;
         int blocksLeft = nbrBlocks;
 
         //destination rectangles for maximal size sprites
@@ -75,15 +75,52 @@ public class BigSprite extends Sprite {
      */
     @Override
     public void draw(Canvas canvas, Rect destination, int animationType) {
-         for (int i = 0; i<destinations.length; i++) {
-             if (remainder && i == destinations.length -1)
-                 canvas.drawBitmap(sheet.getBitmap(), srcRemainder, destinations[i], null);
-             else
-                 canvas.drawBitmap(sheet.getBitmap(), srcFull, destinations[i], null);
-         }
+        if (animationType != AnimationInfo.NO_ANIMATION) {
+            if (animationType != oldAnimationType) {
+                currentCol = 0;
+                currentRow = 0;
+                animationCounter = 0;
+            }
+            animate(animationType);
 
+        }
+        for (int i = 0; i<destinations.length; i++) {
+            if (remainder && i == destinations.length -1)
+                canvas.drawBitmap(sheet.getBitmap(), srcRemainder, destinations[i], null);
+            else
+                canvas.drawBitmap(sheet.getBitmap(), srcFull, destinations[i], null);
+        }
 
+    }
 
+    private void animate(int animationType) {
+        int width = sheet.getWidth();
+        int height = sheet.getHeight();
+        if (horizontal) {
+            srcFull.set(currentCol*width, currentRow*height,currentCol*width + maxNbr*width, currentRow*height + height);
+            srcRemainder.set(currentCol*width, currentRow*height,currentCol*width + nbrBlocksMod*width, currentRow*height + height);
+        }
+        else {
+            srcFull.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height * maxNbr);
+            srcRemainder.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + nbrBlocksMod * height);
+        }
+
+        if (animationCounter == animationThreshold) {
+            animationCounter = 0;
+
+            AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
+            if (horizontal)
+                currentRow++;
+            else
+                currentCol++;
+
+            if (currentCol == maxNbr - 1)
+                currentCol = 0;
+            if (currentRow == maxNbr - 1)
+                currentRow = 0;
+        }
+        animationCounter++;
+        oldAnimationType = animationType;
     }
 
 
