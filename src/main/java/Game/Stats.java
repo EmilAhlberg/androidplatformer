@@ -10,6 +10,8 @@ import Game.Draw.ID;
 
 public class Stats {
 
+    private final static int DEFAULT = 0;
+
     private static HashMap<ID, Integer> width = new HashMap<ID, Integer>() {
         {
             put(ID.PLAYER, 20);
@@ -48,14 +50,20 @@ public class Stats {
 
 
     public static int width(ID id) {
-        return width.get(id);
+        if (width.containsKey(id))
+            return width.get(id);
+        return DEFAULT;
     }
 
     public static int height(ID id) {
-        return height.get(id);
+        if (height.containsKey(id))
+            return height.get(id);
+        return DEFAULT;
     }
 
     public static double friction(ID id) {
-        return friction.get(id);
+        if (friction.containsKey(id))
+            return friction.get(id);
+        return DEFAULT;
     }
 }

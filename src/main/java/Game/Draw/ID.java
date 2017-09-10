@@ -6,8 +6,8 @@ package Game.Draw;
  * HOW TO ADD NEW SPRITES:
  *      1. Add drawable to res/drawable folder.
  *      2. Add object ID to this enum list.
- *      3. Add drawable to IDHandler drawable list, method loadDrawables(), in GameActivity class.
- *      4. Make according additions to class IDHandler's typeToID hashmap.
+ *      3. Add drawable to IDHandler spriteSheet list, method loadDrawables(), in GameActivity class.
+ *      4. Make according additions to class IDHandler's typeToID HashMap.
  *      5. gg
  *
  *
@@ -20,7 +20,7 @@ public enum ID {
     PLAYER,
     FIRE,
 
-    //Objects after Block will not be animated. Block should be first item following this comment.
+
     BLOCK,
     GOAL,
 }

@@ -10,7 +10,7 @@ import com.example.emil.app.R;
 
 public class ActivityHandler extends AppActivity {
 
-    private AnimationDrawable bkgAnimation;
+//    private AnimationDrawable bkgAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class ActivityHandler extends AppActivity {
         setContentView(R.layout.activity_splash_screen);
         View v = findViewById(R.id.activity_splash_screen);
         v.setBackgroundResource(R.drawable.bkg_load_animation);
-        bkgAnimation = (AnimationDrawable) v.getBackground();
+        //bkgAnimation = (AnimationDrawable) v.getBackground();
     }
 
     @Override
@@ -45,10 +45,10 @@ public class ActivityHandler extends AppActivity {
     /*
        Called immediately after onCreate. Can't start background animation sooner.
     */
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        bkgAnimation.start();
-    }
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        bkgAnimation.start();
+//    }
 
     private Intent createIntent(Bundle extras) {
         int activity = extras.getInt("ActivityConstant");

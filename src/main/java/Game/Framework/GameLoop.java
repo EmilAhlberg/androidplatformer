@@ -40,7 +40,9 @@ public class GameLoop extends Thread {
         game.updateWorld();
         //Log.d("updateLoop", "Update world: " + (System.currentTimeMillis() - millis));
         //millis = System.currentTimeMillis();
-        game.drawWorld();
+
+        //game.drawWorld();
+
         //Log.d("updateLoop", "Draw world: " + (System.currentTimeMillis() - millis));
         //millis = System.currentTimeMillis();
         Message m = handler.obtainMessage();

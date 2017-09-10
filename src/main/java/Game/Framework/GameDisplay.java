@@ -22,8 +22,8 @@ public class GameDisplay {
     private Canvas canvas;
     //private Drawable backgroundImage;
     private Background bkg;
-    public static int WINDOW_WIDTH;
-    public static int WINDOW_HEIGHT;
+    public static int WINDOW_WIDTH = 800;
+    public static int WINDOW_HEIGHT = 480;
 
     public GameDisplay(GameActivity gameActivity, LinearLayout ll) {
         bitmap = Bitmap.createBitmap(800, 480, Bitmap.Config.RGB_565);
@@ -33,8 +33,10 @@ public class GameDisplay {
         //ll.setBackgroundResource(R.drawable.bkg_load_animation);
         bkg = new Background(BitmapFactory.decodeResource(gameActivity.getResources(), R.drawable.bkg_game));
 
-        WINDOW_WIDTH = getCanvas().getWidth();
-        WINDOW_HEIGHT = getCanvas().getHeight();
+//        WINDOW_WIDTH = getCanvas().getWidth();    !!!!!!!!!!!!
+//        WINDOW_HEIGHT = getCanvas().getHeight();  !!!!!!
+
+
     }
 
     public void beginDraw(Point p) {
@@ -46,6 +48,7 @@ public class GameDisplay {
         bkg.draw(canvas);
         //backgroundImage.draw(canvas);
         //bkgAnimation.draw(canvas);
+
     }
 
     public void endDraw() {
