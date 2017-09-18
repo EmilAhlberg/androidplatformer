@@ -20,6 +20,11 @@ import Game.Movers.Player;
 
 public class World {
 
+    public final static int MAP_WIDTH = 2000;
+    public final static int MAP_HEIGHT = 1000;
+    public final static int WINDOW_WIDTH = 800;
+    public final static int WINDOW_HEIGHT = 480;
+
     private Player player;
     private Container blocks;
     private Container hazards;

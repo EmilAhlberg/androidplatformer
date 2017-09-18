@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import Game.Draw.AnimationInfo;
-import Game.Framework.GameDisplay;
 import Game.Framework.World;
 import Game.GameObject;
 //import Game.InAnimates.Hazard;
@@ -57,7 +56,7 @@ public class Player extends Collider {
         if (fingers == 0) {
             animationType = AnimationInfo.DEFAULT;
         } else {
-            double temp = clickPos.x - GameDisplay.WINDOW_WIDTH/2;
+            double temp = clickPos.x - World.WINDOW_WIDTH/2;
             double force = X_FORCE * temp / Math.abs(temp);
             if (wallJumpCounter > 0) {
                 if (force * mh.horizontalSpeed > 0) {

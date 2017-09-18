@@ -5,7 +5,8 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import Game.Framework.GameDisplay;
+import Game.Framework.World;
+
 
 /**
  * Created by Emil on 2016-11-27.
@@ -64,8 +65,8 @@ public class TouchEventDecoder {
             }
         }
 
-        firstClickPos = new Point(firstClickPos.x * GameDisplay.WINDOW_WIDTH / p.x, firstClickPos.y * GameDisplay.WINDOW_HEIGHT / p.y);
-        secondClickPos = new Point(secondClickPos.x * GameDisplay.WINDOW_WIDTH / p.x, secondClickPos.y * GameDisplay.WINDOW_HEIGHT / p.y);
+        firstClickPos = new Point(firstClickPos.x * World.WINDOW_WIDTH / p.x, firstClickPos.y * World.WINDOW_HEIGHT / p.y);
+        secondClickPos = new Point(secondClickPos.x * World.WINDOW_WIDTH / p.x, secondClickPos.y * World.WINDOW_HEIGHT / p.y);
 
         //Log.d("MultiTouch", "FirstClickPos = (" + firstClickPos.getX() + ", " + firstClickPos.getY() + ")" + " : SecondClickPos = (" + secondClickPos.getX() + ", " + secondClickPos.getY() + ")");
 

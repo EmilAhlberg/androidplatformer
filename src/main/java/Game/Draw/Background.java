@@ -3,8 +3,6 @@ package Game.Draw;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import Game.Framework.GameDisplay;
-
 /**
  * Created by Emil on 31/08/2017.
  */
