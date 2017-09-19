@@ -3,7 +3,7 @@
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
-* Generell bigObject-hantering i levelCreator, block läggs ihop, fire har stöd för big-Object, men behöver räknas i levelCreator.
+* Generell bigObject-hantering i levelCreator. Finns stöd för block läggs ihop, fire behöver dock "räknas", nice om det går med generell lösning för framtida bigObjects.
 
 * Fixa till gameLoop-tråden
 
