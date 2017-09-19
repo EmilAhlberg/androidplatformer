@@ -29,6 +29,7 @@ public class World {
     private Container blocks;
     private Container hazards;
     private Container interactives;
+    private Container enemies;
     private CollisionHandler ch;
 
     private GameActivity gameActivity;
@@ -42,6 +43,8 @@ public class World {
         blocks = LevelCreator.getBlocks();
         hazards = LevelCreator.getHazards();
         interactives = LevelCreator.getInteractives();
+        enemies = LevelCreator.getEnemies();
+
         //enemies = LevelCreator.getEnemies();
 
         ch = new CollisionHandler();
@@ -49,14 +52,14 @@ public class World {
 
     public void update() {
         player.update();
-        //enemies.update();
+        enemies.update();
 
-        ch.handleAllCollisions(player, blocks, hazards, interactives);
+        ch.handleAllCollisions(player, blocks, hazards, interactives, enemies);
     }
 
     public void draw(Canvas canvas) {
         player.draw(canvas);
-        //enemies.draw(canvas);
+        enemies.draw(canvas, player.getRect()); //rect param redundant atm
         blocks.draw(canvas, player.getRect());
         hazards.draw(canvas, player.getRect());
         interactives.draw(canvas, player.getRect());

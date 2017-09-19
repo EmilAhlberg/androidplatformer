@@ -18,6 +18,7 @@ public class Stats {
             put(ID.BLOCK, 20);
             put(ID.FIRE, 20);
             put(ID.GOAL, 40);
+            put(ID.CAT, 20);
         }
     };
 
@@ -27,6 +28,7 @@ public class Stats {
             put(ID.BLOCK, 20);
             put(ID.FIRE, 16);
             put(ID.GOAL, 40);
+            put(ID.CAT, 20);
         }
     };
 

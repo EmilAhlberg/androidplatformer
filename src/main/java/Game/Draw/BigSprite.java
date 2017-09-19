@@ -5,6 +5,7 @@ import android.graphics.Rect;
 
 /**
  * Sprite representative of small objects, mashed together.
+ *
  * Created by Emil on 02/09/2017.
  */
 

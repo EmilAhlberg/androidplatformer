@@ -15,6 +15,7 @@ import Game.Draw.ID;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
+import Game.Movers.Cat;
 import Game.Movers.Player;
 
 /**
@@ -27,6 +28,7 @@ public class LevelCreator {
     private static Container blocks;
     private static Container hazards;
     private static Container interactives;
+    private static Container enemies;
     //private static Container enemies;
 
     public static void createLevel(GameActivity ga, int level) {
@@ -35,8 +37,41 @@ public class LevelCreator {
         ArrayList<GameObject> bs = new ArrayList<>();
         ArrayList<GameObject> hs = new ArrayList<>();
         ArrayList<GameObject> is = new ArrayList<>();
+        ArrayList<GameObject> es = new ArrayList<>();
 
         //Create and add the big blocks
+        constructBigObjects(mapString, bs);
+        Point p;
+
+        //enemies = new Container();
+        for (int i = 0; i < mapString.length; i++) {
+            for (int k = 0; k < mapString[i].length(); k++) {
+                p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
+                switch (mapString[i].charAt(k)) {
+                    case 'P':
+                        player = new Player(p);
+                        break;
+                    case 'F':
+                        p.y+= Stats.height(ID.BLOCK) - Stats.height(ID.FIRE);
+                        hs.add(new Fire(p, 1, false));
+                        break;
+                    case 'G':
+                        is.add(new Goal(p));
+                        break;
+                    case 'C':
+                        es.add(new Cat(p));
+                        break;
+                }
+            }
+        }
+
+        blocks = new Container(bs);
+        hazards = new Container(hs);
+        interactives = new Container(is);
+        enemies = new Container(es);
+    }
+
+    private static void constructBigObjects(String[] mapString, ArrayList<GameObject> bs) {
         int temp = 0;
         Point p = new Point(0, 0);
         for (int i = 0; i < mapString.length; i++) {
@@ -91,29 +126,6 @@ public class LevelCreator {
                 temp = 0;
             }
         }
-
-        //enemies = new Container();
-        for (int i = 0; i < mapString.length; i++) {
-            for (int k = 0; k < mapString[i].length(); k++) {
-                p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
-                switch (mapString[i].charAt(k)) {
-                    case 'P':
-                        player = new Player(p);
-                        break;
-                    case 'F':
-                        p.y+= Stats.height(ID.BLOCK) - Stats.height(ID.FIRE);
-                        hs.add(new Fire(p, 1, false));
-                        break;
-                    case 'G':
-                        is.add(new Goal(p));
-                        break;
-                }
-            }
-        }
-
-        blocks = new Container(bs);
-        hazards = new Container(hs);
-        interactives = new Container(is);
     }
 
     private static String[] getLevelArray(GameActivity ga, int level) {
@@ -179,5 +191,9 @@ public class LevelCreator {
 
     public static Player getPlayer() {
         return player;
+    }
+
+    public static Container getEnemies() {
+        return enemies;
     }
 }

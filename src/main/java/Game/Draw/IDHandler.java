@@ -11,6 +11,7 @@ import java.util.HashMap;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
+import Game.Movers.Cat;
 import Game.Movers.Player;
 import Game.Stats;
 
@@ -44,6 +45,7 @@ public class IDHandler {
             put(Block.class, ID.BLOCK);
             put(Fire.class, ID.FIRE);
             put(Goal.class, ID.GOAL);
+            put(Cat.class, ID.CAT);
         }
     };
 
@@ -61,6 +63,8 @@ public class IDHandler {
         IDHandler.sheets[ID.FIRE.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_fire, options), Stats.width(ID.FIRE), Stats.height(ID.FIRE));
 
         IDHandler.sheets[ID.GOAL.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_goal, options), Stats.width(ID.GOAL), Stats.height(ID.GOAL));
+
+        IDHandler.sheets[ID.CAT.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_block, options), Stats.width(ID.CAT), Stats.height(ID.CAT));
 
         AnimationInfo.initAnimationInfo();
     }
