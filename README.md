@@ -1,13 +1,30 @@
 #Fixlist:#
-Kollisionshanteringen funkar bara ~99.9% av gångerna. Inget allvarligt fel, bara att upplevelsen inte blir lika nice.
 
-Fixa så man inte accelererar när man glider nedåt mot en vägg
 
+* Fixa så man inte accelererar när man glider nedåt mot en vägg
+
+* Generell bigObject-hantering i levelCreator, block läggs ihop, fire har stöd för big-Object, men behöver räknas i levelCreator.
+
+* Fixa till gameLoop-tråden
+
+* Konstig respons på touchEvents, får ibland delay?
+
+
+
+###DONE:###
 Mer generell bigblock/bighazard + effektivare uppritning med större bitmap
 
-Fixa till gameLoop-tråden
+Kollisionshanteringen funkar bara ~99.9% av gångerna. Inget allvarligt fel, bara att upplevelsen inte blir lika nice.  //borde fungera 100% nu?
+
+
+
+
 
 ##Refactoring suggestions ##
+
+* Hårdkodning. Förslag: efter varje hårdkodad variabel som tilldelas hittats, markera med typ //!! (enklare att hitta och fixa senare).
+
+* Lösa snyggare infoutbyte mellan levelcreator - world, slippa läcka info med många statiska get-metoder.
 
 
 
