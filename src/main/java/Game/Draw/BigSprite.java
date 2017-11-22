@@ -98,8 +98,10 @@ public class BigSprite extends Sprite {
         int width = sheet.getWidth();
         int height = sheet.getHeight();
         if (horizontal) {
-            srcFull.set(currentCol*width, currentRow*height,currentCol*width + maxNbr*width, currentRow*height + height);
-            srcRemainder.set(currentCol*width, currentRow*height,currentCol*width + nbrBlocksMod*width, currentRow*height + height);
+//            srcFull.set(currentCol*width, currentRow*height,currentCol*width + maxNbr*width, currentRow*height + height);
+//            srcRemainder.set(currentCol*width, currentRow*height,currentCol*width + nbrBlocksMod*width, currentRow*height + height);
+            srcFull.set(0, currentRow*height, maxNbr*width, currentRow*height + height);
+            srcRemainder.set(0, currentRow*height, nbrBlocksMod*width, currentRow*height + height);
         }
         else {
             srcFull.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height * maxNbr);
@@ -109,16 +111,17 @@ public class BigSprite extends Sprite {
         if (animationCounter == animationThreshold) {
             animationCounter = 0;
 
-            AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
+            //AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
             if (horizontal)
-                currentRow++;
+                currentRow = ++currentRow % maxNbr;
             else
-                currentCol++;
+                currentCol = ++currentCol % maxNbr;
 
-            if (currentCol == maxNbr - 1)
-                currentCol = 0;
-            if (currentRow == maxNbr - 1)
-                currentRow = 0;
+
+//            if (currentCol == maxNbr - 1)
+//                currentCol = 0;
+//            if (currentRow == maxNbr - 1)
+//                currentRow = 0;
         }
         animationCounter++;
         oldAnimationType = animationType;

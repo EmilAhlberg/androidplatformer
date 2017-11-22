@@ -2,6 +2,7 @@ package Game.InAnimates;
 
 import android.graphics.Point;
 
+import Game.Draw.AnimationInfo;
 import Game.GameObject;
 
 /**
@@ -11,9 +12,9 @@ import Game.GameObject;
 public class Fire extends GameObject{
 
 
-    public Fire(Point p, int nbrFires, boolean horizontal)
-    {
+    public Fire(Point p, int nbrFires, boolean horizontal) {
         super(p, nbrFires, horizontal);
+        animationType = AnimationInfo.DEFAULT;
     }
 
 

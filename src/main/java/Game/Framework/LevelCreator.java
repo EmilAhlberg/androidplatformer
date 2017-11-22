@@ -39,8 +39,15 @@ public class LevelCreator {
         ArrayList<GameObject> is = new ArrayList<>();
         ArrayList<GameObject> es = new ArrayList<>();
 
+
+        //Possible multithread / performance optimization here
         //Create and add the big blocks
-        constructBigObjects(mapString, bs);
+        constructBigObjects(mapString, bs, ID.BLOCK);
+        //Create and add the big fires
+        constructBigObjects(mapString, hs, ID.FIRE);
+
+
+
         Point p;
 
         //enemies = new Container();
@@ -51,10 +58,10 @@ public class LevelCreator {
                     case 'P':
                         player = new Player(p);
                         break;
-                    case 'F':
-                        p.y+= Stats.height(ID.BLOCK) - Stats.height(ID.FIRE);
-                        hs.add(new Fire(p, 1, false));
-                        break;
+//                    case 'F':
+//                        p.y+= Stats.height(ID.BLOCK) - Stats.height(ID.FIRE);
+//                        hs.add(new Fire(p, 1, false));
+//                        break;
                     case 'G':
                         is.add(new Goal(p));
                         break;
@@ -71,25 +78,25 @@ public class LevelCreator {
         enemies = new Container(es);
     }
 
-    private static void constructBigObjects(String[] mapString, ArrayList<GameObject> bs) {
-        int temp = 0;
+    private static void constructBigObjects(String[] mapString, ArrayList<GameObject> list, ID id) {
+        int currentSize = 0;
         Point p = new Point(0, 0);
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
-                if (mapString[i].charAt(k) == 'B') {
-                    if (temp == 0)
-                        p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK));
-                    temp++;
-                } else if (temp > 0) {
-                    if (temp > 1)
-                        bs.add(new Block(p, temp, true));
-                    temp = 0;
+                if (mapString[i].charAt(k) == Stats.symbol(id)) {
+                    if (currentSize == 0)
+                        p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //blocks constitutes the minimum grid! has to scale correctly to txt
+                    currentSize++;
+                } else if (currentSize > 0) {
+                    if (currentSize > 1)
+                        list.add(factory(p, currentSize, true, id));
+                    currentSize = 0;
                 }
             }
-            if (temp > 0) {
-                if (temp > 1)
-                    bs.add(new Block(p, temp, true));
-                temp = 0;
+            if (currentSize > 0) {
+                if (currentSize > 1)
+                    list.add(factory(p, currentSize, true, id));
+                currentSize = 0;
             }
         }
 
@@ -105,28 +112,45 @@ public class LevelCreator {
         for (int i = 0; i < max; i++) {
             for (int k = 0; k < mapString.length; k++) {
                 if (i < lengths[k]) {
-                    if (mapString[k].charAt(i) == 'B') {
-                        if (temp == 0)
-                            p = new Point((i-1) * Stats.width(ID.BLOCK), k * Stats.height(ID.BLOCK));
-                        temp++;
-                    } else if (temp > 0) {
-                        if (temp > 1)
-                            bs.add(new Block(p, temp, false));
-                        temp = 0;
+                    if (mapString[k].charAt(i) == Stats.symbol(id)) {
+                        if (currentSize == 0)
+                            p = new Point((i-1) * Stats.width(ID.BLOCK), k * Stats.height(ID.BLOCK));   //blocks constitutes the minimum grid!
+                        currentSize++;
+                    } else if (currentSize > 0) {
+                        if (currentSize > 1)
+                            list.add(factory(p, currentSize, false, id));
+                        currentSize = 0;
                     }
-                } else if (temp > 0) {
-                    if (temp > 1)
-                        bs.add(new Block(p, temp, false));
-                    temp = 0;
+                } else if (currentSize > 0) {
+                    if (currentSize > 1)
+                        list.add(factory(p, currentSize, false, id));
+                    currentSize = 0;
                 }
             }
-            if (temp > 0) {
-                if (temp > 1)
-                    bs.add(new Block(p, temp, false));
-                temp = 0;
+            if (currentSize > 0) {
+                if (currentSize > 1)
+                    list.add(factory(p, currentSize, false, id));
+                currentSize = 0;
             }
         }
     }
+
+    private static GameObject factory(Point p, int currentSize, boolean orientation, ID id) {
+        GameObject g = null;
+        switch (id) {
+            case BLOCK:
+                g = new Block(p,currentSize,orientation);
+                break;
+            case FIRE:
+                g = new Fire(p,currentSize,orientation);
+                break;
+        }
+        return g;
+    }
+
+
+
+
 
     private static String[] getLevelArray(GameActivity ga, int level) {
         String[] map;

@@ -26,9 +26,19 @@ public class Stats {
         {
             put(ID.PLAYER, 30);
             put(ID.BLOCK, 20);
-            put(ID.FIRE, 16);
+            put(ID.FIRE, 20);
             put(ID.GOAL, 40);
             put(ID.CAT, 20);
+        }
+    };
+
+    private static HashMap<ID, Character> symbol = new HashMap<ID, Character>() {
+        {
+            put(ID.PLAYER,'P');
+            put(ID.BLOCK, 'B');
+            put(ID.FIRE, 'F');
+            put(ID.GOAL, 'G');
+            put(ID.CAT, 'C');
         }
     };
 
@@ -67,5 +77,11 @@ public class Stats {
         if (friction.containsKey(id))
             return friction.get(id);
         return DEFAULT;
+    }
+
+    public static char symbol(ID id) {
+        if (symbol.containsKey(id))
+            return symbol.get(id);
+        return '!';
     }
 }

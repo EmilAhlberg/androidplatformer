@@ -29,13 +29,13 @@ public abstract class GameObject {
         sprite = new NormalSprite(id);
     }
 
-    public GameObject(Point p, int nbrBlocks, boolean horizontal) {
+    public GameObject(Point p, int currentSize, boolean horizontal) {
         this.id = IDHandler.getID(this.getClass());
         if (horizontal)
-            this.rect = new Rect(p.x, p.y, p.x + Stats.width(id)*nbrBlocks, p.y+ Stats.height(id));
+            this.rect = new Rect(p.x, p.y, p.x + Stats.width(id)*currentSize, p.y+ Stats.height(id));      //must be changed to minimum grid size (block) to make things even
         else
-            this.rect = new Rect(p.x, p.y, p.x + Stats.width(id), p.y+ Stats.height(id)*nbrBlocks);
-        sprite = new BigSprite(id,nbrBlocks, horizontal, rect);
+            this.rect = new Rect(p.x, p.y, p.x + Stats.width(id), p.y+ Stats.height(id)*currentSize);      //must be changed to minimum grid size (block) to make things even
+        sprite = new BigSprite(id,currentSize, horizontal, rect);
 
     }
 
