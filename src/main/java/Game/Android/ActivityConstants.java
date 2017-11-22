@@ -1,4 +1,4 @@
-package com.example.emil.Framework;
+package Game.Android;
 
 /**
  * Created by Emil on 2016-12-22.

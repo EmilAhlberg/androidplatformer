@@ -55,17 +55,17 @@ public class CollisionHandler {
     public void handleAllCollisions(Player player, Container blocks, Container hazards, Container interactives, Container enemies) {
         player.grounded = false;
         player.friction = 0.2; //!
+        //player collisions
         handleCollisions(player, blocks.getObjects());
         handleCollisions(player, hazards.getObjects());
         handleCollisions(player, interactives.getObjects());
-        //when enemies are implemented
         handleCollisions(player, enemies.getObjects());
+        //remaining enemy collisions
         handleCollisions(enemies.getObjects(), blocks.getObjects());
 
     }
 
     class Pair {
-
         public GameObject g;
         public int area;
 

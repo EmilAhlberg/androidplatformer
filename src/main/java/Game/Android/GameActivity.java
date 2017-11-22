@@ -1,4 +1,4 @@
-package com.example.emil.Framework;
+package Game.Android;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;

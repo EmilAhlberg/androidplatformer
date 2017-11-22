@@ -1,4 +1,4 @@
-package com.example.emil.Framework;
+package Game.Android;
 
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;

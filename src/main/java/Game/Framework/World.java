@@ -1,15 +1,10 @@
 package Game.Framework;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.emil.Framework.GameActivity;
+import Game.Android.GameActivity;
 
 import Game.Container;
 import Game.Movers.Player;

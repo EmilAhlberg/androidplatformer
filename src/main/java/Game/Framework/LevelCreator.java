@@ -2,7 +2,7 @@ package Game.Framework;
 
 import android.graphics.Point;
 
-import com.example.emil.Framework.GameActivity;
+import Game.Android.GameActivity;
 import com.example.emil.app.R;
 import Game.*;
 import java.io.BufferedReader;

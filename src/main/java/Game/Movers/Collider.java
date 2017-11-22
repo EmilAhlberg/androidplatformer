@@ -3,6 +3,7 @@ package Game.Movers;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+import Game.Draw.ID;
 import Game.GameObject;
 import Game.InAnimates.Block;
 
@@ -112,8 +113,11 @@ public abstract class Collider extends Mover {
     }
 
     public void collision(int collisionType, GameObject g) {
-        if (g instanceof Block) //typ
-            handleBlockCollision(collisionType, (Block)g);
+        if (g instanceof Block) { //typ
+            handleBlockCollision(collisionType, (Block) g);
+            if (id == ID.CAT)
+                handleCollision(collisionType, g);
+        }
         else
             handleCollision(collisionType, g);
 

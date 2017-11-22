@@ -2,9 +2,8 @@ package Game.Framework;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
-import com.example.emil.Framework.GameActivity;
+import Game.Android.GameActivity;
 
 /**
  * Created by Emil on 2016-11-04.

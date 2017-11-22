@@ -1,7 +1,6 @@
-package com.example.emil.Framework;
+package Game.Android;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

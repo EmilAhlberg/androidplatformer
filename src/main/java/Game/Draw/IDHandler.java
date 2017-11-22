@@ -3,7 +3,7 @@ package Game.Draw;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.example.emil.Framework.GameActivity;
+import Game.Android.GameActivity;
 import com.example.emil.app.R;
 
 import java.util.HashMap;

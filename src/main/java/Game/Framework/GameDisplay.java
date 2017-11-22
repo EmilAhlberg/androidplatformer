@@ -7,7 +7,7 @@
 //import android.graphics.Rect;
 //import android.widget.LinearLayout;
 //
-//import com.example.emil.Framework.GameActivity;
+//import Game.Android.GameActivity;
 //import com.example.emil.app.R;
 //
 //import Game.Draw.Background;
