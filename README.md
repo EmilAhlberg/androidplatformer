@@ -3,15 +3,24 @@
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
-* Generell bigObject-hantering i levelCreator. Finns stöd för block läggs ihop, fire behöver dock "räknas", nice om det går med generell lösning för framtida bigObjects.
+* Particles class!
 
-* Fixa till gameLoop-tråden
+* Fixa till gameLoop-tråden?
 
-* Konstig respons på touchEvents, får ibland delay?
+* Skapa en klass GameTime, vilken synkar alla updates? (updateras i gameLoop, parameter ned till alla klasser via world.update(gameTime); ) 
+
+* Musik och ljud! (yeah)
+
+* Rullande / statisk / annan animerad bakgrund ?
+
+
+
 
 
 
 ###DONE:###
+Generell bigObject-hantering i levelCreator.
+
 Mer generell bigblock/bighazard + effektivare uppritning med större bitmap
 
 Kollisionshanteringen funkar bara ~99.9% av gångerna. Inget allvarligt fel, bara att upplevelsen inte blir lika nice.  //borde fungera 100% nu?
@@ -35,8 +44,19 @@ Enemies
 
 Hazards
 
+Special moves
+
+Special levels (boss / timed levels)
+
+Story! (cut scene /  boss/enemy dialogue)
+
 ##Bugs##
 
+* Hantera telefonfunktioner; skärmsläckare / rotationer / home button / return button / etc
+
+* Konstig respons på touchEvents, får ibland delay?
+
+* Lagg vid switch från gameActivity
 
 
 ##Other fix##
