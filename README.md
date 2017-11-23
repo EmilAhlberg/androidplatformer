@@ -5,10 +5,16 @@
 
 * Particles class!
 
-
 * Fixa till gameLoop-tråden?
 
-* Konstig respons på touchEvents, får ibland delay?
+* Skapa en klass GameTime, vilken synkar alla updates? (updateras i gameLoop, parameter ned till alla klasser via world.update(gameTime); ) 
+
+* Musik och ljud! (yeah)
+
+* Rullande / statisk / annan animerad bakgrund ?
+
+
+
 
 
 
@@ -38,8 +44,19 @@ Enemies
 
 Hazards
 
+Special moves
+
+Special levels (boss / timed levels)
+
+Story! (cut scene /  boss/enemy dialogue)
+
 ##Bugs##
 
+* Hantera telefonfunktioner; skärmsläckare / rotationer / home button / return button / etc
+
+* Konstig respons på touchEvents, får ibland delay?
+
+* Lagg vid switch från gameActivity
 
 
 ##Other fix##
