@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import Game.Draw.AnimationInfo;
+import Game.Draw.Particles;
 import Game.Framework.World;
 import Game.GameObject;
 //import Game.InAnimates.Hazard;
@@ -78,6 +79,7 @@ public class Player extends Collider {
         if (fingers > 1) {
             if (grounded) {
                 jump(Y_FORCE);
+                Particles.createParticles(this.rect.centerX(), this.rect.centerY());     //!!!!!!!!!!!!!!!!!!!!!
                 grounded = false;
             } else if (wallJumpDirection != 0) {
                 wallJumpCounter = WALLJUMP_FRAMES;

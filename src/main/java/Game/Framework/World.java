@@ -4,9 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
 import Game.Android.GameActivity;
 
 import Game.Container;
+import Game.Draw.Particle;
+import Game.Draw.Particles;
 import Game.Movers.Player;
 
 /**
@@ -26,7 +30,6 @@ public class World {
     private Container interactives;
     private Container enemies;
     private CollisionHandler ch;
-
     private GameActivity gameActivity;
 
     //private Container enemies;
@@ -42,6 +45,9 @@ public class World {
 
         //enemies = LevelCreator.getEnemies();
 
+        //!!
+
+        //!!
         ch = new CollisionHandler();
     }
 
@@ -49,6 +55,7 @@ public class World {
         player.update();
         enemies.update();
 
+        Particles.update();
         ch.handleAllCollisions(player, blocks, hazards, interactives, enemies);
     }
 
@@ -58,6 +65,9 @@ public class World {
         blocks.draw(canvas, player.getRect());
         hazards.draw(canvas, player.getRect());
         interactives.draw(canvas, player.getRect());
+        Particles.draw(canvas);
+
+
     }
 
     public void gameOver() {
