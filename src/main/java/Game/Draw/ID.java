@@ -25,6 +25,12 @@ public enum ID {
 
     BLOCK,
     GOAL,
+
+
+    //particle effects!
+    JUMP,
+    EXPLOSION,
+
 }
 
 

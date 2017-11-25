@@ -19,6 +19,8 @@ public class Stats {
             put(ID.FIRE, 20);
             put(ID.GOAL, 40);
             put(ID.CAT, 20);
+            put(ID.EXPLOSION, 3);
+            put(ID.JUMP, 3);
         }
     };
 
@@ -29,6 +31,8 @@ public class Stats {
             put(ID.FIRE, 20);
             put(ID.GOAL, 40);
             put(ID.CAT, 20);
+            put(ID.EXPLOSION, 3);
+            put(ID.JUMP, 3);
         }
     };
 
@@ -48,15 +52,23 @@ public class Stats {
         }
     };
 
-    private static HashMap<ID, Integer> stuff = new HashMap<ID, Integer>() {
-        {
+//    private static HashMap<ID, Integer> particleSize = new HashMap<ID, Integer>() {
+//        {
+//
+//        }
+//    };
 
+    private static HashMap<ID, Integer> particleLife = new HashMap<ID, Integer>() {
+        {
+            put(ID.EXPLOSION, 20);
+            put(ID.JUMP, 10);
         }
     };
 
-    private static HashMap<ID, Integer> etc = new HashMap<ID, Integer>() {
+    private static HashMap<ID, Integer> particleSpeed = new HashMap<ID, Integer>() {
         {
-
+            put(ID.EXPLOSION, 2);
+            put(ID.JUMP, 2);
         }
     };
 
@@ -83,5 +95,21 @@ public class Stats {
         if (symbol.containsKey(id))
             return symbol.get(id);
         return '!';
+    }
+
+//    public static int particleSize(ID id) {
+//        if (particleSize.containsKey(id))
+//            return particleSize.get(id);
+//        return DEFAULT;
+//    }
+    public static int particleLife(ID id) {
+        if (particleLife.containsKey(id))
+            return particleLife.get(id);
+        return DEFAULT;
+    }
+    public static int particleSpeed(ID id) {
+        if (particleSpeed.containsKey(id))
+            return particleSpeed.get(id);
+        return DEFAULT;
     }
 }

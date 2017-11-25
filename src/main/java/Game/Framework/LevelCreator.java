@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Game.Draw.ID;
+import Game.Draw.Particles;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
@@ -39,18 +40,26 @@ public class LevelCreator {
         ArrayList<GameObject> is = new ArrayList<>();
         ArrayList<GameObject> es = new ArrayList<>();
 
+        //Should reset particles!
+        Particles.reset();
 
         //Possible multithread / performance optimization here
+
         //Create and add the big blocks
         constructBigObjects(mapString, bs, ID.BLOCK);
         //Create and add the big fires
         constructBigObjects(mapString, hs, ID.FIRE);
+        //Create and add other objects
+        constructSingleObjects(mapString, is, es);
 
+        blocks = new Container(bs);
+        hazards = new Container(hs);
+        interactives = new Container(is);
+        enemies = new Container(es);
+    }
 
-
+    private static void constructSingleObjects(String[] mapString, ArrayList<GameObject> is, ArrayList<GameObject> es){
         Point p;
-
-        //enemies = new Container();
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
                 p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
@@ -58,10 +67,6 @@ public class LevelCreator {
                     case 'P':
                         player = new Player(p);
                         break;
-//                    case 'F':
-//                        p.y+= Stats.height(ID.BLOCK) - Stats.height(ID.FIRE);
-//                        hs.add(new Fire(p, 1, false));
-//                        break;
                     case 'G':
                         is.add(new Goal(p));
                         break;
@@ -71,11 +76,6 @@ public class LevelCreator {
                 }
             }
         }
-
-        blocks = new Container(bs);
-        hazards = new Container(hs);
-        interactives = new Container(is);
-        enemies = new Container(es);
     }
 
     private static void constructBigObjects(String[] mapString, ArrayList<GameObject> list, ID id) {

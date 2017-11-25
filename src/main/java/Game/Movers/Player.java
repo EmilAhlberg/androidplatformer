@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import Game.Draw.AnimationInfo;
+import Game.Draw.ID;
 import Game.Draw.Particles;
 import Game.Framework.World;
 import Game.GameObject;
@@ -79,11 +80,12 @@ public class Player extends Collider {
         if (fingers > 1) {
             if (grounded) {
                 jump(Y_FORCE);
-                Particles.createParticles(this.rect.centerX(), this.rect.centerY());     //!!!!!!!!!!!!!!!!!!!!!
+                Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()), ID.JUMP);     //!!!!!!!!!!!!!!!!!!!!!
                 grounded = false;
             } else if (wallJumpDirection != 0) {
                 wallJumpCounter = WALLJUMP_FRAMES;
                 mh.applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
+                Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()), ID.JUMP);      //!!!!!!!!!!!!!!!!!!!!!
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();
             }
@@ -98,6 +100,7 @@ public class Player extends Collider {
                 mh.verticalSpeed = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
+                Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()),ID.EXPLOSION);
                 world.gameOver(); //Possible to change to lose lives or something instead of dying outright
             }
         } else if (g instanceof Goal) {

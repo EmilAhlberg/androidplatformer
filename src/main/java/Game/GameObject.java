@@ -19,7 +19,7 @@ package Game;
 public abstract class GameObject {
 
     protected Rect rect;
-    private Sprite sprite;
+    protected Sprite sprite;
     protected ID id;
     protected int animationType = AnimationInfo.DEFAULT;
 
@@ -41,8 +41,8 @@ public abstract class GameObject {
 
     /**
      * Moves the gameObject to the coordinates
-     * @param x x coordinate
-     * @param y y coordinate
+     * @param x x-coordinate
+     * @param y y-coordinate
      */
     public void moveTo(double x, double y) {
         rect.offset((int)(x - rect.left), (int)(y - rect.top));

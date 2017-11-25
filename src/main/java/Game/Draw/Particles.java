@@ -1,6 +1,7 @@
 package Game.Draw;
 
 import android.graphics.Canvas;
+import android.graphics.Point;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,42 +12,82 @@ import java.util.Iterator;
 
 public class Particles {
 
-
-    private static ArrayList<Particle> activeParticles = new ArrayList<Particle>();     //defragmented list probability!
+    private static int maxParticles = 100;
+    private static ArrayList<Particle> activeParticles = new ArrayList<Particle>() {
+        {
+            for (int i = 0; i < maxParticles; i++) {
+                add(new Particle());
+            }
+        }
+    };
 
     public static void update() {
         for (Iterator<Particle> it = activeParticles.iterator(); it.hasNext();) {
             Particle p = it.next();
-            p.update();
-            if (p.isFinished())
-               it.remove();                                               //defragmented list probability!
+            if (!p.isFinished())
+                p.update();
         }
     }
 
     public static void draw(Canvas canvas) {
         for (Iterator<Particle> it = activeParticles.iterator(); it.hasNext();) {
             Particle p = it.next();
-            p.draw(canvas);
+            if (!p.isFinished())
+                p.draw(canvas);
         }
     }
 
-    public static void createParticles(int x, int y) {
-        int number = 10;
-        double angle = 2* Math.PI / number;
+    public static void createParticles(Point p, ID id) {
+        switch (id) {
+            case JUMP:
+                createJump(p,id);
+                break;
+            case EXPLOSION:;
+                createExplosion(p,id);
+        }
+    }
+
+    private static void createExplosion(Point point, ID id) {
+        int nbrOfParticles = 10;
+        int currentNbr = 0;
+        double angle = 2* Math.PI / nbrOfParticles;
         double currentAngle = -Math.PI;
-        for (int i = 0; i<number; i++) {
-            float dx = (float) Math.cos(currentAngle);
-            float dy = (float) Math.sin(currentAngle);
-            activeParticles.add(new Particle(x,y,dx,dy,5, 100));                //concurrency-fel pga av surface-view? när kallas draw i förhållande till update -> kan inte ske samtidigt!!
-            currentAngle += angle;
-
+        for (int i = 0; i<maxParticles; i++) {
+            Particle p = activeParticles.get(i);
+            if (p.isFinished()) {
+                float dx = (float) Math.cos(currentAngle);
+                float dy = (float) Math.sin(currentAngle);
+                p.activate(point,dx,dy,id);
+                currentAngle += angle;
+                currentNbr++;
+            }
+            if (currentNbr == nbrOfParticles)
+                break;
         }
     }
 
-//    private static float calculateDy(double currentAngle) {
-//        return ;
-//    }
-//    private static float calculateDy(double currentAngle) {
-//        return;
-//    }
+    private static void createJump(Point point, ID id) {
+        int nbrOfParticles = 6;
+        int currentNbr = 0;
+        double angle = Math.PI / nbrOfParticles;
+        double currentAngle = angle/2;
+        for (int i = 0; i<maxParticles; i++) {
+            Particle p = activeParticles.get(i);
+            if (p.isFinished()) {
+                float dx = (float) Math.cos(currentAngle);
+                float dy = (float) Math.sin(currentAngle);
+                p.activate(point, dx,dy,id);
+                currentAngle += angle;
+                currentNbr++;
+            }
+            if (currentNbr == nbrOfParticles)
+                break;
+        }
+    }
+
+    public static void reset() {
+        for (Particle p: activeParticles) {
+            p.reset();
+        }
+    }
 }
