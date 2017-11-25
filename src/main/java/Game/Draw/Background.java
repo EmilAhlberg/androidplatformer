@@ -13,6 +13,10 @@ public class Background {
     private int x,y;
     private int scrollSpeed = 3;      //!
 
+    /**
+     * Creates the background of the game.
+     * @param bitmap The background image.
+     */
     public Background(Bitmap bitmap) {
         bkg = bitmap;
     }
@@ -24,6 +28,10 @@ public class Background {
             y = 0;
     }
 
+    /**
+     * Draws the background to the screen.
+     * @param canvas The canvas used in the game.
+     */
     public void draw (Canvas canvas) {
         update();
         canvas.drawBitmap(bkg, x, y, null);

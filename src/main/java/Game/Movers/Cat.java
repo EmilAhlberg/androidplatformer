@@ -2,7 +2,7 @@ package Game.Movers;
 
 import android.graphics.Point;
 
-import Game.Draw.ID;
+import Game.ObjectInformation.ID;
 import Game.GameObject;
 
 /**

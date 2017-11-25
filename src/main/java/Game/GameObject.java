@@ -6,10 +6,11 @@ package Game;
 
         import Game.Draw.NormalSprite;
         import Game.Draw.AnimationInfo;
-        import Game.Draw.IDHandler;
-        import Game.Draw.ID;
+        import Game.ObjectInformation.IDHandler;
+        import Game.ObjectInformation.ID;
         import Game.Draw.Sprite;
         import Game.Draw.BigSprite;
+        import Game.ObjectInformation.Stats;
 
 
 /**
@@ -23,12 +24,22 @@ public abstract class GameObject {
     protected ID id;
     protected int animationType = AnimationInfo.DEFAULT;
 
+    /**
+     * Creates a gameObject, represented by a NormalSprite.
+     * @param p The point where the object will be located.
+     */
     public GameObject(Point p) {
         this.id = IDHandler.getID(this.getClass());
         this.rect = new Rect(p.x, p.y, p.x + Stats.width(id), p.y + Stats.height(id));
         sprite = new NormalSprite(id);
     }
 
+    /**
+     * Creates a gameObject, represented by a BigSprite.
+     * @param p The point where the object will be located.
+     * @param currentSize The size of the BigSprite
+     * @param horizontal The orientation of the BigSprite. If horizontal is false, the orientation is vertical.
+     */
     public GameObject(Point p, int currentSize, boolean horizontal) {
         this.id = IDHandler.getID(this.getClass());
         if (horizontal)

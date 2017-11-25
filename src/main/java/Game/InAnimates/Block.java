@@ -4,7 +4,7 @@ import android.graphics.Point;
 
 import Game.Draw.AnimationInfo;
 import Game.GameObject;
-import Game.Stats;
+import Game.ObjectInformation.Stats;
 
 /**
  * Created by Emil on 9/1/2017.

@@ -1,8 +1,7 @@
 package Game.Util;
 
-import Game.Draw.ID;
-import Game.InAnimates.Block;
-import Game.Stats;
+import Game.ObjectInformation.ID;
+import Game.ObjectInformation.Stats;
 
 /**
  * Created by Emil on 8/29/2017.

@@ -1,11 +1,10 @@
 package Game.Movers;
 
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import Game.Draw.AnimationInfo;
-import Game.Draw.ID;
+import Game.ObjectInformation.ID;
 import Game.Draw.Particles;
 import Game.Framework.World;
 import Game.GameObject;

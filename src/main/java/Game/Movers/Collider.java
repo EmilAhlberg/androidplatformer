@@ -3,7 +3,7 @@ package Game.Movers;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import Game.Draw.ID;
+import Game.ObjectInformation.ID;
 import Game.GameObject;
 import Game.InAnimates.Block;
 

@@ -1,10 +1,9 @@
-package Game;
+package Game.ObjectInformation;
 
 import java.util.HashMap;
 
-import Game.Draw.ID;
-
 /**
+ * Class keeping track of hard-coded parameters.
  * Created by Emil on 08/09/2017.
  */
 
@@ -72,6 +71,11 @@ public class Stats {
         }
     };
 
+    /**
+     * Retrieves the width of an object based on object type
+     * @param id The type of object
+     * @return The width, if the ID was present, DEFAULT otherwise.
+     */
 
     public static int width(ID id) {
         if (width.containsKey(id))
@@ -79,11 +83,22 @@ public class Stats {
         return DEFAULT;
     }
 
+    /**
+     * Retrieves the height of an object based on object type
+     * @param id The type of object
+     * @return The height, if the ID was present, DEFAULT otherwise.
+     */
     public static int height(ID id) {
         if (height.containsKey(id))
             return height.get(id);
         return DEFAULT;
     }
+
+    /**
+     * Retrieves the friction of an object based on object type
+     * @param id The type of object.
+     * @return The friction, if the ID was present, DEFAULT otherwise.
+     */
 
     public static double friction(ID id) {
         if (friction.containsKey(id))
@@ -91,22 +106,34 @@ public class Stats {
         return DEFAULT;
     }
 
+    /**
+     * Retrieves the symbol of an object based on object type, used by LevelCreator in
+     * interpreting level xml-files.
+     * @param id The type of object.
+     * @return The symbol, if the ID was present, "!" otherwise.
+     */
     public static char symbol(ID id) {
         if (symbol.containsKey(id))
             return symbol.get(id);
         return '!';
     }
 
-//    public static int particleSize(ID id) {
-//        if (particleSize.containsKey(id))
-//            return particleSize.get(id);
-//        return DEFAULT;
-//    }
+    /**
+     * Retrieves the lifetime of a particle based on particle type.
+     * @param id The type of particle.
+     * @return The lifetime, if the ID was present, DEFAULT otherwise.
+     */
     public static int particleLife(ID id) {
         if (particleLife.containsKey(id))
             return particleLife.get(id);
         return DEFAULT;
     }
+
+    /**
+     * Retrieves the speed of a particle based on particle type.
+     * @param id The type of particle.
+     * @return The speed, if the ID was present, DEFAULT otherwise.
+     */
     public static int particleSpeed(ID id) {
         if (particleSpeed.containsKey(id))
             return particleSpeed.get(id);

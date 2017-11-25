@@ -18,7 +18,7 @@ import Game.Draw.Background;
 import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
-import Game.Draw.IDHandler;
+import Game.ObjectInformation.IDHandler;
 
 //NEW VERSION
 public class GameActivity extends AppActivity implements SurfaceHolder.Callback {

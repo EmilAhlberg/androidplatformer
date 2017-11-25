@@ -1,12 +1,12 @@
 package Game.Draw;
 
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
 import Game.Movers.Mover;
-import Game.Stats;
+import Game.ObjectInformation.ID;
+import Game.ObjectInformation.Stats;
 
 /**
  * Created by Emil on 23/11/2017.
@@ -37,6 +37,14 @@ public class Particle extends Mover {
         color.setColor(Color.RED);
     }
 
+    /**
+     * Activates an inactive particle.
+     * @param p The location where it will be activated
+     * @param dx A speed factor along the x-axis.
+     * @param dy A speed factor along the y-axis.
+     * @param id The type of particle desired.
+     */
+
     public void activate(Point p, float dx, float dy, ID id) {
         this.moveTo(p.x, p.y);
         sprite = new NormalSprite(id);
@@ -48,6 +56,9 @@ public class Particle extends Mover {
         color.setColor(Color.RED);
     }
 
+    /**
+     * Updates the particle.
+     */
     public void update(){
         move(dx, dy);
         life--;                     //make life time-based
@@ -57,10 +68,17 @@ public class Particle extends Mover {
 //        c.drawCircle(x,  y, size, color); //probably needs update
 //    }
 
-    public boolean isFinished() {
-        return life <= 0;
+    /**
+     * Check whether the particle is active or not.
+     * @return True if active, false otherwise.
+     */
+    public boolean isActive() {
+        return life >= 0;
     }
 
+    /**
+     * The particle will be inactivated.
+     */
     public void reset() {
         life = 0;
     }

@@ -11,13 +11,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import Game.Draw.ID;
+import Game.ObjectInformation.ID;
 import Game.Draw.Particles;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
 import Game.Movers.Cat;
 import Game.Movers.Player;
+import Game.ObjectInformation.Stats;
 
 /**
  * Created by Emil on 2016-11-22.

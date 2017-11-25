@@ -6,6 +6,8 @@ import android.graphics.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Game.ObjectInformation.ID;
+
 /**
  * Created by Emil on 23/11/2017.
  */
@@ -21,21 +23,33 @@ public class Particles {
         }
     };
 
+    /**
+     * Updates active particles.
+     */
     public static void update() {
         for (Iterator<Particle> it = activeParticles.iterator(); it.hasNext();) {
             Particle p = it.next();
-            if (!p.isFinished())
+            if (p.isActive())
                 p.update();
         }
     }
 
+    /**
+     * Draws active particles.
+     */
     public static void draw(Canvas canvas) {
         for (Iterator<Particle> it = activeParticles.iterator(); it.hasNext();) {
             Particle p = it.next();
-            if (!p.isFinished())
+            if (p.isActive())
                 p.draw(canvas);
         }
     }
+
+    /**
+     * Creates particles new particles based on location and id.
+     * @param p The location of the particles.
+     * @param id The type of particle.
+     */
 
     public static void createParticles(Point p, ID id) {
         switch (id) {
@@ -54,7 +68,7 @@ public class Particles {
         double currentAngle = -Math.PI;
         for (int i = 0; i<maxParticles; i++) {
             Particle p = activeParticles.get(i);
-            if (p.isFinished()) {
+            if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
                 p.activate(point,dx,dy,id);
@@ -73,7 +87,7 @@ public class Particles {
         double currentAngle = angle/2;
         for (int i = 0; i<maxParticles; i++) {
             Particle p = activeParticles.get(i);
-            if (p.isFinished()) {
+            if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
                 p.activate(point, dx,dy,id);
@@ -84,6 +98,10 @@ public class Particles {
                 break;
         }
     }
+
+    /**
+     * Resets all particles, turning them inactive.
+     */
 
     public static void reset() {
         for (Particle p: activeParticles) {

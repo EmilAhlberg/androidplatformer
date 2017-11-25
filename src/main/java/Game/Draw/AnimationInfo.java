@@ -2,6 +2,9 @@ package Game.Draw;
 
 import java.util.HashMap;
 
+import Game.ObjectInformation.ID;
+import Game.ObjectInformation.IDHandler;
+
 /**
  * This class defines which sprites in sheet that'll make up the animation.
  * Created by Emil on 01/09/2017.

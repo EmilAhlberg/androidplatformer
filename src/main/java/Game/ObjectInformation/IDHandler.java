@@ -1,4 +1,4 @@
-package Game.Draw;
+package Game.ObjectInformation;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,14 +8,16 @@ import com.example.emil.app.R;
 
 import java.util.HashMap;
 
+import Game.Draw.AnimationInfo;
+import Game.Draw.SpriteSheet;
 import Game.InAnimates.Block;
 import Game.InAnimates.Fire;
 import Game.InAnimates.Goal;
 import Game.Movers.Cat;
 import Game.Movers.Player;
-import Game.Stats;
 
 /**
+ * This class handles IDs. IDs are used to identify object types.
  * Created by Emil on 25/08/2017.
  */
 
@@ -49,6 +51,10 @@ public class IDHandler {
         }
     };
 
+    /**
+     * Initializes the images of the game.
+     * @param gA The GameActivity related to the game.
+     */
     public static void initialize(GameActivity gA) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;

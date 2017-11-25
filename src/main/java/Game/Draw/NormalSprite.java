@@ -3,6 +3,8 @@ package Game.Draw;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import Game.ObjectInformation.ID;
+
 /**
  * Created by Emil on 02/09/2017.
  */
@@ -12,6 +14,10 @@ public class NormalSprite extends Sprite {
 
     private Rect src;
 
+    /**
+     * Creates a NormalSprite.
+     * @param id The type of NormalSprite to be created.
+     */
     public NormalSprite(ID id) {
         super(id);
         src = new Rect(0,0,0,0);
@@ -30,6 +36,9 @@ public class NormalSprite extends Sprite {
     }
 
 
+    /*
+    Animates the NormalSprite according to the AnimationInfo of the type.
+     */
     private void animate(int animationType) {
         int width = sheet.getWidth();
         int height = sheet.getHeight();
