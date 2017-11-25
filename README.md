@@ -3,11 +3,9 @@
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
-* Particles class!
+* Fixa till gameLoop-tråden??? <--
 
-* Fixa till gameLoop-tråden?
-
-* Skapa en klass GameTime, vilken synkar alla updates? (updateras i gameLoop, parameter ned till alla klasser via world.update(gameTime); ) 
+* GameTime implementerad --> ändra alla counters till gameTime-typ (beroende av tiden, ej random counters)
 
 * Musik och ljud! (yeah)
 
@@ -19,6 +17,8 @@
 
 
 ###DONE:###
+* Particles framework implementerad!
+
 Generell bigObject-hantering i levelCreator.
 
 Mer generell bigblock/bighazard + effektivare uppritning med större bitmap
