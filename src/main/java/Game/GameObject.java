@@ -11,6 +11,7 @@ package Game;
         import Game.Draw.Sprite;
         import Game.Draw.BigSprite;
         import Game.ObjectInformation.Stats;
+        import Game.Util.GameTime;
 
 
 /**
@@ -68,7 +69,7 @@ public abstract class GameObject {
         rect.offset((int)x, (int)y);
     }
 
-    public abstract void update(); //this is required, but doesn't have to be implemented / called on blocks etc.
+    public abstract void update(GameTime gameTime); //this is required, but doesn't have to be implemented / called on blocks etc.
 
     public ID getID() {
         return id;
@@ -86,7 +87,7 @@ public abstract class GameObject {
      * Draws the object on the canvas
      * @param c Canvas to be drawn on
      */
-    public void draw(Canvas c) {
-        sprite.draw(c, rect, animationType);
+    public void draw(Canvas c, GameTime gameTime) {
+        sprite.draw(c, gameTime, rect, animationType);
     }
 }

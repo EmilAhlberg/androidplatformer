@@ -5,6 +5,7 @@ import android.graphics.Rect;
 
 import Game.Framework.World;
 import Game.GameObject;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 9/6/2017.
@@ -22,7 +23,7 @@ public class Goal extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(GameTime gameTime) {
         //BOMB -> ensures this is not used
         throw new NoSuchMethodError();
     }

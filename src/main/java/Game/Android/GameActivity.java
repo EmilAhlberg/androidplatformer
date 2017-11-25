@@ -19,6 +19,7 @@ import Game.Framework.GameLoop;
 import Game.Framework.LevelCreator;
 import Game.Framework.World;
 import Game.ObjectInformation.IDHandler;
+import Game.Util.GameTime;
 
 //NEW VERSION
 public class GameActivity extends AppActivity implements SurfaceHolder.Callback {
@@ -92,15 +93,15 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         finish();
     }
 
-    public void updateWorld() {
+    public void updateWorld(GameTime gameTime) {
         //handle gameTime here? if syncing with clock --> send timeParam to world.update
-        world.update();
+        world.update(gameTime);
     }
 
-    public void drawWorld(Canvas canvas) {
+    public void drawWorld(Canvas canvas, GameTime gameTime) {
         Rect r = LevelCreator.getPlayer().getRect();
         centerPlayer(r.left, r.top, canvas);
-        world.draw(canvas);
+        world.draw(canvas, gameTime);
     }
     private void centerPlayer(double x, double y, Canvas canvas) {
         Rect r = canvas.getClipBounds();
@@ -154,8 +155,9 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         if (canvas == null) {
             Log.e("", "Cannot draw onto the canvas as it's null");
         } else {
-            bkg.draw(canvas);
-            drawWorld(canvas);
+            GameTime gameTime = gameThread.getGameTime();
+            bkg.draw(canvas, gameTime);
+            drawWorld(canvas, gameTime);
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }

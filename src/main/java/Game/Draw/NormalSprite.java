@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import Game.ObjectInformation.ID;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 02/09/2017.
@@ -24,7 +25,7 @@ public class NormalSprite extends Sprite {
     }
 
     @Override
-    public void draw(Canvas canvas, Rect destination, int animationType) {
+    public void draw(Canvas canvas, GameTime gameTime, Rect destination, int animationType) {
         if (animationType != oldAnimationType) {
             AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
             currentCol = temp.getStartColumn();

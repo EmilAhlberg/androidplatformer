@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import Game.ObjectInformation.ID;
+import Game.Util.GameTime;
 
 /**
  * Sprite representative of small objects, mashed together.
@@ -87,7 +88,7 @@ public class BigSprite extends Sprite {
     }
 
     @Override
-    public void draw(Canvas canvas, Rect destination, int animationType) {
+    public void draw(Canvas canvas, GameTime gameTime, Rect destination, int animationType) {
         //handle animation
         if (animationType != AnimationInfo.NO_ANIMATION) {
             if (animationType != oldAnimationType) {

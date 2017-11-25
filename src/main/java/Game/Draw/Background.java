@@ -3,6 +3,8 @@ package Game.Draw;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import Game.Util.GameTime;
+
 /**
  * Created by Emil on 31/08/2017.
  */
@@ -32,7 +34,7 @@ public class Background {
      * Draws the background to the screen.
      * @param canvas The canvas used in the game.
      */
-    public void draw (Canvas canvas) {
+    public void draw (Canvas canvas, GameTime gameTime) {
         update();
         canvas.drawBitmap(bkg, x, y, null);
         if (y>0) {

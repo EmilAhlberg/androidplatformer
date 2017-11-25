@@ -5,6 +5,7 @@ import android.graphics.Rect;
 
 import Game.ObjectInformation.ID;
 import Game.ObjectInformation.IDHandler;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 01/09/2017.
@@ -29,5 +30,5 @@ public abstract class Sprite {
         this.id = id;
     }
 
-    public abstract void draw(Canvas canvas, Rect destination, int animationType);
+    public abstract void draw(Canvas canvas, GameTime gameTime, Rect destination, int animationType);
 }

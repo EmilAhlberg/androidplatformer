@@ -4,6 +4,7 @@ import android.graphics.Point;
 
 import Game.Draw.AnimationInfo;
 import Game.GameObject;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 9/2/2017.
@@ -20,7 +21,7 @@ public class Fire extends GameObject{
 
 
     @Override
-    public void update() {
+    public void update(GameTime gameTime) {
 
     }
 }

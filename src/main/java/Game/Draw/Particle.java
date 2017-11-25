@@ -7,6 +7,7 @@ import android.graphics.Point;
 import Game.Movers.Mover;
 import Game.ObjectInformation.ID;
 import Game.ObjectInformation.Stats;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 23/11/2017.
@@ -59,7 +60,7 @@ public class Particle extends Mover {
     /**
      * Updates the particle.
      */
-    public void update(){
+    public void update(GameTime gameTime){
         move(dx, dy);
         life--;                     //make life time-based
     }

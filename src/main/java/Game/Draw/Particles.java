@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Game.ObjectInformation.ID;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 23/11/2017.
@@ -26,22 +27,22 @@ public class Particles {
     /**
      * Updates active particles.
      */
-    public static void update() {
+    public static void update(GameTime gameTime) {
         for (Iterator<Particle> it = activeParticles.iterator(); it.hasNext();) {
             Particle p = it.next();
             if (p.isActive())
-                p.update();
+                p.update(gameTime);
         }
     }
 
     /**
      * Draws active particles.
      */
-    public static void draw(Canvas canvas) {
+    public static void draw(Canvas canvas, GameTime gameTime) {
         for (Iterator<Particle> it = activeParticles.iterator(); it.hasNext();) {
             Particle p = it.next();
             if (p.isActive())
-                p.draw(canvas);
+                p.draw(canvas, gameTime);
         }
     }
 

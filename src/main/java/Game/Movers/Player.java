@@ -12,6 +12,7 @@ import Game.GameObject;
 import Game.InAnimates.Fire;
 //import Game.InAnimates.Interactive;
 import Game.InAnimates.Goal;
+import Game.Util.GameTime;
 import Game.Util.TouchEventDecoder;
 
 /**
@@ -41,7 +42,7 @@ public class Player extends Collider {
     }
 
     @Override
-    public void update() {
+    public void update(GameTime gameTime) {
         performAction();
         mh.updateSpeed(friction, grounded);
         move(mh.horizontalSpeed, mh.verticalSpeed);

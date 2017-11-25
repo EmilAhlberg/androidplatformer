@@ -4,6 +4,7 @@ import android.graphics.Point;
 
 import Game.ObjectInformation.ID;
 import Game.GameObject;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 19/09/2017.
@@ -19,7 +20,7 @@ public class Cat extends Collider {
     }
 
     @Override
-    public void update() {
+    public void update(GameTime gameTime) {
         if(ground != null) {
             if (ground.getRect().right <= rect.right || ground.getRect().left >=rect.left)
                 tempSpeed = tempSpeed*-1;

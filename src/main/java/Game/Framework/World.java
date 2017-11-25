@@ -12,6 +12,7 @@ import Game.Container;
 import Game.Draw.Particle;
 import Game.Draw.Particles;
 import Game.Movers.Player;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 8/27/2017.
@@ -51,21 +52,21 @@ public class World {
         ch = new CollisionHandler();
     }
 
-    public void update() {
-        player.update();
-        enemies.update();
+    public void update(GameTime gameTime) {
+        player.update(gameTime);
+        enemies.update(gameTime);
 
-        Particles.update();
+        Particles.update(gameTime);
         ch.handleAllCollisions(player, blocks, hazards, interactives, enemies);
     }
 
-    public void draw(Canvas canvas) {
-        player.draw(canvas);
-        enemies.draw(canvas, player.getRect()); //rect param redundant atm
-        blocks.draw(canvas, player.getRect());
-        hazards.draw(canvas, player.getRect());
-        interactives.draw(canvas, player.getRect());
-        Particles.draw(canvas);
+    public void draw(Canvas canvas, GameTime gameTime) {
+        player.draw(canvas, gameTime);
+        enemies.draw(canvas, gameTime, player.getRect() ); //rect param redundant atm
+        blocks.draw(canvas, gameTime, player.getRect());
+        hazards.draw(canvas, gameTime, player.getRect());
+        interactives.draw(canvas, gameTime, player.getRect());
+        Particles.draw(canvas, gameTime);
 
 
     }

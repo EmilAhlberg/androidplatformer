@@ -5,6 +5,7 @@ import android.graphics.Point;
 import Game.Draw.AnimationInfo;
 import Game.GameObject;
 import Game.ObjectInformation.Stats;
+import Game.Util.GameTime;
 
 /**
  * Created by Emil on 9/1/2017.
@@ -22,7 +23,7 @@ public class Block extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(GameTime gameTime) {
 
     }
 
