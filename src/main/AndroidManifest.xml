@@ -18,19 +18,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="Game.Android.ActivityHandler" />
-        <activity android:name="Game.Android.GameActivity" />
-        <activity android:name="Game.Android.LevelClearedActivity" />
-        <activity android:name="Game.Android.GameOverActivity" />
-        <activity android:name="Game.Android.StartMenuActivity" >
-            Game.Android.StartMenuActivity
+        <activity android:name="game.android.ActivityHandler" />
+        <activity android:name="game.android.GameActivity" />
+        <activity android:name="game.android.LevelClearedActivity" />
+        <activity android:name="game.android.GameOverActivity" />
+        <activity android:name="game.android.StartMenuActivity" >
+            android.StartMenuActivity
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Game.Android.SelectLevelActivity" />
+        <activity android:name="game.android.SelectLevelActivity" />
     </application>
 
 </manifest>
