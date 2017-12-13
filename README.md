@@ -54,7 +54,7 @@ Story! (cut scene /  boss/enemy dialogue)
 
 * Hantera telefonfunktioner; skärmsläckare / rotationer / home button / return button / etc
 
-* Konstig respons på touchEvents, får ibland delay?
+* Konstig respons på touchEvents, får ibland delay? ##### Kan kanske lösas genom att ha en tråd som ritar bitmaps som den lägger i en monitor, ui-tråden behöver sedan bara hämta dessa bitmaps(?)
 
 * Lagg vid switch från gameActivity
 
