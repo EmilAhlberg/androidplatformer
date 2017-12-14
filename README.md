@@ -3,6 +3,8 @@
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
+* Fixa trådsäkerhet (i synnerhet med gametime/pause i gameLoop, bäst att inte extenda Thread)
+
 * Fixa till gameLoop-tråden??? <--
 
 * GameTime implementerad --> ändra alla counters till gameTime-typ (beroende av tiden, ej random counters)
