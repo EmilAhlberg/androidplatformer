@@ -28,13 +28,6 @@ import game.objectinformation.Stats;
 
 public class LevelCreator {
 
-//    private static Player player;
-//    private static Container blocks;
-//    private static Container hazards;
-//    private static Container interactives;
-//    private static Container enemies;
-    //private static Container enemies;
-
     public static HashMap<ID,ArrayList<GameObject>> createLevel(GameActivity ga, int level) {
         String[] mapString = getLevelArray(ga, level);
         ArrayList<GameObject> p = new ArrayList<>();
@@ -54,11 +47,6 @@ public class LevelCreator {
         constructBigObjects(mapString, hs, ID.FIRE);
         //Create and add other objects
         constructSingleObjects(mapString, is, es, p);
-
-//        blocks = new Container(bs);
-//        hazards = new Container(hs);
-//        interactives = new Container(is);
-//        enemies = new Container(es);
 
         HashMap<ID, ArrayList<GameObject>> map = new HashMap<>();
         map.put(ID.LEVELPLAYER, p);
@@ -160,10 +148,6 @@ public class LevelCreator {
         return g;
     }
 
-
-
-
-
     private static String[] getLevelArray(GameActivity ga, int level) {
         String[] map;
         try {
@@ -208,28 +192,4 @@ public class LevelCreator {
         String[] stringArray = Arrays.copyOf(objects, objects.length, String[].class);
         return stringArray;
     }
-
-//    public static Container getEnemies() {
-//        return enemies;
-//    }
-
-//    public static Container getHazards() {
-//        return hazards;
-//    }
-//
-//    public static Container getBlocks() {
-//        return blocks;
-//    }
-//
-//    public static Container getInteractives() {
-//        return interactives;
-//    }
-//
-//    public static Player getPlayer() {
-//        return player;
-//    }
-//
-//    public static Container getEnemies() {
-//        return enemies;
-//    }
 }
