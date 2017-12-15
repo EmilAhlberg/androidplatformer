@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import game.draw.AnimationInfo;
+import game.draw.Particle;
 import game.objectinformation.ID;
 import game.draw.Particles;
 import game.framework.World;
@@ -109,6 +110,7 @@ public class Player extends Collider {
         } else if (g.getID() == ID.CAT) {
             Rect cRect = g.getRect();
             if (collisionType == Collider.COLLISION_BOTTOM) {
+                Particles.createParticles(new Point(cRect.left, cRect.top), ID.CATDEATH);
                 Particles.createParticles(new Point(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
                 ((Cat) g).deactivate();
             }

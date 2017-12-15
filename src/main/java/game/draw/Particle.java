@@ -38,6 +38,17 @@ public class Particle extends Mover {
         color.setColor(Color.RED);
     }
 
+
+
+//    public void activate(Point p, ID id, int partType) {
+//        this.moveTo(p.x, p.y);
+//        //sprite = new ParticleSprite(id, partType);
+//        sprite = new ParticleSprite(ID.BLOCK, partType);
+//        rect.set(p.x, p.y, p.x + Stats.width(ID.BLOCK), p.y + Stats.height(ID.BLOCK));
+//        life = 400;
+//        //jump(500);
+//        isActive = true;
+//    }
     /**
      * Activates an inactive particle.
      * @param p The location where it will be activated
@@ -46,17 +57,12 @@ public class Particle extends Mover {
      * @param id The type of particle desired.
      * @param currentAngle the angular orientation of the sprite.
      */
-
-    public void activate(Point p, float dx, float dy, ID id, double currentAngle) {
-        this.moveTo(p.x, p.y);
-        sprite = new NormalSprite(id);
-        rect.set(p.x, p.y, p.x + Stats.width(id), p.y + Stats.height(id));
+    public void activate(Point p, float dx, float dy, ID id, double currentAngle, int partType) {
+        sprite = new ParticleSprite(id, partType, rect, p);
         this.dx = dx * Stats.particleSpeed(id);
         this.dy = dy * Stats.particleSpeed(id);
         this.life = Stats.particleLife(id);
         sprite.setAngle(currentAngle);
-        color = new Paint();
-        color.setColor(Color.RED);
         isActive = true;
     }
 
@@ -69,24 +75,15 @@ public class Particle extends Mover {
         isActive = life >= 0;
     }
 
-//    public void draw(Canvas c) {
-//        c.drawCircle(x,  y, size, color); //probably needs update
-//    }
-
-//    /**
-//     * Check whether the particle is active or not.
-//     * @return True if active, false otherwise.
-//     */
-//    public boolean isActive() {
-//        return life >= 0;
-//    }
-
     /**
      * The particle will be inactivated.
      */
     public void reset() {
         life = 0;
+        isActive = false;
     }
+
+
 }
 
 

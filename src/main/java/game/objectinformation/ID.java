@@ -30,13 +30,17 @@ public enum ID {
     //particle effects!
     JUMP,
     EXPLOSION,
+    CATDEATH,
 
     //levelcreator IDs
     LEVELPLAYER,
     LEVELBLOCKS,
     LEVELHAZARDS,
     LEVELENEMIES,
-    LEVELINTERACTIVES
+    LEVELINTERACTIVES,
+
+
+
 
 }
 

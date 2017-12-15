@@ -20,6 +20,7 @@ public class Stats {
             put(ID.CAT, 20);
             put(ID.EXPLOSION, 3);
             put(ID.JUMP, 3);
+            put(ID.CATDEATH, 20);
         }
     };
 
@@ -32,6 +33,7 @@ public class Stats {
             put(ID.CAT, 20);
             put(ID.EXPLOSION, 3);
             put(ID.JUMP, 3);
+            put(ID.CATDEATH, 20);
         }
     };
 
@@ -59,15 +61,17 @@ public class Stats {
 
     private static HashMap<ID, Integer> particleLife = new HashMap<ID, Integer>() {
         {
-            put(ID.EXPLOSION, 200);
+            put(ID.EXPLOSION, 300);
             put(ID.JUMP, 150);
+            put(ID.CATDEATH, 400);
         }
     };
 
-    private static HashMap<ID, Integer> particleSpeed = new HashMap<ID, Integer>() {
+    private static HashMap<ID, Float> particleSpeed = new HashMap<ID, Float>() {
         {
-            put(ID.EXPLOSION, 2);
-            put(ID.JUMP, 2);
+            put(ID.EXPLOSION, (float)3);
+            put(ID.JUMP, (float)2);
+            put(ID.CATDEATH, (float)1.);
         }
     };
 
@@ -134,7 +138,7 @@ public class Stats {
      * @param id The type of particle.
      * @return The speed, if the ID was present, DEFAULT otherwise.
      */
-    public static int particleSpeed(ID id) {
+    public static float particleSpeed(ID id) {
         if (particleSpeed.containsKey(id))
             return particleSpeed.get(id);
         return DEFAULT;

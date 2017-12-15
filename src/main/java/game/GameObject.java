@@ -68,6 +68,8 @@ public abstract class GameObject {
      * @param y vertical distance
      */
     public void move(double x, double y) {                              // typisk movermetod?
+        x = Math.round((float)x);
+        y = Math.round((float)y);
         rect.offset((int)x, (int)y);
     }
 

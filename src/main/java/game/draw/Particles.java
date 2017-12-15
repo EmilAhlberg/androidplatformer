@@ -5,6 +5,7 @@ import android.graphics.Point;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import game.objectinformation.ID;
 import game.util.GameTime;
@@ -59,6 +60,16 @@ public class Particles {
                 break;
             case EXPLOSION:;
                 createExplosion(p,id);
+                break;
+            case CATDEATH:
+                int rnd = new Random().nextInt(4);
+                if(rnd == 0)
+                    objectDeathHorizontal(p, id);
+                else if (rnd == 1)
+                    objectDeathVertical(p, id);
+                else
+                    objectDeathx4(p,id);
+                break;
         }
     }
 
@@ -72,7 +83,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point,dx,dy,id, currentAngle);
+                p.activate(point,dx,dy,id, currentAngle, ParticleSprite.STANDARD);
                 currentAngle += angle;
                 currentNbr++;
             }
@@ -91,7 +102,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point, dx,dy,id, currentAngle);
+                p.activate(point, dx,dy,id, currentAngle, ParticleSprite.STANDARD);
                 currentAngle += angle;
                 currentNbr++;
             }
@@ -99,6 +110,51 @@ public class Particles {
                 break;
         }
     }
+
+    private static void objectDeathVertical(Point point, ID id) {
+        int[] parts = new int[2];
+        parts[0] = ParticleSprite.BOTTOM_PART_X2;
+        parts[1] = ParticleSprite.TOP_PART_X2;
+        double currentAngle = Math.PI/2;
+        objectDeath(point, id, parts, currentAngle);
+    }
+
+    private static void objectDeathHorizontal(Point point, ID id) {
+        int[] parts = new int[2];
+        parts[0] = ParticleSprite.LEFT_PART_X2;
+        parts[1] = ParticleSprite.RIGHT_PART_X2;
+        double currentAngle = 0;
+        objectDeath(point, id, parts, currentAngle);
+    }
+
+    private static void objectDeathx4(Point point, ID id) {
+        int[] parts = new int[4];
+        parts[0] = ParticleSprite.BOTTOMRIGHT_PART_X4;
+        parts[1] = ParticleSprite.BOTTOMLEFT_PART_X4;
+        parts[2] = ParticleSprite.TOPLEFT_PART_X4;
+        parts[3] = ParticleSprite.TOPRIGHT_PART_X4;
+        double currentAngle = Math.PI/4;
+        objectDeath(point, id, parts, currentAngle);
+    }
+
+    private static void objectDeath(Point point, ID id, int[] parts, double currentAngle) {
+        double angle = 2*Math.PI / parts.length;
+        int counter = 0;
+        for (int i = 0; i<maxParticles; i++) {
+            Particle p = activeParticles.get(i);
+            if (!p.isActive()) {
+                float dx = (float) Math.cos(currentAngle);
+                float dy = (float) Math.sin(currentAngle);
+                p.activate(point, dx,dy,id, 0,parts[counter]);
+                currentAngle += angle;
+                counter++;
+            }
+            if (counter == parts.length)
+                break;
+        }
+    }
+
+
 
     /**
      * Resets all particles, turning them inactive.
