@@ -2,6 +2,7 @@ package game.framework;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import game.android.GameActivity;
 import game.util.GameTime;
@@ -10,30 +11,30 @@ import game.util.GameTime;
  * Created by Emil on 2016-11-04.
  */
 
-public class GameLoop extends Thread {
+public class GameLoop implements Runnable {
 
     private GameActivity game;
     private Handler handler;
     private final int timeLimit = 15; //!!!
-    private boolean running = true;
-    private double startTime;
-    private GameTime gameTime;
+    private GameLoopMonitor glMonitor;
 
-    public GameLoop(GameActivity game, Handler handler) {
+    public GameLoop(GameActivity game, Handler handler, GameLoopMonitor glm) {
         this.game = game;
         this.handler = handler;
+        glMonitor = glm;
     }
 
     @Override
     public void run() {
-        double currentTime = startTime = System.currentTimeMillis();
+        double currentTime = System.currentTimeMillis();
         double newTime = 0;
-        gameTime = new GameTime(startTime);
-        while (running) {
+        glMonitor.setGameTime(new GameTime(currentTime));
+        while (!Thread.currentThread().isInterrupted()) {
+            //TODO: Fix busy wait!!!
             newTime = System.currentTimeMillis();
             if (newTime - currentTime > timeLimit) {
-                gameTime.update(newTime);
-                updateLoop(gameTime);
+                glMonitor.updateGameTime(newTime);
+                updateLoop(glMonitor.getGameTime());
                 currentTime = newTime;
             }
         }
@@ -50,15 +51,8 @@ public class GameLoop extends Thread {
         //Log.d("updateLoop", "draw world: " + (System.currentTimeMillis() - millis));
         //millis = System.currentTimeMillis();
         Message m = handler.obtainMessage();
+        m.what = 0;
         m.sendToTarget();
         //Log.d("updateLoop", "Handle messages: " + (System.currentTimeMillis() - millis));
-    }
-
-    public void pause() {
-        running = false;
-    }
-
-    public GameTime getGameTime() {
-        return gameTime;
     }
 }

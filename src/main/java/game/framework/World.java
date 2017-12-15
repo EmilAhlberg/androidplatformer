@@ -2,6 +2,9 @@ package game.framework;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -34,14 +37,16 @@ public class World {
     private Container enemies;
     private CollisionHandler ch;
     private GameActivity gameActivity;
+    private Handler signal;
 
     //private Container enemies;
 
-    public World(GameActivity ga, HashMap<ID, ArrayList<GameObject>> levelInfo) {
+    public World(GameActivity ga, HashMap<ID, ArrayList<GameObject>> levelInfo, Handler signal) {
         gameActivity = ga;
         initWorld(levelInfo);
         player.setWorld(this);
         ch = new CollisionHandler();
+        this.signal = signal;
     }
 
     private void initWorld(HashMap<ID, ArrayList<GameObject>> levelInfo) {
@@ -72,11 +77,15 @@ public class World {
     }
 
     public void gameOver() {
-        gameActivity.gameOver();
+        Message m = signal.obtainMessage();
+        m.what = 1;
+        m.sendToTarget();
     }
 
     public void nextLevel() {
-        gameActivity.nextLevel();
+        Message m = signal.obtainMessage();
+        m.what = 2;
+        m.sendToTarget();
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
