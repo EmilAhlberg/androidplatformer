@@ -20,7 +20,7 @@ public class Particle extends Mover {
     private float dx;
     private float dy;
     private int size;
-    private int life;
+    private double life;
     private Paint color;
 
     public Particle() {
@@ -28,7 +28,7 @@ public class Particle extends Mover {
     }
 
 
-    public Particle(Point p, float dx, float dy, int size, int life) {
+    public Particle(Point p, float dx, float dy, int size, double life) {
         super(p);
         this.dx = dx;
         this.dy = dy;
@@ -62,7 +62,7 @@ public class Particle extends Mover {
      */
     public void update(GameTime gameTime){
         move(dx, dy);
-        life--;                     //make life time-based
+        life -= gameTime.elapsedTime();
     }
 
 //    public void draw(Canvas c) {
