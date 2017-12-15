@@ -14,6 +14,7 @@ public class Goal extends GameObject {
 
     public Goal(Point p) {
         super(p);
+        isActive = true;
     }
 
 

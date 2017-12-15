@@ -16,6 +16,7 @@ public class Fire extends GameObject{
     public Fire(Point p, int nbrFires, boolean horizontal) {
         super(p, nbrFires, horizontal);
         animationType = AnimationInfo.DEFAULT;
+        isActive = true;
     }
 
 

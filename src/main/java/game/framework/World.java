@@ -4,11 +4,16 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import game.GameObject;
 import game.android.GameActivity;
 
 import game.Container;
 import game.draw.Particles;
 import game.movers.Player;
+import game.objectinformation.ID;
 import game.util.GameTime;
 
 /**
@@ -32,21 +37,19 @@ public class World {
 
     //private Container enemies;
 
-    public World(GameActivity ga) {
+    public World(GameActivity ga, HashMap<ID, ArrayList<GameObject>> levelInfo) {
         gameActivity = ga;
-        player = LevelCreator.getPlayer();
+        initWorld(levelInfo);
         player.setWorld(this);
-        blocks = LevelCreator.getBlocks();
-        hazards = LevelCreator.getHazards();
-        interactives = LevelCreator.getInteractives();
-        enemies = LevelCreator.getEnemies();
-
-        //enemies = LevelCreator.getEnemies();
-
-        //!!
-
-        //!!
         ch = new CollisionHandler();
+    }
+
+    private void initWorld(HashMap<ID, ArrayList<GameObject>> levelInfo) {
+        player = (Player) levelInfo.get(ID.LEVELPLAYER).get(0);
+        blocks = new Container(levelInfo.get(ID.LEVELBLOCKS));
+        hazards = new Container(levelInfo.get(ID.LEVELHAZARDS));
+        interactives = new Container(levelInfo.get(ID.LEVELINTERACTIVES));
+        enemies = new Container(levelInfo.get(ID.LEVELENEMIES));
     }
 
     public void update(GameTime gameTime) {

@@ -20,6 +20,7 @@ public class Block extends GameObject {
         super(p, nbrBlocks, horizontal);
         this.friction = Stats.friction(id);
         animationType = AnimationInfo.NO_ANIMATION;
+        isActive = true;
     }
 
     @Override
