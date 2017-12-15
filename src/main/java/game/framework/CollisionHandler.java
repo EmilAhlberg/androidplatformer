@@ -1,6 +1,8 @@
 package game.framework;
 
 import android.graphics.Rect;
+import android.os.Handler;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -59,7 +61,6 @@ public class CollisionHandler {
         handleCollisions(player, enemies.getObjects());
         //remaining enemy collisions
         handleCollisions(enemies.getObjects(), blocks.getObjects());
-
     }
 
     class Pair {

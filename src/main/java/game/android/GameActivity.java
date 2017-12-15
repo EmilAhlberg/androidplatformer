@@ -16,6 +16,7 @@ import android.view.SurfaceView;
 import com.example.emil.app.R;
 import game.draw.Background;
 import game.framework.GameLoop;
+import game.framework.GameLoopMonitor;
 import game.framework.LevelCreator;
 import game.framework.World;
 import game.objectinformation.IDHandler;
@@ -25,15 +26,17 @@ import game.util.GameTime;
 public class GameActivity extends AppActivity implements SurfaceHolder.Callback {
 
     private World world;
-    private Handler gameLoopThread;
+    private Handler gameLoopHandler;
     private SurfaceView surfaceView;
-    Background bkg;
-    GameLoop gameThread;
+    private Background bkg;
+    private Thread gameThread;
+    private GameLoopMonitor glMonitor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         surfaceView = new SurfaceView(this);
+        glMonitor = new GameLoopMonitor();
         setContentView(surfaceView);
         surfaceView.getHolder().addCallback(this);
         bkg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.bkg_game));
@@ -41,10 +44,9 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         setFullscreen();
         handlerSetup();
 
-
         LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
-        gameThread = new GameLoop(this, gameLoopThread);
-        world = new World(this);
+        gameThread = new Thread(new GameLoop(this, gameLoopHandler, glMonitor));
+        world = new World(this, gameLoopHandler);
         gameThread.start();
     }
 
@@ -54,9 +56,15 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     }
 
     private void handlerSetup() {
-        gameLoopThread = new Handler(Looper.getMainLooper()) {
+        gameLoopHandler = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message inputMessage) {
-                surfaceChanged(surfaceView.getHolder(),0,0,0);
+                if (inputMessage.what == 1) {
+                    gameOver();
+                } else if (inputMessage.what == 2) {
+                    nextLevel();
+                } else if (inputMessage.what == 0) {
+                    surfaceChanged(surfaceView.getHolder(), 0, 0, 0);
+                }
             }
         };
     }
@@ -71,26 +79,51 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gameThread.interrupt();
+        if (!gameThread.isInterrupted())
+            gameThread.interrupt();
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        handleAllMessages();
     }
 
-    public void nextLevel() {
-        Log.d("nextLevel: ", "OK");
-        gameThread.pause();
+    private void nextLevel() {
+        gameThread.interrupt();
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent (getApplicationContext(), ActivityHandler.class);
         intent.putExtra("ActivityConstant", ActivityConstants.LEVELCLEARED);
         intent.putExtra("level", getIntent().getExtras().getInt("level"));
         startActivity(intent);
+        handleAllMessages();
         finish();
     }
 
-    public void gameOver() {
-        gameThread.pause();
+    private void gameOver() {
+        //gameThread.running = false;
+        gameThread.interrupt();
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent (getApplicationContext(), ActivityHandler.class);
         intent.putExtra("ActivityConstant", ActivityConstants.GAMEOVER);
         intent.putExtra("level", getIntent().getExtras().getInt("level"));
         startActivity(intent);
+        handleAllMessages();
         finish();
+    }
+
+    private void handleAllMessages() {
+        gameLoopHandler.removeMessages(0);
+        gameLoopHandler.removeMessages(1);
+        gameLoopHandler.removeMessages(2);
     }
 
     public void updateWorld(GameTime gameTime) {
@@ -155,7 +188,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         if (canvas == null) {
             Log.e("", "Cannot draw onto the canvas as it's null");
         } else {
-            GameTime gameTime = gameThread.getGameTime();
+            GameTime gameTime = glMonitor.getGameTime();
             bkg.draw(canvas, gameTime);
             drawWorld(canvas, gameTime);
             surfaceHolder.unlockCanvasAndPost(canvas);
@@ -174,7 +207,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
 //public class GameActivity extends AppActivity {
 //
 //    private World world;
-//    private Handler gameLoopThread;
+//    private Handler gameLoopHandler;
 //    private LinearLayout ll;
 //    GameLoop gameThread;
 //    private GameDisplay display;
@@ -190,7 +223,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
 //        display = new GameDisplay(this, ll);
 //
 //        LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
-//        gameThread = new GameLoop(this, gameLoopThread);
+//        gameThread = new GameLoop(this, gameLoopHandler);
 //        world = new World(this);
 //        gameThread.start();
 //    }
@@ -202,7 +235,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
 //    }
 //
 //    private void handlerSetup() {
-//        gameLoopThread = new Handler(Looper.getMainLooper()) {
+//        gameLoopHandler = new Handler(Looper.getMainLooper()) {
 //            public void handleMessage(Message inputMessage) {
 //                ll.setBackground(new BitmapDrawable(getResources(), display.getBitmap()));
 //            }
