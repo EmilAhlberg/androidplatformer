@@ -89,6 +89,11 @@ public abstract class GameObject {
         return rect;
     }
 
+    public void activate(double x, double y) {
+        moveTo(x, y);
+        isActive = true;
+    }
+
     /**
      * Draws the object on the canvas
      * @param c Canvas to be drawn on

@@ -105,6 +105,8 @@ public class Player extends Collider {
             }
         } else if (g instanceof Goal) {
             ((Goal) g).affectPlayer(world);
+        } else if (g.getID() == ID.CAT) {
+            Particles.createParticles(new Point(rect.centerX(), rect.centerY()), ID.EXPLOSION);
         }
     }
 
