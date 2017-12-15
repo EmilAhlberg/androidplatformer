@@ -33,7 +33,14 @@ public class NormalSprite extends Sprite {
             animationCounter = 0;
         }
         animate(animationType, gameTime);
-        canvas.drawBitmap(sheet.getBitmap(), src, destination,null);
+        if (angle != 0) {
+            canvas.save();
+            canvas.rotate(angle, destination.centerX(), destination.centerY());
+            canvas.drawBitmap(sheet.getBitmap(), src, destination, null);
+            canvas.restore();
+        }
+        else
+            canvas.drawBitmap(sheet.getBitmap(), src, destination,null);
     }
 
 

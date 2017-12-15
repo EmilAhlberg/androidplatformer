@@ -72,7 +72,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point,dx,dy,id);
+                p.activate(point,dx,dy,id, currentAngle);
                 currentAngle += angle;
                 currentNbr++;
             }
@@ -91,7 +91,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point, dx,dy,id);
+                p.activate(point, dx,dy,id, currentAngle);
                 currentAngle += angle;
                 currentNbr++;
             }

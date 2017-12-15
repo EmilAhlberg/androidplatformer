@@ -59,8 +59,8 @@ public class Stats {
 
     private static HashMap<ID, Integer> particleLife = new HashMap<ID, Integer>() {
         {
-            put(ID.EXPLOSION, 20);
-            put(ID.JUMP, 10);
+            put(ID.EXPLOSION, 200);
+            put(ID.JUMP, 150);
         }
     };
 

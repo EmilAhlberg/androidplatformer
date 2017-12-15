@@ -24,6 +24,8 @@ public abstract class GameObject {
     protected Sprite sprite;
     protected ID id;
     protected int animationType = AnimationInfo.DEFAULT;
+    protected boolean isActive;
+    protected float angle;
 
     /**
      * Creates a gameObject, represented by a NormalSprite.
@@ -73,6 +75,10 @@ public abstract class GameObject {
 
     public ID getID() {
         return id;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
     /**
