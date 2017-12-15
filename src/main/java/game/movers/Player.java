@@ -1,6 +1,7 @@
 package game.movers;
 
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import game.draw.AnimationInfo;
@@ -106,7 +107,13 @@ public class Player extends Collider {
         } else if (g instanceof Goal) {
             ((Goal) g).affectPlayer(world);
         } else if (g.getID() == ID.CAT) {
-            Particles.createParticles(new Point(rect.centerX(), rect.centerY()), ID.EXPLOSION);
+            Rect cRect = g.getRect();
+            if (collisionType == Collider.COLLISION_BOTTOM) {
+                Particles.createParticles(new Point(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
+                ((Cat) g).deactivate();
+            }
+            else
+                world.gameOver();
         }
     }
 

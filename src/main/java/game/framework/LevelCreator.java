@@ -27,7 +27,7 @@ import game.objectinformation.Stats;
 
 public class LevelCreator {
 
-    private static final Point DEFAULT_POSITION = new Point(-1000, -1000);
+
     private static final int ENEMY_NUMBER = 10;
 
     public static HashMap<ID,ArrayList<GameObject>> createLevel(GameActivity ga, int level) {
@@ -61,9 +61,9 @@ public class LevelCreator {
     }
 
     private static void initActivateables(ArrayList<GameObject> p, ArrayList<GameObject> es) {
-        p.add(new Player(DEFAULT_POSITION));
+        p.add(new Player(World.DEFAULT_POSITION));
         for(int i = 0; i < ENEMY_NUMBER; i++) {
-            es.add(new Cat(DEFAULT_POSITION));
+            es.add(new Cat(World.DEFAULT_POSITION));
         }
     }
 

@@ -3,6 +3,7 @@ package game.movers;
 import android.graphics.Point;
 
 import game.*;
+import game.framework.World;
 import game.util.MovementHandler;
 
 
@@ -17,6 +18,11 @@ public abstract class Mover extends GameObject {
     public Mover(Point p) {
         super(p);
         mh = new MovementHandler();
+    }
+
+    public void deactivate() {
+        isActive = false;
+        moveTo(World.DEFAULT_POSITION.x, World.DEFAULT_POSITION.y);
     }
 
     /**

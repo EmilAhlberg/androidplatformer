@@ -21,7 +21,7 @@ import game.util.GameTime;
  */
 
 public class World {
-
+    public static final Point DEFAULT_POSITION = new Point(-1000, -1000);
     public final static int MAP_WIDTH = 2000;
     public final static int MAP_HEIGHT = 1000;
     public final static int WINDOW_WIDTH = 800;
