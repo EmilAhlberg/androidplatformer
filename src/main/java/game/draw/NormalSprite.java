@@ -32,19 +32,26 @@ public class NormalSprite extends Sprite {
             currentRow = temp.getStartRow();
             animationCounter = 0;
         }
-        animate(animationType);
-        canvas.drawBitmap(sheet.getBitmap(), src, destination,null);
+        animate(animationType, gameTime);
+        if (angle != 0) {
+            canvas.save();
+            canvas.rotate(angle, destination.centerX(), destination.centerY());
+            canvas.drawBitmap(sheet.getBitmap(), src, destination, null);
+            canvas.restore();
+        }
+        else
+            canvas.drawBitmap(sheet.getBitmap(), src, destination,null);
     }
 
 
     /*
     Animates the NormalSprite according to the AnimationInfo of the type.
      */
-    private void animate(int animationType) {
+    private void animate(int animationType, GameTime gameTime) {
         int width = sheet.getWidth();
         int height = sheet.getHeight();
         src.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height);
-        if (animationCounter == animationThreshold) {
+        if (animationCounter >= animationThreshold) {
             animationCounter = 0;
 
             AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
@@ -60,7 +67,7 @@ public class NormalSprite extends Sprite {
             } else
                 currentCol++;
         }
-        animationCounter++;
+        animationCounter += gameTime.elapsedTime();
         oldAnimationType = animationType;
 
     }

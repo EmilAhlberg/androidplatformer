@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import game.objectinformation.ID;
 import game.draw.Particles;
@@ -26,16 +27,12 @@ import game.objectinformation.Stats;
 
 public class LevelCreator {
 
-    private static Player player;
-    private static Container blocks;
-    private static Container hazards;
-    private static Container interactives;
-    private static Container enemies;
-    //private static Container enemies;
 
-    public static void createLevel(GameActivity ga, int level) {
+    private static final int ENEMY_NUMBER = 10;
+
+    public static HashMap<ID,ArrayList<GameObject>> createLevel(GameActivity ga, int level) {
         String[] mapString = getLevelArray(ga, level);
-
+        ArrayList<GameObject> p = new ArrayList<>();
         ArrayList<GameObject> bs = new ArrayList<>();
         ArrayList<GameObject> hs = new ArrayList<>();
         ArrayList<GameObject> is = new ArrayList<>();
@@ -44,37 +41,57 @@ public class LevelCreator {
         //Should reset particles!
         Particles.reset();
 
+        initActivateables(p,es);
         //Possible multithread / performance optimization here
-
         //Create and add the big blocks
         constructBigObjects(mapString, bs, ID.BLOCK);
         //Create and add the big fires
         constructBigObjects(mapString, hs, ID.FIRE);
         //Create and add other objects
-        constructSingleObjects(mapString, is, es);
+        constructSingleObjects(mapString, is, es, p);
 
-        blocks = new Container(bs);
-        hazards = new Container(hs);
-        interactives = new Container(is);
-        enemies = new Container(es);
+        HashMap<ID, ArrayList<GameObject>> map = new HashMap<>();
+        map.put(ID.LEVELPLAYER, p);
+        map.put(ID.LEVELBLOCKS, bs);
+        map.put(ID.LEVELENEMIES, es);
+        map.put(ID.LEVELHAZARDS, hs);
+        map.put(ID.LEVELINTERACTIVES, is);
+
+        return map;
     }
 
-    private static void constructSingleObjects(String[] mapString, ArrayList<GameObject> is, ArrayList<GameObject> es){
+    private static void initActivateables(ArrayList<GameObject> p, ArrayList<GameObject> es) {
+        p.add(new Player(World.DEFAULT_POSITION));
+        for(int i = 0; i < ENEMY_NUMBER; i++) {
+            es.add(new Cat(World.DEFAULT_POSITION));
+        }
+    }
+
+    private static void constructSingleObjects(String[] mapString, ArrayList<GameObject> is, ArrayList<GameObject> es, ArrayList<GameObject> pList){
         Point p;
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
                 p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'P':
-                        player = new Player(p);
+                        activateObject(pList, p);
                         break;
                     case 'G':
                         is.add(new Goal(p));
                         break;
                     case 'C':
-                        es.add(new Cat(p));
+                        activateObject(es, p);
                         break;
                 }
+            }
+        }
+    }
+
+    private static void activateObject(ArrayList<GameObject> list, Point p) {
+        for(GameObject g : list) {
+            if (!g.isActive()) {
+                g.activate(p.x, p.y);
+                break;
             }
         }
     }
@@ -149,10 +166,6 @@ public class LevelCreator {
         return g;
     }
 
-
-
-
-
     private static String[] getLevelArray(GameActivity ga, int level) {
         String[] map;
         try {
@@ -171,7 +184,6 @@ public class LevelCreator {
             e.printStackTrace();
             map = null;
         }
-
         return map;
     }
 
@@ -196,29 +208,5 @@ public class LevelCreator {
         Object[] objects = strings.toArray();
         String[] stringArray = Arrays.copyOf(objects, objects.length, String[].class);
         return stringArray;
-    }
-
-//    public static Container getEnemies() {
-//        return enemies;
-//    }
-
-    public static Container getHazards() {
-        return hazards;
-    }
-
-    public static Container getBlocks() {
-        return blocks;
-    }
-
-    public static Container getInteractives() {
-        return interactives;
-    }
-
-    public static Player getPlayer() {
-        return player;
-    }
-
-    public static Container getEnemies() {
-        return enemies;
     }
 }

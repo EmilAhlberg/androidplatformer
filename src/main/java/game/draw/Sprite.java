@@ -15,10 +15,11 @@ public abstract class Sprite {
 
     protected SpriteSheet sheet;
     protected ID id;
+    protected float angle;
     protected int currentCol =0;
     protected int currentRow = 0;
-    protected int animationCounter = 0;
-    protected int animationThreshold = 10;
+    protected double animationCounter = 0;
+    protected int animationThreshold = 150; //!!
     protected int oldAnimationType = AnimationInfo.DEFAULT;
 
     /**
@@ -28,6 +29,10 @@ public abstract class Sprite {
     public Sprite(ID id) {
         sheet = IDHandler.getSpriteSheet(id);
         this.id = id;
+    }
+
+    public void setAngle(double currentAngle) {
+        angle = (float)(currentAngle * 180/Math.PI);
     }
 
     public abstract void draw(Canvas canvas, GameTime gameTime, Rect destination, int animationType);

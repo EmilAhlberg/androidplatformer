@@ -21,12 +21,14 @@ public class Container {
 
     public void update(GameTime gameTime) {
         for (GameObject g : gameObjects)
+            if (g.isActive)
             g.update(gameTime);
     }
     public void draw(Canvas canvas, GameTime gameTime, Rect pRect) {
-        int radius = 933;
+//        int radius = 933;
         for (GameObject g : gameObjects) {
 //            if (g instanceof MapObject) {
+            if (g.isActive)
                 g.draw(canvas, gameTime);
 //            } else {
 //                Rect gRect = g.getRect();

@@ -63,7 +63,7 @@ public class Particles {
     }
 
     private static void createExplosion(Point point, ID id) {
-        int nbrOfParticles = 10;
+        int nbrOfParticles = 20;
         int currentNbr = 0;
         double angle = 2* Math.PI / nbrOfParticles;
         double currentAngle = -Math.PI;
@@ -72,7 +72,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point,dx,dy,id);
+                p.activate(point,dx,dy,id, currentAngle);
                 currentAngle += angle;
                 currentNbr++;
             }
@@ -91,7 +91,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point, dx,dy,id);
+                p.activate(point, dx,dy,id, currentAngle);
                 currentAngle += angle;
                 currentNbr++;
             }

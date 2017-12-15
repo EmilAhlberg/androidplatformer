@@ -20,16 +20,18 @@ public class CollisionHandler {
     public void handleCollisions(Collider c, ArrayList<GameObject> gameObjects) {
         ArrayList<Pair> intersectingObjects = new ArrayList<>();
         for (GameObject g : gameObjects) {
-            Rect gRect = g.getRect();
-            Rect temp = new Rect(gRect.left, gRect.top, gRect.right, gRect.bottom);
-            if (temp.intersect(c.getRect())) {
-                int area = temp.width() * temp.height();
-                if (intersectingObjects.size() == 0)
-                    intersectingObjects.add(new Pair(g, area));
-                int size = intersectingObjects.size();
-                for (int i = 0; i < size; i++) {
-                    if (intersectingObjects.get(i).area < area || i == size-1)
-                        intersectingObjects.add(i, new Pair(g, area));
+            if (g.isActive()) {
+                Rect gRect = g.getRect();
+                Rect temp = new Rect(gRect.left, gRect.top, gRect.right, gRect.bottom);
+                if (temp.intersect(c.getRect())) {
+                    int area = temp.width() * temp.height();
+                    if (intersectingObjects.size() == 0)
+                        intersectingObjects.add(new Pair(g, area));
+                    int size = intersectingObjects.size();
+                    for (int i = 0; i < size; i++) {
+                        if (intersectingObjects.get(i).area < area || i == size - 1)
+                            intersectingObjects.add(i, new Pair(g, area));
+                    }
                 }
             }
         }

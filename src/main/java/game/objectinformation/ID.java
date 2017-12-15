@@ -31,6 +31,13 @@ public enum ID {
     JUMP,
     EXPLOSION,
 
+    //levelcreator IDs
+    LEVELPLAYER,
+    LEVELBLOCKS,
+    LEVELHAZARDS,
+    LEVELENEMIES,
+    LEVELINTERACTIVES
+
 }
 
 

@@ -24,6 +24,8 @@ public abstract class GameObject {
     protected Sprite sprite;
     protected ID id;
     protected int animationType = AnimationInfo.DEFAULT;
+    protected boolean isActive;
+    protected float angle;
 
     /**
      * Creates a gameObject, represented by a NormalSprite.
@@ -75,12 +77,21 @@ public abstract class GameObject {
         return id;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
     /**
      * Returns the hitbox/bounds of the object
      * @return Hitbox of the object
      */
     public Rect getRect() {
         return rect;
+    }
+
+    public void activate(double x, double y) {
+        moveTo(x, y);
+        isActive = true;
     }
 
     /**

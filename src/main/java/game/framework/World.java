@@ -7,11 +7,16 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import game.GameObject;
 import game.android.GameActivity;
 
 import game.Container;
 import game.draw.Particles;
 import game.movers.Player;
+import game.objectinformation.ID;
 import game.util.GameTime;
 
 /**
@@ -19,7 +24,7 @@ import game.util.GameTime;
  */
 
 public class World {
-
+    public static final Point DEFAULT_POSITION = new Point(-1000, -1000);
     public final static int MAP_WIDTH = 2000;
     public final static int MAP_HEIGHT = 1000;
     public final static int WINDOW_WIDTH = 800;
@@ -36,22 +41,20 @@ public class World {
 
     //private Container enemies;
 
-    public World(GameActivity ga, Handler signal) {
+    public World(GameActivity ga, HashMap<ID, ArrayList<GameObject>> levelInfo, Handler signal) {
         gameActivity = ga;
-        player = LevelCreator.getPlayer();
+        initWorld(levelInfo);
         player.setWorld(this);
-        blocks = LevelCreator.getBlocks();
-        hazards = LevelCreator.getHazards();
-        interactives = LevelCreator.getInteractives();
-        enemies = LevelCreator.getEnemies();
-        this.signal = signal;
-
-        //enemies = LevelCreator.getEnemies();
-
-        //!!
-
-        //!!
         ch = new CollisionHandler();
+        this.signal = signal;
+    }
+
+    private void initWorld(HashMap<ID, ArrayList<GameObject>> levelInfo) {
+        player = (Player) levelInfo.get(ID.LEVELPLAYER).get(0);
+        blocks = new Container(levelInfo.get(ID.LEVELBLOCKS));
+        hazards = new Container(levelInfo.get(ID.LEVELHAZARDS));
+        interactives = new Container(levelInfo.get(ID.LEVELINTERACTIVES));
+        enemies = new Container(levelInfo.get(ID.LEVELENEMIES));
     }
 
     public void update(GameTime gameTime) {

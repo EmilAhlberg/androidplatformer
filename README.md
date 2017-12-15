@@ -3,6 +3,8 @@
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
+* Fixa trådsäkerhet (i synnerhet med gametime/pause i gameLoop, bäst att inte extenda Thread)
+
 * Fixa till gameLoop-tråden??? <--
 
 * GameTime implementerad --> ändra alla counters till gameTime-typ (beroende av tiden, ej random counters)
@@ -54,7 +56,7 @@ Story! (cut scene /  boss/enemy dialogue)
 
 * Hantera telefonfunktioner; skärmsläckare / rotationer / home button / return button / etc
 
-* Konstig respons på touchEvents, får ibland delay? ##### Kan kanske lösas genom att ha en tråd som ritar bitmaps som den lägger i en monitor, ui-tråden behöver sedan bara hämta dessa bitmaps(?)
+* Konstig respons på touchEvents, får ibland delay? ##### skippar fler och fler frames ju längre appen körs, information overload någonstans? Har vi cappad fps? om inte kanske det är det som gör touchen unresponsive (många updateScreen-calls i handler kön?)
 
 * Lagg vid switch från gameActivity
 

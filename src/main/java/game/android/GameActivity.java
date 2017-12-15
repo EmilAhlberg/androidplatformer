@@ -14,11 +14,18 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.example.emil.app.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import game.GameObject;
 import game.draw.Background;
 import game.framework.GameLoop;
 import game.framework.GameLoopMonitor;
 import game.framework.LevelCreator;
 import game.framework.World;
+import game.movers.Player;
+import game.objectinformation.ID;
 import game.objectinformation.IDHandler;
 import game.util.GameTime;
 
@@ -28,6 +35,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     private World world;
     private Handler gameLoopHandler;
     private SurfaceView surfaceView;
+    private Player player;          //remove if possible when framework is finished
     private Background bkg;
     private Thread gameThread;
     private GameLoopMonitor glMonitor;
@@ -44,9 +52,11 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         setFullscreen();
         handlerSetup();
 
-        LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
+
+        HashMap<ID,ArrayList<GameObject>> levelInfo = LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
+        player = (Player)levelInfo.get(ID.LEVELPLAYER).get(0);
         gameThread = new Thread(new GameLoop(this, gameLoopHandler, glMonitor));
-        world = new World(this, gameLoopHandler);
+        world = new World(this, levelInfo, gameLoopHandler);
         gameThread.start();
     }
 
@@ -132,7 +142,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     }
 
     public void drawWorld(Canvas canvas, GameTime gameTime) {
-        Rect r = LevelCreator.getPlayer().getRect();
+        Rect r = player.getRect();
         centerPlayer(r.left, r.top, canvas);
         world.draw(canvas, gameTime);
     }

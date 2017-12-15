@@ -96,7 +96,7 @@ public class BigSprite extends Sprite {
                 currentRow = 0;
                 animationCounter = 0;
             }
-            animate(animationType);
+            animate(animationType, gameTime);
 
         }
         //draw all destination rectangles
@@ -117,21 +117,18 @@ public class BigSprite extends Sprite {
                 0 0 0      -->     x x x      -->    0 0 0
                 0 0 0              0 0 0             x x x
      */
-    private void animate(int animationType) {
+    private void animate(int animationType, GameTime gameTime) {
         int width = sheet.getWidth();
         int height = sheet.getHeight();
         if (horizontal) {
-//            srcFull.set(currentCol*width, currentRow*height,currentCol*width + maxNbr*width, currentRow*height + height);
-//            srcRemainder.set(currentCol*width, currentRow*height,currentCol*width + nbrBlocksMod*width, currentRow*height + height);
-            srcFull.set(0, currentRow*height, maxNbr*width, currentRow*height + height);
-            srcRemainder.set(0, currentRow*height, nbrBlocksMod*width, currentRow*height + height);
-        }
-        else {
-            srcFull.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + height * maxNbr);
-            srcRemainder.set(currentCol*width, currentRow*height,currentCol*width + width, currentRow*height + nbrBlocksMod * height);
+            srcFull.set(0, currentRow * height, maxNbr * width, currentRow * height + height);
+            srcRemainder.set(0, currentRow * height, nbrBlocksMod * width, currentRow * height + height);
+        } else {
+            srcFull.set(currentCol * width, currentRow * height, currentCol * width + width, currentRow * height + height * maxNbr);
+            srcRemainder.set(currentCol * width, currentRow * height, currentCol * width + width, currentRow * height + nbrBlocksMod * height);
         }
 
-        if (animationCounter == animationThreshold) {
+        if (animationCounter >= animationThreshold) {
             animationCounter = 0;
 
             //AnimationInfo temp = AnimationInfo.getAnimationInfo(id, animationType);
@@ -139,16 +136,9 @@ public class BigSprite extends Sprite {
                 currentRow = ++currentRow % maxNbr;
             else
                 currentCol = ++currentCol % maxNbr;
-
-
-//            if (currentCol == maxNbr - 1)
-//                currentCol = 0;
-//            if (currentRow == maxNbr - 1)
-//                currentRow = 0;
         }
-        animationCounter++;
+        animationCounter += gameTime.elapsedTime();
         oldAnimationType = animationType;
+
     }
-
-
 }
