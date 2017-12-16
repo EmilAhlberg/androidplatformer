@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import game.draw.AnimationInfo;
-import game.draw.Particle;
 import game.objectinformation.ID;
 import game.draw.Particles;
 import game.framework.World;
@@ -46,8 +45,8 @@ public class Player extends Collider {
     @Override
     public void update(GameTime gameTime) {
         performAction();
-        mh.updateSpeed(friction, grounded);
-        move(mh.horizontalSpeed, mh.verticalSpeed);
+        updateSpeed(friction, grounded);
+        move(horizontalSpeed, verticalSpeed);
     }
 
     private void performAction() {
@@ -63,16 +62,16 @@ public class Player extends Collider {
             double temp = clickPos.x - World.WINDOW_WIDTH/2;
             double force = X_FORCE * temp / Math.abs(temp);
             if (wallJumpCounter > 0) {
-                if (force * mh.horizontalSpeed > 0) {
-                    mh.applyForce(force, 0);
+                if (force * horizontalSpeed > 0) {
+                    applyForce(force, 0);
                 }
             } else {
-                mh.applyForce(force, 0);
+                applyForce(force, 0);
             }
             if (grounded) {
                 animationType = AnimationInfo.RUNNING;
             } else {
-                if (mh.horizontalSpeed > 0) {
+                if (horizontalSpeed > 0) {
                     animationType = AnimationInfo.JUMPING_RIGHT;
                 }
                 else
@@ -86,7 +85,7 @@ public class Player extends Collider {
                 grounded = false;
             } else if (wallJumpDirection != 0) {
                 wallJumpCounter = WALLJUMP_FRAMES;
-                mh.applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
+                applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
                 Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()), ID.JUMP);      //!!!!!!!!!!!!!!!!!!!!!
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();
@@ -99,7 +98,7 @@ public class Player extends Collider {
     public void handleCollision(int collisionType, GameObject g) {
         if (g instanceof Fire) {
             if (collisionType == Collider.COLLISION_TOP) { //There is a small strip of "will_remove_block" at the bottom of the fire
-                mh.verticalSpeed = 0;
+                verticalSpeed = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
                 Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()),ID.EXPLOSION);
@@ -110,7 +109,7 @@ public class Player extends Collider {
         } else if (g.getID() == ID.CAT) {
             Rect cRect = g.getRect();
             if (collisionType == Collider.COLLISION_BOTTOM) {
-                Particles.createParticles(new Point(cRect.left, cRect.top), ID.CATDEATH);
+                Particles.createParticles(new Point(cRect.left, cRect.top), ID.OBJECTDEATH);
                 Particles.createParticles(new Point(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
                 ((Cat) g).deactivate();
             }

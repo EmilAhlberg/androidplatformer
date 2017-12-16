@@ -6,6 +6,7 @@ package game;
 
         import game.draw.NormalSprite;
         import game.draw.AnimationInfo;
+        import game.movers.Mover;
         import game.objectinformation.IDHandler;
         import game.objectinformation.ID;
         import game.draw.Sprite;
@@ -53,26 +54,6 @@ public abstract class GameObject {
 
     }
 
-    /**
-     * Moves the gameObject to the coordinates
-     * @param x x-coordinate
-     * @param y y-coordinate
-     */
-    public void moveTo(double x, double y) {
-        rect.offset((int)(x - rect.left), (int)(y - rect.top));
-    }
-
-    /**
-     * Moves the gameObject a certain distance
-     * @param x horizontal distance
-     * @param y vertical distance
-     */
-    public void move(double x, double y) {                              // typisk movermetod?
-        x = Math.round((float)x);
-        y = Math.round((float)y);
-        rect.offset((int)x, (int)y);
-    }
-
     public abstract void update(GameTime gameTime); //this is required, but doesn't have to be implemented / called on blocks etc.
 
     public ID getID() {
@@ -92,7 +73,8 @@ public abstract class GameObject {
     }
 
     public void activate(double x, double y) {
-        moveTo(x, y);
+        if (this instanceof Mover)
+            ((Mover)this).moveTo(x, y);
         isActive = true;
     }
 

@@ -129,19 +129,19 @@ public abstract class Collider extends Mover {
         if (collisionType == COLLISION_BOTTOM) {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height()+1);
-            mh.verticalSpeed = 0;
+            verticalSpeed = 0;
             friction = g.getFriction();
         } else if (collisionType == COLLISION_TOP) {
             moveTo(rect.left, g.getRect().bottom);
-            mh.verticalSpeed = 0;
+            verticalSpeed = 0;
         } else if (collisionType == COLLISION_LEFT) {
             wallJumpDirection = 1;
             moveTo(g.getRect().right, rect.top);
-            mh.horizontalSpeed = 0;
+            horizontalSpeed = 0;
         } else if (collisionType == COLLISION_RIGHT) {
             wallJumpDirection = -1;
             moveTo(g.getRect().left-rect.width(), rect.top);
-            mh.horizontalSpeed = 0;
+            horizontalSpeed = 0;
         }
     }
 }

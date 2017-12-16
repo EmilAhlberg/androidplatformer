@@ -13,9 +13,7 @@ import game.util.GameTime;
 /**
  * Created by Emil on 23/11/2017.
  */
-
 public class Particles {
-
     private static int maxParticles = 100;
     private static ArrayList<Particle> activeParticles = new ArrayList<Particle>() {
         {
@@ -52,16 +50,24 @@ public class Particles {
      * @param p The location of the particles.
      * @param id The type of particle.
      */
-
     public static void createParticles(Point p, ID id) {
+        float startAngle = 0;
+        float endAngle = 0;
+        int nbrOfParticles = 0;
         switch (id) {
             case JUMP:
-                createJump(p,id);
+                endAngle = (float)Math.PI;
+                nbrOfParticles = 6;
+                startAngle = (endAngle/nbrOfParticles)/2;
+                circularParticles(p,id,nbrOfParticles,startAngle,endAngle);
                 break;
             case EXPLOSION:;
-                createExplosion(p,id);
+                startAngle = 0;
+                endAngle = 2*(float)Math.PI;
+                nbrOfParticles = 20;
+                circularParticles(p,id,nbrOfParticles,startAngle,endAngle);
                 break;
-            case CATDEATH:
+            case OBJECTDEATH:
                 int rnd = new Random().nextInt(4);
                 if(rnd == 0)
                     objectDeathHorizontal(p, id);
@@ -73,36 +79,15 @@ public class Particles {
         }
     }
 
-    private static void createExplosion(Point point, ID id) {
-        int nbrOfParticles = 20;
+    private static void circularParticles(Point point, ID id, int nbrOfParticles, float currentAngle, float endAngle) {
         int currentNbr = 0;
-        double angle = 2* Math.PI / nbrOfParticles;
-        double currentAngle = -Math.PI;
-        for (int i = 0; i<maxParticles; i++) {
+        double angle = (endAngle - currentAngle) / nbrOfParticles;
+        for (int i = 0; i < maxParticles; i++) {
             Particle p = activeParticles.get(i);
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(point,dx,dy,id, currentAngle, ParticleSprite.STANDARD);
-                currentAngle += angle;
-                currentNbr++;
-            }
-            if (currentNbr == nbrOfParticles)
-                break;
-        }
-    }
-
-    private static void createJump(Point point, ID id) {
-        int nbrOfParticles = 6;
-        int currentNbr = 0;
-        double angle = Math.PI / nbrOfParticles;
-        double currentAngle = angle/2;
-        for (int i = 0; i<maxParticles; i++) {
-            Particle p = activeParticles.get(i);
-            if (!p.isActive()) {
-                float dx = (float) Math.cos(currentAngle);
-                float dy = (float) Math.sin(currentAngle);
-                p.activate(point, dx,dy,id, currentAngle, ParticleSprite.STANDARD);
+                p.activate(point, dx, dy, id, currentAngle, ParticleSprite.STANDARD);
                 currentAngle += angle;
                 currentNbr++;
             }
@@ -154,12 +139,9 @@ public class Particles {
         }
     }
 
-
-
     /**
      * Resets all particles, turning them inactive.
      */
-
     public static void reset() {
         for (Particle p: activeParticles) {
             p.reset();

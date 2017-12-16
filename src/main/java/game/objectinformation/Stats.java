@@ -20,7 +20,7 @@ public class Stats {
             put(ID.CAT, 20);
             put(ID.EXPLOSION, 3);
             put(ID.JUMP, 3);
-            put(ID.CATDEATH, 20);
+            put(ID.OBJECTDEATH, 20);
         }
     };
 
@@ -33,7 +33,7 @@ public class Stats {
             put(ID.CAT, 20);
             put(ID.EXPLOSION, 3);
             put(ID.JUMP, 3);
-            put(ID.CATDEATH, 20);
+            put(ID.OBJECTDEATH, 20);
         }
     };
 
@@ -63,7 +63,7 @@ public class Stats {
         {
             put(ID.EXPLOSION, 300);
             put(ID.JUMP, 150);
-            put(ID.CATDEATH, 400);
+            put(ID.OBJECTDEATH, 400);
         }
     };
 
@@ -71,7 +71,7 @@ public class Stats {
         {
             put(ID.EXPLOSION, (float)3);
             put(ID.JUMP, (float)2);
-            put(ID.CATDEATH, (float)1.);
+            put(ID.OBJECTDEATH, (float)1.);
         }
     };
 
