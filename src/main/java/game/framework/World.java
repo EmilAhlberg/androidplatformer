@@ -88,13 +88,27 @@ public class World {
     public void gameOver() {
         Message m = signal.obtainMessage();
         m.what = 1;
-        m.sendToTarget();
+        signal.sendMessageAtFrontOfQueue(m);
+        synchronized (this) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     public void nextLevel() {
         Message m = signal.obtainMessage();
         m.what = 2;
-        m.sendToTarget();
+        signal.sendMessageAtFrontOfQueue(m);
+        synchronized (this) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

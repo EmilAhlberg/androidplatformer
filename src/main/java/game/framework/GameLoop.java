@@ -15,7 +15,7 @@ public class GameLoop implements Runnable {
 
     private GameActivity game;
     private Handler handler;
-    private final int timeLimit = 15; //!!!
+    private final int timeLimit = 25; //!!!
     private GameLoopMonitor glMonitor;
 
     public GameLoop(GameActivity game, Handler handler, GameLoopMonitor glm) {
@@ -30,13 +30,23 @@ public class GameLoop implements Runnable {
         double newTime = 0;
         glMonitor.setGameTime(new GameTime(currentTime));
         while (!Thread.currentThread().isInterrupted()) {
-            //TODO: Fix busy wait!!! //aha! snyggt
+
+            // Fix busy wait!!! //aha! snyggt // Fixat ;)
             newTime = System.currentTimeMillis();
-            if (newTime - currentTime > timeLimit) {
-                glMonitor.updateGameTime(newTime);
-                updateLoop(glMonitor.getGameTime());
-                currentTime = newTime;
+
+            double temp = timeLimit - (newTime - currentTime);
+            if (temp > 0) {
+                try {
+                    Thread.sleep((int)temp);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
+            //if (newTime - currentTime > timeLimit) {
+            glMonitor.updateGameTime(newTime);
+            updateLoop(glMonitor.getGameTime());
+            currentTime = newTime;
+            //}
         }
     }
 
