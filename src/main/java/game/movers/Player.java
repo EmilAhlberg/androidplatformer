@@ -47,8 +47,7 @@ public class Player extends Collider {
     @Override
     public void update(GameTime gameTime) {
         performAction();
-        updateSpeed(friction, grounded);
-        move();
+        move(friction);
     }
 
     private void performAction() {

@@ -1,7 +1,5 @@
 package game.movers;
 
-import android.graphics.Point;
-
 import game.objectinformation.ID;
 import game.GameObject;
 import game.util.GameTime;
@@ -13,8 +11,10 @@ import game.util.Vector;
 
 public class Cat extends Collider {
     private GameObject ground;
-    private int tempSpeed = 1;
-    private int fakeGravity = 1;
+    private int direction = 1; //!! default move direction is right
+    private final int TURN_FREQUENCY = 300; //! maybe a problem on small platforms
+    private int turnCounter = TURN_FREQUENCY;
+    private int oldX = 1;
 
     public Cat(Vector v) {
         super(v);
@@ -23,12 +23,14 @@ public class Cat extends Collider {
     @Override
     public void update(GameTime gameTime) {
         if(ground != null) {
-            if (ground.getRect().right <= rect.right || ground.getRect().left >=rect.left)
-                tempSpeed = tempSpeed*-1;
+            if ((ground.getRect().right <= rect.right || ground.getRect().left >=rect.left) && turnCounter < 0) {
+                direction = direction *-1;
+                turnCounter = TURN_FREQUENCY; // gets stuck on edges otherwise
+            }
         }
-        //mh.applyForce(10, 0);
-        //mh.updateSpeed(friction, grounded);
-        move(tempSpeed, fakeGravity);
+        turnCounter -= gameTime.elapsedTime();
+        applyForce(15* direction, 0);
+        move(friction);
     }
 
     @Override
@@ -36,7 +38,7 @@ public class Cat extends Collider {
         if (collisionType == COLLISION_BOTTOM && g.getID() == ID.BLOCK) {
             ground = g;
         } else if (collisionType == COLLISION_LEFT || collisionType == COLLISION_RIGHT) {
-            tempSpeed = tempSpeed * -1;
+            direction = direction * -1;
         }
 
     }

@@ -51,13 +51,14 @@ public abstract class Mover extends GameObject {
      * @param x horizontal distance
      * @param y vertical distance
      */
-    public void move(float x, float y) {
+    public void move(float x, float y) {       // SHOULD BE REMOVED ASAP!
         x = Math.round(x);
         y = Math.round(y);
         rect.offset((int)x, (int)y);
     }
 
-    public void move() {
+    public void move(float friction) {
+        updateSpeed(friction);
         rect.offset((int)speed.X, (int)speed.Y);
     }
 
@@ -70,30 +71,29 @@ public abstract class Mover extends GameObject {
     }
 
 
-    /**
-     * Updates the horizontal and vertical speeds of the mover
-     *
+    /*
+     * Updates the horizontal and vertical speeds of the mover.     *
      * @param friction Value between 0 and 1 that determines how slippery the ground is, where 0 is frictionless.
      */
-    public void updateSpeed(float friction, boolean grounded) {
+    private void updateSpeed(float friction) {
         updateAcceleration();
         force.set(0, GRAVITY);
+        updateVerticalSpeed();
+        updateHorizontalSpeed(friction);
+    }
 
-        //vertical
+    private void updateHorizontalSpeed(float friction) {
+        speed.X = speed.X* (1 - friction) + acceleration.X;
+        float absSpeed = Math.abs(speed.X);
+        if (absSpeed > MAX_SPEED.X /*&& grounded*/)
+            speed.X = speed.X / absSpeed * MAX_SPEED.X;
+    }
+
+    private void updateVerticalSpeed() {
         speed.Y = speed.Y+ acceleration.Y;
         float absSpeed = Math.abs(speed.Y);
         if (absSpeed > MAX_SPEED.Y)
             speed.Y = speed.Y / absSpeed * MAX_SPEED.Y;
-
-        //horizontal
-        speed.X = speed.X* (1 - friction) + acceleration.X;
-        absSpeed = Math.abs(speed.X);
-        if (absSpeed > MAX_SPEED.X /*&& grounded*/)
-            speed.X = speed.X / absSpeed * MAX_SPEED.X;
-        /*else if (absSpeed > MAX_HORIZONTAL_SPEED * 4)
-                horizontalSpeed = horizontalSpeed / absSpeed * MAX_HORIZONTAL_SPEED * 4;*/
-
-//        speed.set(horizontalSpeed, verticalSpeed);
     }
 
     private void updateAcceleration() {
