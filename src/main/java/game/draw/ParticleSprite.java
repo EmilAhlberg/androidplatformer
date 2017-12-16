@@ -1,7 +1,6 @@
 package game.draw;
 
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
 
 import game.objectinformation.ID;
@@ -38,10 +37,10 @@ public class ParticleSprite extends Sprite {
         int srcLeft = 0;
         int srcRight = sheet.getWidth();
 
-        int destTop = (int)v.Y;
-        int destBottom = (int)v.Y + Stats.height(id);
-        int destLeft = (int)v.X;
-        int destRight =  (int)v.X + Stats.width(id);;
+        int destTop = (int)v.y;
+        int destBottom = (int)v.y + Stats.height(id);
+        int destLeft = (int)v.x;
+        int destRight =  (int)v.x + Stats.width(id);;
 
         switch (partType) {
             case BOTTOM_PART_X2:

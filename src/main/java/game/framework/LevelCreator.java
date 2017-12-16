@@ -1,7 +1,5 @@
 package game.framework;
 
-import android.graphics.Point;
-
 import game.android.GameActivity;
 import com.example.emil.app.R;
 import game.*;
@@ -91,7 +89,7 @@ public class LevelCreator {
     private static void activateObject(ArrayList<GameObject> list, Vector v) {
         for(GameObject g : list) {
             if (!g.isActive()) {
-                g.activate(v.X, v.Y);
+                g.activate(v.x, v.y);
                 break;
             }
         }

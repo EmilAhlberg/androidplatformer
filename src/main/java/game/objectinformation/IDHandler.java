@@ -75,7 +75,6 @@ public class IDHandler {
 
         //Particles!
         IDHandler.sheets[ID.EXPLOSION.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_goal, options), Stats.width(ID.GOAL), Stats.height(ID.GOAL));
-
         IDHandler.sheets[ID.JUMP.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_block, options), Stats.width(ID.CAT), Stats.height(ID.CAT));
 
         AnimationInfo.initAnimationInfo();

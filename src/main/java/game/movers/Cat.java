@@ -11,10 +11,10 @@ import game.util.Vector;
 
 public class Cat extends Collider {
     private GameObject ground;
-    private int direction = 1; //!! default move direction is right
     private final int TURN_FREQUENCY = 300; //! maybe a problem on small platforms
+    private int direction = 1; //!! default move direction is right
     private int turnCounter = TURN_FREQUENCY;
-    private int oldX = 1;
+    private static final int CAT_FORCE = 15; //!
 
     public Cat(Vector v) {
         super(v);
@@ -29,8 +29,8 @@ public class Cat extends Collider {
             }
         }
         turnCounter -= gameTime.elapsedTime();
-        applyForce(15* direction, 0);
-        move(friction);
+        applyForce(CAT_FORCE* direction, 0);
+        move(friction, true);
     }
 
     @Override

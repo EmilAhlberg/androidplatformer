@@ -17,22 +17,28 @@ package game.objectinformation;
 
 public enum ID {
 
+    /*
+        Object ID's
+     */
     DEFAULT,
     PLAYER,
     FIRE,
     CAT,
-
-
     BLOCK,
     GOAL,
 
-
-    //particle effects!
+    /*
+        Particle effects!
+     */
     JUMP,
+    WALLJUMP_LEFT,
+    WALLJUMP_RIGHT,
     EXPLOSION,
     OBJECTDEATH,
 
-    //levelcreator IDs
+    /*
+        LevelCreator ID's
+     */
     LEVELPLAYER,
     LEVELBLOCKS,
     LEVELHAZARDS,

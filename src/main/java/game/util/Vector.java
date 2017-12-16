@@ -5,31 +5,31 @@ package game.util;
  */
 
 public class Vector {
-    public float X;
-    public float Y;
+    public float x;
+    public float y;
 
     public Vector(float x, float y) {
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public Vector() {
-        X = 0;
-        Y = 0;
+        x = 0;
+        y = 0;
     }
 
     public void set (Vector newVector) {
-        X = newVector.X;
-        Y = newVector.Y;
+        x = newVector.x;
+        y = newVector.y;
     }
 
     public void set (float x, float y) {
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public void addVector(Vector addedVector) {
-        X += addedVector.X;
-        Y += addedVector.Y;
+        x += addedVector.x;
+        y += addedVector.y;
     }
 }

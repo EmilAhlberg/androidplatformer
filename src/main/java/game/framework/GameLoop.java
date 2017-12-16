@@ -30,7 +30,7 @@ public class GameLoop implements Runnable {
         double newTime = 0;
         glMonitor.setGameTime(new GameTime(currentTime));
         while (!Thread.currentThread().isInterrupted()) {
-            //TODO: Fix busy wait!!!
+            //TODO: Fix busy wait!!! //aha! snyggt
             newTime = System.currentTimeMillis();
             if (newTime - currentTime > timeLimit) {
                 glMonitor.updateGameTime(newTime);

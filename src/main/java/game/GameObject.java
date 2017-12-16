@@ -1,7 +1,6 @@
 package game;
 
         import android.graphics.Canvas;
-        import android.graphics.Point;
         import android.graphics.Rect;
 
         import game.draw.NormalSprite;
@@ -35,7 +34,7 @@ public abstract class GameObject {
      */
     public GameObject(Vector v) {
         this.id = IDHandler.getID(this.getClass());
-        this.rect = new Rect((int)v.X, (int)v.Y, (int)v.X + Stats.width(id), (int)v.Y + Stats.height(id));
+        this.rect = new Rect((int)v.x, (int)v.y, (int)v.x + Stats.width(id), (int)v.y + Stats.height(id));
         sprite = new NormalSprite(id);
     }
 
@@ -48,9 +47,9 @@ public abstract class GameObject {
     public GameObject(Vector v, int currentSize, boolean horizontal) {
         this.id = IDHandler.getID(this.getClass());
         if (horizontal)
-            this.rect = new Rect((int)v.X, (int)v.Y, (int)v.X + Stats.width(id)*currentSize, (int)v.Y+ Stats.height(id));      //must be changed to minimum grid size (block) to make things even
+            this.rect = new Rect((int)v.x, (int)v.y, (int)v.x + Stats.width(id)*currentSize, (int)v.y + Stats.height(id));      //must be changed to minimum grid size (block) to make things even
         else
-            this.rect = new Rect((int)v.X, (int)v.Y, (int)v.X + Stats.width(id), (int)v.Y+ Stats.height(id)*currentSize);      //must be changed to minimum grid size (block) to make things even
+            this.rect = new Rect((int)v.x, (int)v.y, (int)v.x + Stats.width(id), (int)v.y + Stats.height(id)*currentSize);      //must be changed to minimum grid size (block) to make things even
         sprite = new BigSprite(id,currentSize, horizontal, rect);
 
     }

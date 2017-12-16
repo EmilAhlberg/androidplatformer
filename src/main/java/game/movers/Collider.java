@@ -1,6 +1,5 @@
 package game.movers;
 
-import android.graphics.Point;
 import android.graphics.Rect;
 
 import game.objectinformation.ID;
@@ -20,13 +19,13 @@ public abstract class Collider extends Mover {
     public static final int COLLISION_BOTTOM = 3;
     public static final int COLLISION_TOP = 4;
 
-    protected int wallJumpDirection;
+    //protected int wallJumpDirection;
     public float friction;
     public boolean grounded;
 
     public Collider(Vector v) {
         super(v);
-        wallJumpDirection = 0;
+        //wallJumpDirection = 0;
         friction = 0.2f;
         grounded = false;
     }
@@ -130,19 +129,21 @@ public abstract class Collider extends Mover {
         if (collisionType == COLLISION_BOTTOM) {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height()+1);
-            speed.Y = 0;
+            speed.y = 0;
             friction = g.getFriction();
         } else if (collisionType == COLLISION_TOP) {
             moveTo(rect.left, g.getRect().bottom);
-            speed.Y = 0;
+            speed.y = 0;
         } else if (collisionType == COLLISION_LEFT) {
-            wallJumpDirection = 1;
+            if (this instanceof  Player) //should be moved to player?
+                Player.WALLJUMP_DIRECTION = Player.WALLJUMP_LEFT;
             moveTo(g.getRect().right, rect.top);
-            speed.X = 0;
+            speed.x = 0;
         } else if (collisionType == COLLISION_RIGHT) {
-            wallJumpDirection = -1;
+            if (this instanceof  Player) //should be moved to player?
+                Player.WALLJUMP_DIRECTION = Player.WALLJUMP_RIGHT;
             moveTo(g.getRect().left-rect.width(), rect.top);
-            speed.X = 0;
+            speed.x = 0;
         }
     }
 }

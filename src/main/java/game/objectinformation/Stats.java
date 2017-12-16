@@ -19,7 +19,7 @@ public class Stats {
             put(ID.GOAL, 40);
             put(ID.CAT, 20);
             put(ID.EXPLOSION, 3);
-            put(ID.JUMP, 3);
+            put(ID.JUMP, 6);
             put(ID.OBJECTDEATH, 20);
         }
     };
@@ -32,7 +32,7 @@ public class Stats {
             put(ID.GOAL, 40);
             put(ID.CAT, 20);
             put(ID.EXPLOSION, 3);
-            put(ID.JUMP, 3);
+            put(ID.JUMP, 2);
             put(ID.OBJECTDEATH, 20);
         }
     };
@@ -53,27 +53,29 @@ public class Stats {
         }
     };
 
-//    private static HashMap<ID, Integer> particleSize = new HashMap<ID, Integer>() {
-//        {
-//
-//        }
-//    };
+    private static HashMap<ID, Boolean> gravity = new HashMap<ID, Boolean>() {
+        {
+            put(ID.EXPLOSION, false);
+            put(ID.JUMP, false);
+            put(ID.OBJECTDEATH, true);
+        }
+    };
 
     private static HashMap<ID, Integer> particleLife = new HashMap<ID, Integer>() {
         {
             put(ID.EXPLOSION, 300);
-            put(ID.JUMP, 150);
+            put(ID.JUMP, 200);
             put(ID.OBJECTDEATH, 400);
         }
     };
 
-    private static HashMap<ID, Float> particleSpeed = new HashMap<ID, Float>() {
-        {
-            put(ID.EXPLOSION, (float)3);
-            put(ID.JUMP, (float)2);
-            put(ID.OBJECTDEATH, (float)1.);
-        }
-    };
+//    private static HashMap<ID, Float> particleSpeed = new HashMap<ID, Float>() {
+//        {
+//            put(ID.EXPLOSION, (float)3);
+//            put(ID.JUMP, (float)2);
+//            put(ID.OBJECTDEATH, (float)1.);
+//        }
+//    };
 
     /**
      * Retrieves the width of an object based on object type
@@ -133,14 +135,20 @@ public class Stats {
         return DEFAULT;
     }
 
-    /**
-     * Retrieves the speed of a particle based on particle type.
-     * @param id The type of particle.
-     * @return The speed, if the ID was present, DEFAULT otherwise.
-     */
-    public static float particleSpeed(ID id) {
-        if (particleSpeed.containsKey(id))
-            return particleSpeed.get(id);
-        return DEFAULT;
+//    /**
+//     * Retrieves the speed of a particle based on particle type.
+//     * @param id The type of particle.
+//     * @return The speed, if the ID was present, DEFAULT otherwise.
+//     */
+//    public static float particleSpeed(ID id) {
+//        if (particleSpeed.containsKey(id))
+//            return particleSpeed.get(id);
+//        return DEFAULT;
+//    }
+
+    public static boolean affectedByGravity(ID id) {
+        if (gravity.containsKey(id))
+            return gravity.get(id);
+        return false;
     }
 }

@@ -23,9 +23,10 @@ import game.util.Vector;
 
 public class Player extends Collider {
 
+    public static final int WALLJUMP_LEFT = 1; //!!
+    public static final int WALLJUMP_RIGHT = -1; //!!
+    public static int WALLJUMP_DIRECTION = 0; //! pls no public fix
     private final Vector FORCE = new Vector (60,350); //!!
-//    private final int X_FORCE = 60;
-//    private final int Y_FORCE = 350;
     private final float WALLJUMP_FORCE = 400; //!!
     private final int WALLJUMP_FRAMES = 27; //!!
     private TouchEventDecoder ted;
@@ -47,13 +48,13 @@ public class Player extends Collider {
     @Override
     public void update(GameTime gameTime) {
         performAction();
-        move(friction);
+        move(friction, true);
     }
 
     private void performAction() {
         updateWallJumpCounter();
         handleControls();
-        wallJumpDirection = 0;
+        WALLJUMP_DIRECTION = 0;
     }
 
     private void updateAnimationInfo(int fingers) {
@@ -63,7 +64,7 @@ public class Player extends Collider {
             if (grounded) {
                 animationType = AnimationInfo.RUNNING;
             } else {
-                if (speed.X > 0) {
+                if (speed.x > 0) {
                     animationType = AnimationInfo.JUMPING_RIGHT;
                 } else
                     animationType = AnimationInfo.JUMPING_LEFT;
@@ -81,25 +82,39 @@ public class Player extends Collider {
     private void checkJump(int fingers) {
         if (fingers > 1) {
             if (grounded) {
-                jump(FORCE.Y);
-                Particles.createParticles(new Vector(this.rect.centerX(), this.rect.centerY()), ID.JUMP);
+                jump(FORCE.y);
+                Particles.createParticles(new Vector(rect.centerX(), rect.bottom), ID.JUMP);
                 grounded = false;
-            } else if (wallJumpDirection != 0) {
+            } else if (WALLJUMP_DIRECTION != 0) {
                 wallJumpCounter = WALLJUMP_FRAMES;
-                applyForce(WALLJUMP_FORCE * wallJumpDirection, -FORCE.Y * 2);
-                Particles.createParticles(new Vector(this.rect.centerX(), this.rect.centerY()), ID.JUMP);
+                applyForce(WALLJUMP_FORCE * WALLJUMP_DIRECTION, -FORCE.y * 2);
+                wallJumpParticles();
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();
             }
         }
     }
 
+    private void wallJumpParticles() {
+        ID id;
+        Vector v;
+        if (WALLJUMP_DIRECTION == WALLJUMP_LEFT) {
+            id = ID.WALLJUMP_LEFT;
+            v = new Vector(rect.left, rect.centerY());
+        }
+        else {
+            id = ID.WALLJUMP_RIGHT;
+            v = new Vector(rect.right, rect.centerY());
+        }
+        Particles.createParticles(v, id);
+    }
+
     private void updateDirection(int fingers) {
         if (fingers != 0) {
             float temp = clickPos.x - World.WINDOW_WIDTH / 2;
-            float force = FORCE.X* temp / Math.abs(temp);
+            float force = FORCE.x * temp / Math.abs(temp);
             if (wallJumpCounter > 0) {
-                if (force * speed.X > 0) {
+                if (force * speed.x > 0) {
                     applyForce(force, 0);
                 }
             } else {
@@ -109,7 +124,7 @@ public class Player extends Collider {
     }
 
     private void updateWallJumpCounter() {
-        if (grounded || wallJumpDirection != 0) {
+        if (grounded || WALLJUMP_DIRECTION != 0) {
             wallJumpCounter = 0;
         } else if (wallJumpCounter > 0) {
             wallJumpCounter--;
@@ -120,10 +135,9 @@ public class Player extends Collider {
     public void handleCollision(int collisionType, GameObject g) {
         if (g instanceof Fire) {
             if (collisionType == Collider.COLLISION_TOP) { //There is a small strip of "will_remove_block" at the bottom of the fire
-                speed.Y = 0;
+                speed.y = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
-                Particles.createParticles(new Vector(this.rect.centerX(), this.rect.centerY()),ID.EXPLOSION);
                 world.gameOver(); //Possible to change to lose lives or something instead of dying outright
             }
         } else if (g instanceof Goal) {
@@ -134,6 +148,7 @@ public class Player extends Collider {
                 Particles.createParticles(new Vector(cRect.left, cRect.top), ID.OBJECTDEATH);
                 Particles.createParticles(new Vector(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
                 ((Cat) g).deactivateMover();
+                jump(FORCE.y);
             }
             else
                 world.gameOver();
