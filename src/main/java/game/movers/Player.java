@@ -23,10 +23,11 @@ import game.util.Vector;
 
 public class Player extends Collider {
 
-    private final int X_FORCE = 60;
-    private final int Y_FORCE = 350;
-    private final float WALLJUMP_FORCE = 400;
-    private final int WALLJUMP_FRAMES = 27;
+    private final Vector FORCE = new Vector (60,350); //!!
+//    private final int X_FORCE = 60;
+//    private final int Y_FORCE = 350;
+    private final float WALLJUMP_FORCE = 400; //!!
+    private final int WALLJUMP_FRAMES = 27; //!!
     private TouchEventDecoder ted;
     private Point clickPos;
     private World world;
@@ -51,17 +52,53 @@ public class Player extends Collider {
     }
 
     private void performAction() {
-        if (grounded || wallJumpDirection != 0) {
-            wallJumpCounter = 0;
-        } else if (wallJumpCounter > 0) {
-            wallJumpCounter--;
-        }
-        int fingers = ted.getNbrFingersDown();
-        if (fingers == 0) {
+        updateWallJumpCounter();
+        handleControls();
+        wallJumpDirection = 0;
+    }
+
+    private void updateAnimationInfo(int fingers) {
+        if (fingers == 0)
             animationType = AnimationInfo.DEFAULT;
-        } else {
-            float temp = clickPos.x - World.WINDOW_WIDTH/2;
-            float force = X_FORCE * temp / Math.abs(temp);
+        else {
+            if (grounded) {
+                animationType = AnimationInfo.RUNNING;
+            } else {
+                if (speed.X > 0) {
+                    animationType = AnimationInfo.JUMPING_RIGHT;
+                } else
+                    animationType = AnimationInfo.JUMPING_LEFT;
+            }
+        }
+    }
+
+    private void handleControls() {
+        int fingers = ted.getNbrFingersDown();
+        updateAnimationInfo(fingers);
+        updateDirection(fingers);
+        checkJump(fingers);
+    }
+
+    private void checkJump(int fingers) {
+        if (fingers > 1) {
+            if (grounded) {
+                jump(FORCE.Y);
+                Particles.createParticles(new Vector(this.rect.centerX(), this.rect.centerY()), ID.JUMP);
+                grounded = false;
+            } else if (wallJumpDirection != 0) {
+                wallJumpCounter = WALLJUMP_FRAMES;
+                applyForce(WALLJUMP_FORCE * wallJumpDirection, -FORCE.Y * 2);
+                Particles.createParticles(new Vector(this.rect.centerX(), this.rect.centerY()), ID.JUMP);
+                ted.switchPositions();
+                clickPos = ted.getFirstClickPos();
+            }
+        }
+    }
+
+    private void updateDirection(int fingers) {
+        if (fingers != 0) {
+            float temp = clickPos.x - World.WINDOW_WIDTH / 2;
+            float force = FORCE.X* temp / Math.abs(temp);
             if (wallJumpCounter > 0) {
                 if (force * speed.X > 0) {
                     applyForce(force, 0);
@@ -69,30 +106,15 @@ public class Player extends Collider {
             } else {
                 applyForce(force, 0);
             }
-            if (grounded) {
-                animationType = AnimationInfo.RUNNING;
-            } else {
-                if (speed.X> 0) {
-                    animationType = AnimationInfo.JUMPING_RIGHT;
-                }
-                else
-                    animationType = AnimationInfo.JUMPING_LEFT;
-            }
         }
-        if (fingers > 1) {
-            if (grounded) {
-                jump(Y_FORCE);
-                Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()), ID.JUMP);     //!!!!!!!!!!!!!!!!!!!!!
-                grounded = false;
-            } else if (wallJumpDirection != 0) {
-                wallJumpCounter = WALLJUMP_FRAMES;
-                applyForce(WALLJUMP_FORCE * wallJumpDirection, -Y_FORCE * 2);
-                Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()), ID.JUMP);      //!!!!!!!!!!!!!!!!!!!!!
-                ted.switchPositions();
-                clickPos = ted.getFirstClickPos();
-            }
+    }
+
+    private void updateWallJumpCounter() {
+        if (grounded || wallJumpDirection != 0) {
+            wallJumpCounter = 0;
+        } else if (wallJumpCounter > 0) {
+            wallJumpCounter--;
         }
-        wallJumpDirection = 0;
     }
 
     @Override
@@ -102,7 +124,7 @@ public class Player extends Collider {
                 speed.Y = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
-                Particles.createParticles(new Point(this.rect.centerX(), this.rect.centerY()),ID.EXPLOSION);
+                Particles.createParticles(new Vector(this.rect.centerX(), this.rect.centerY()),ID.EXPLOSION);
                 world.gameOver(); //Possible to change to lose lives or something instead of dying outright
             }
         } else if (g instanceof Goal) {
@@ -110,15 +132,17 @@ public class Player extends Collider {
         } else if (g.getID() == ID.CAT) {
             Rect cRect = g.getRect();
             if (collisionType == Collider.COLLISION_BOTTOM) {
-                Particles.createParticles(new Point(cRect.left, cRect.top), ID.OBJECTDEATH);
-                Particles.createParticles(new Point(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
-                ((Cat) g).deactivate();
+                Particles.createParticles(new Vector(cRect.left, cRect.top), ID.OBJECTDEATH);
+                Particles.createParticles(new Vector(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
+                ((Cat) g).deactivateMover();
             }
             else
                 world.gameOver();
         }
     }
 
+    //should be removed, better put public static variables in world, which can be set from here?
+    //example: World.PLAYER_ALIVE = false; --> world checks this every loop, World.nextLevel = true; etc.
     public void setWorld(World world) {
         this.world = world;
     }

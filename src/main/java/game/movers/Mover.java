@@ -24,7 +24,7 @@ public abstract class Mover extends GameObject {
         super(v);
     }
 
-    public void deactivate() {
+    public void deactivateMover() {
         isActive = false;
         moveTo(World.DEFAULT_POSITION);
     }
@@ -80,33 +80,25 @@ public abstract class Mover extends GameObject {
         force.set(0, GRAVITY);
 
         //vertical
-        float verticalSpeed = speed.Y+ acceleration.Y;
-        float absSpeed = Math.abs(verticalSpeed);
+        speed.Y = speed.Y+ acceleration.Y;
+        float absSpeed = Math.abs(speed.Y);
         if (absSpeed > MAX_SPEED.Y)
-            verticalSpeed = verticalSpeed / absSpeed * MAX_SPEED.Y;
+            speed.Y = speed.Y / absSpeed * MAX_SPEED.Y;
 
         //horizontal
-        float horizontalSpeed = speed.X* (1 - friction) + acceleration.X;
-        absSpeed = Math.abs(horizontalSpeed);
+        speed.X = speed.X* (1 - friction) + acceleration.X;
+        absSpeed = Math.abs(speed.X);
         if (absSpeed > MAX_SPEED.X /*&& grounded*/)
-            horizontalSpeed = horizontalSpeed / absSpeed * MAX_SPEED.X;
+            speed.X = speed.X / absSpeed * MAX_SPEED.X;
         /*else if (absSpeed > MAX_HORIZONTAL_SPEED * 4)
                 horizontalSpeed = horizontalSpeed / absSpeed * MAX_HORIZONTAL_SPEED * 4;*/
 
-        speed.set(horizontalSpeed, verticalSpeed);
+//        speed.set(horizontalSpeed, verticalSpeed);
     }
 
     private void updateAcceleration() {
         acceleration.set(new Vector(force.X/30, force.Y/30));
-        //verticalAcceleration = verticalForce / 30;
-        //horizontalAcceleration = horizontalForce / 30;
     }
-
-//    public void applyForce(Vector addedChange) {
-//        force.addVector(addedChange);
-////        verticalForce += verticalChange;
-////        horizontalForce += horizontalChange;
-//    }
 
     public void applyForce(float x, float y) {
         force.X += x;

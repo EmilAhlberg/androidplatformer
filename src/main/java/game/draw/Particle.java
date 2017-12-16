@@ -58,8 +58,8 @@ public class Particle extends Mover {
      * @param id The type of particle desired.
      * @param currentAngle the angular orientation of the sprite.
      */
-    public void activate(Point p, float dx, float dy, ID id, double currentAngle, int partType) {
-        sprite = new ParticleSprite(id, partType, rect, p);
+    public void activate(Vector v, float dx, float dy, ID id, double currentAngle, int partType) {
+        sprite = new ParticleSprite(id, partType, rect, v);
         this.dx = dx * Stats.particleSpeed(id);
         this.dy = dy * Stats.particleSpeed(id);
         this.life = Stats.particleLife(id);

@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import game.objectinformation.ID;
 import game.objectinformation.Stats;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 15/12/2017.
@@ -26,23 +27,21 @@ public class ParticleSprite extends Sprite {
     public static final int BOTTOMRIGHT_PART_X4 = 8;
     private Rect src;
 
-    public ParticleSprite(ID id, int partType, Rect dest, Point p) {
+    public ParticleSprite(ID id, int partType, Rect dest, Vector v) {
         super(id);
-        initRectangles(partType, dest, p, id);
-        //src = new Rect(0,0,sheet.getWidth(),sheet.getHeight()/2);
-        //dest.set(p.x, p.y, p.x + Stats.width(id), p.y + Stats.height(id));
+        initRectangles(partType, dest, v, id);
     }
 
-    private void initRectangles(int partType, Rect dest, Point p, ID id) {
+    private void initRectangles(int partType, Rect dest, Vector v, ID id) {
         int srcTop = 0;
         int srcBottom = sheet.getHeight();
         int srcLeft = 0;
         int srcRight = sheet.getWidth();
 
-        int destTop = p.y;
-        int destBottom = p.y + Stats.height(id);
-        int destLeft = p.x;
-        int destRight =  p.x + Stats.width(id);;
+        int destTop = (int)v.Y;
+        int destBottom = (int)v.Y + Stats.height(id);
+        int destLeft = (int)v.X;
+        int destRight =  (int)v.X + Stats.width(id);;
 
         switch (partType) {
             case BOTTOM_PART_X2:

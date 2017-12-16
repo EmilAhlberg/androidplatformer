@@ -28,7 +28,6 @@ public class Vector {
         this.Y = y;
     }
 
-
     public void addVector(Vector addedVector) {
         X += addedVector.X;
         Y += addedVector.Y;
