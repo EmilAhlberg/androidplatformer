@@ -30,6 +30,7 @@ public class World {
     public final static int MAP_HEIGHT = 1000;
     public final static int WINDOW_WIDTH = 800;
     public final static int WINDOW_HEIGHT = 480;
+    public static boolean NEXT_LEVEL = false;
 
     private Player player;
     private Container blocks;
@@ -40,12 +41,9 @@ public class World {
     private GameActivity gameActivity;
     private Handler signal;
 
-    //private Container enemies;
-
     public World(GameActivity ga, HashMap<ID, ArrayList<GameObject>> levelInfo, Handler signal) {
         gameActivity = ga;
         initWorld(levelInfo);
-        player.setWorld(this);
         ch = new CollisionHandler();
         this.signal = signal;
     }
@@ -64,6 +62,16 @@ public class World {
 
         Particles.update(gameTime);
         ch.handleAllCollisions(player, blocks, hazards, interactives, enemies);
+        checkGameState();
+    }
+
+    private void checkGameState() {
+        if (NEXT_LEVEL) {
+            nextLevel();
+            NEXT_LEVEL = false;
+        }
+        if (!player.isActive())
+            gameOver();
     }
 
     public void draw(Canvas canvas, GameTime gameTime) {

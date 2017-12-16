@@ -19,13 +19,11 @@ public abstract class Collider extends Mover {
     public static final int COLLISION_BOTTOM = 3;
     public static final int COLLISION_TOP = 4;
 
-    //protected int wallJumpDirection;
     public float friction;
     public boolean grounded;
 
     public Collider(Vector v) {
         super(v);
-        //wallJumpDirection = 0;
         friction = 0.2f;
         grounded = false;
     }
@@ -113,14 +111,9 @@ public abstract class Collider extends Mover {
     }
 
     public void collision(int collisionType, GameObject g) {
-        if (g instanceof Block) { //typ
+        if (g instanceof Block)
             handleBlockCollision(collisionType, (Block) g);
-            if (id == ID.CAT)
-                handleCollision(collisionType, g);
-        }
-        else
-            handleCollision(collisionType, g);
-
+        handleCollision(collisionType, g);
     }
 
     public abstract void handleCollision(int collisionType, GameObject g);
@@ -135,13 +128,9 @@ public abstract class Collider extends Mover {
             moveTo(rect.left, g.getRect().bottom);
             speed.y = 0;
         } else if (collisionType == COLLISION_LEFT) {
-            if (this instanceof  Player) //should be moved to player?
-                Player.WALLJUMP_DIRECTION = Player.WALLJUMP_LEFT;
             moveTo(g.getRect().right, rect.top);
             speed.x = 0;
         } else if (collisionType == COLLISION_RIGHT) {
-            if (this instanceof  Player) //should be moved to player?
-                Player.WALLJUMP_DIRECTION = Player.WALLJUMP_RIGHT;
             moveTo(g.getRect().left-rect.width(), rect.top);
             speed.x = 0;
         }

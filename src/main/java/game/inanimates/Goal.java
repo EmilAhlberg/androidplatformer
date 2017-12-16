@@ -19,8 +19,8 @@ public class Goal extends GameObject {
     }
 
 
-    public void affectPlayer(World w) {
-        w.nextLevel();
+    public void affectPlayer() {
+        World.NEXT_LEVEL = true;
     }
 
     @Override

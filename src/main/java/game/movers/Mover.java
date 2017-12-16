@@ -41,21 +41,10 @@ public abstract class Mover extends GameObject {
 
     /**
      * Moves the gameObject to the coordinates
-     * @param position x-coordinate and y-coordinate in vector
+     * @param v vector position
      */
-    public void moveTo(Vector position) {
-        rect.offset((int)(position.x - rect.left), (int)(position.y - rect.top));
-    }
-
-    /**
-     * Moves the gameObject a certain distance
-     * @param x horizontal distance
-     * @param y vertical distance
-     */
-    public void move(float x, float y) {       // SHOULD BE REMOVED ASAP!
-        x = Math.round(x);
-        y = Math.round(y);
-        rect.offset((int)x, (int)y);
+    public void moveTo(Vector v) {
+       moveTo(v.x, v.y);
     }
 
     /**
