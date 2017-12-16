@@ -47,9 +47,9 @@ public class Stats {
         }
     };
 
-    private static HashMap<ID, Double> friction = new HashMap<ID, Double>() {
+    private static HashMap<ID, Float> friction = new HashMap<ID, Float>() {
         {
-            put(ID.BLOCK, 0.2);
+            put(ID.BLOCK, 0.2f);
         }
     };
 
@@ -104,7 +104,7 @@ public class Stats {
      * @return The friction, if the ID was present, DEFAULT otherwise.
      */
 
-    public static double friction(ID id) {
+    public static float friction(ID id) {
         if (friction.containsKey(id))
             return friction.get(id);
         return DEFAULT;

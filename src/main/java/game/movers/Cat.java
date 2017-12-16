@@ -5,6 +5,7 @@ import android.graphics.Point;
 import game.objectinformation.ID;
 import game.GameObject;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 19/09/2017.
@@ -15,8 +16,8 @@ public class Cat extends Collider {
     private int tempSpeed = 1;
     private int fakeGravity = 1;
 
-    public Cat(Point p) {
-        super(p);
+    public Cat(Vector v) {
+        super(v);
     }
 
     @Override

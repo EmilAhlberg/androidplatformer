@@ -6,7 +6,7 @@ import game.*;
 import game.framework.World;
 import game.objectinformation.ID;
 import game.objectinformation.Stats;
-import game.util.MovementHandler;
+import game.util.Vector;
 
 
 /**
@@ -14,25 +14,19 @@ import game.util.MovementHandler;
  */
 
 public abstract class Mover extends GameObject {
-
-    //protected MovementHandler mh;
-
     private final int GRAVITY = 20;
-    private final int MAX_HORIZONTAL_SPEED = Stats.height(ID.BLOCK)/3;
-    private final int MAX_VERTICAL_SPEED = Stats.height(ID.BLOCK) * 2/3;
-    private double verticalForce, horizontalForce, horizontalAcceleration, verticalAcceleration;
-    public double horizontalSpeed, verticalSpeed;
+    private final Vector MAX_SPEED = new Vector(Stats.height(ID.BLOCK)/3, Stats.height(ID.BLOCK) * 2/3);
+    private Vector force =  new Vector(0, GRAVITY);
+    private Vector acceleration = new Vector();
+    protected Vector speed = new Vector();
 
-    public Mover(Point p) {
-        super(p);
-        //mh = new MovementHandler();
-        horizontalForce = horizontalAcceleration = verticalAcceleration = horizontalSpeed = verticalSpeed = 0;
-        verticalForce = GRAVITY;
+    public Mover(Vector v) {
+        super(v);
     }
 
     public void deactivate() {
         isActive = false;
-        moveTo(World.DEFAULT_POSITION.x, World.DEFAULT_POSITION.y);
+        moveTo(World.DEFAULT_POSITION);
     }
 
     /**
@@ -45,21 +39,33 @@ public abstract class Mover extends GameObject {
     }
 
     /**
+     * Moves the gameObject to the coordinates
+     * @param position x-coordinate and y-coordinate in vector
+     */
+    public void moveTo(Vector position) {
+        rect.offset((int)(position.X - rect.left), (int)(position.Y - rect.top));
+    }
+
+    /**
      * Moves the gameObject a certain distance
      * @param x horizontal distance
      * @param y vertical distance
      */
-    public void move(double x, double y) {                              // typisk movermetod?
-        x = Math.round((float)x);
-        y = Math.round((float)y);
+    public void move(float x, float y) {
+        x = Math.round(x);
+        y = Math.round(y);
         rect.offset((int)x, (int)y);
+    }
+
+    public void move() {
+        rect.offset((int)speed.X, (int)speed.Y);
     }
 
     /**
      * Makes the mover jump
      * @param force The force of the jump, the higher the value the higher the mover jumps
      */
-    protected void jump (double force) {
+    protected void jump (float force) {
         applyForce(0, -force);
     }
 
@@ -69,36 +75,41 @@ public abstract class Mover extends GameObject {
      *
      * @param friction Value between 0 and 1 that determines how slippery the ground is, where 0 is frictionless.
      */
-    public void updateSpeed(double friction, boolean grounded) {
+    public void updateSpeed(float friction, boolean grounded) {
         updateAcceleration();
-        verticalForce = GRAVITY;
-        horizontalForce = 0;
-        verticalSpeed = verticalSpeed + verticalAcceleration;
-        double temp = Math.abs(verticalSpeed);
-        if (temp > MAX_VERTICAL_SPEED)
-            verticalSpeed = verticalSpeed / temp * MAX_VERTICAL_SPEED;
-        horizontalSpeed *= (1 - friction);
-        horizontalSpeed = horizontalSpeed + horizontalAcceleration;
-        temp = Math.abs(horizontalSpeed);
-        if (temp > MAX_HORIZONTAL_SPEED /*&& grounded*/)
-            horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED;
-        /*else if (temp > MAX_HORIZONTAL_SPEED * 4)
-                horizontalSpeed = horizontalSpeed / temp * MAX_HORIZONTAL_SPEED * 4;*/
+        force.set(0, GRAVITY);
+
+        //vertical
+        float verticalSpeed = speed.Y+ acceleration.Y;
+        float absSpeed = Math.abs(verticalSpeed);
+        if (absSpeed > MAX_SPEED.Y)
+            verticalSpeed = verticalSpeed / absSpeed * MAX_SPEED.Y;
+
+        //horizontal
+        float horizontalSpeed = speed.X* (1 - friction) + acceleration.X;
+        absSpeed = Math.abs(horizontalSpeed);
+        if (absSpeed > MAX_SPEED.X /*&& grounded*/)
+            horizontalSpeed = horizontalSpeed / absSpeed * MAX_SPEED.X;
+        /*else if (absSpeed > MAX_HORIZONTAL_SPEED * 4)
+                horizontalSpeed = horizontalSpeed / absSpeed * MAX_HORIZONTAL_SPEED * 4;*/
+
+        speed.set(horizontalSpeed, verticalSpeed);
     }
 
     private void updateAcceleration() {
-        verticalAcceleration = verticalForce / 30;
-        horizontalAcceleration = horizontalForce / 30;
+        acceleration.set(new Vector(force.X/30, force.Y/30));
+        //verticalAcceleration = verticalForce / 30;
+        //horizontalAcceleration = horizontalForce / 30;
     }
 
-    public void applyForce(double horizontalChange, double verticalChange) {
-        verticalForce += verticalChange;
-        horizontalForce += horizontalChange;
+//    public void applyForce(Vector addedChange) {
+//        force.addVector(addedChange);
+////        verticalForce += verticalChange;
+////        horizontalForce += horizontalChange;
+//    }
+
+    public void applyForce(float x, float y) {
+        force.X += x;
+        force.Y += y;
     }
-
-
-
-
-
-
 }

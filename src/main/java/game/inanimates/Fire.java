@@ -5,6 +5,7 @@ import android.graphics.Point;
 import game.draw.AnimationInfo;
 import game.GameObject;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 9/2/2017.
@@ -13,8 +14,8 @@ import game.util.GameTime;
 public class Fire extends GameObject{
 
 
-    public Fire(Point p, int nbrFires, boolean horizontal) {
-        super(p, nbrFires, horizontal);
+    public Fire(Vector v, int nbrFires, boolean horizontal) {
+        super(v, nbrFires, horizontal);
         animationType = AnimationInfo.DEFAULT;
         isActive = true;
     }

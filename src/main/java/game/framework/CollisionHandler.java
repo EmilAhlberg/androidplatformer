@@ -55,7 +55,7 @@ public class CollisionHandler {
 
     public void handleAllCollisions(Player player, Container blocks, Container hazards, Container interactives, Container enemies) {
         player.grounded = false;
-        player.friction = 0.2; //!
+        player.friction = 0.2f; //!
         //player collisions
         handleCollisions(player, blocks.getObjects());
         handleCollisions(player, hazards.getObjects());

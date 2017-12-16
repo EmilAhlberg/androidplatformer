@@ -18,13 +18,14 @@ import game.draw.Particles;
 import game.movers.Player;
 import game.objectinformation.ID;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 8/27/2017.
  */
 
 public class World {
-    public static final Point DEFAULT_POSITION = new Point(-1000, -1000);
+    public static final Vector DEFAULT_POSITION = new Vector(-1000, -1000);
     public final static int MAP_WIDTH = 2000;
     public final static int MAP_HEIGHT = 1000;
     public final static int WINDOW_WIDTH = 800;

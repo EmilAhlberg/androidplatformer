@@ -6,6 +6,7 @@ import game.draw.AnimationInfo;
 import game.GameObject;
 import game.objectinformation.Stats;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 9/1/2017.
@@ -13,11 +14,11 @@ import game.util.GameTime;
 
 public class Block extends GameObject {
 
-    private double friction;
+    private float friction;
 
 
-    public Block(Point p, int nbrBlocks, boolean horizontal) {
-        super(p, nbrBlocks, horizontal);
+    public Block(Vector v, int nbrBlocks, boolean horizontal) {
+        super(v, nbrBlocks, horizontal);
         this.friction = Stats.friction(id);
         animationType = AnimationInfo.NO_ANIMATION;
         isActive = true;
@@ -28,7 +29,7 @@ public class Block extends GameObject {
 
     }
 
-    public double getFriction () {
+    public float getFriction () {
         return friction;
     }
 

@@ -5,6 +5,7 @@ import android.graphics.Point;
 import game.framework.World;
 import game.GameObject;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 9/6/2017.
@@ -12,8 +13,8 @@ import game.util.GameTime;
 
 public class Goal extends GameObject {
 
-    public Goal(Point p) {
-        super(p);
+    public Goal(Vector v) {
+        super(v);
         isActive = true;
     }
 

@@ -13,6 +13,7 @@ package game;
         import game.draw.BigSprite;
         import game.objectinformation.Stats;
         import game.util.GameTime;
+        import game.util.Vector;
 
 
 /**
@@ -30,26 +31,26 @@ public abstract class GameObject {
 
     /**
      * Creates a gameObject, represented by a NormalSprite.
-     * @param p The point where the object will be located.
+     * @param v The point where the object will be located.
      */
-    public GameObject(Point p) {
+    public GameObject(Vector v) {
         this.id = IDHandler.getID(this.getClass());
-        this.rect = new Rect(p.x, p.y, p.x + Stats.width(id), p.y + Stats.height(id));
+        this.rect = new Rect((int)v.X, (int)v.Y, (int)v.X + Stats.width(id), (int)v.Y + Stats.height(id));
         sprite = new NormalSprite(id);
     }
 
     /**
      * Creates a gameObject, represented by a BigSprite.
-     * @param p The point where the object will be located.
+     * @param v The point where the object will be located.
      * @param currentSize The size of the BigSprite
      * @param horizontal The orientation of the BigSprite. If horizontal is false, the orientation is vertical.
      */
-    public GameObject(Point p, int currentSize, boolean horizontal) {
+    public GameObject(Vector v, int currentSize, boolean horizontal) {
         this.id = IDHandler.getID(this.getClass());
         if (horizontal)
-            this.rect = new Rect(p.x, p.y, p.x + Stats.width(id)*currentSize, p.y+ Stats.height(id));      //must be changed to minimum grid size (block) to make things even
+            this.rect = new Rect((int)v.X, (int)v.Y, (int)v.X + Stats.width(id)*currentSize, (int)v.Y+ Stats.height(id));      //must be changed to minimum grid size (block) to make things even
         else
-            this.rect = new Rect(p.x, p.y, p.x + Stats.width(id), p.y+ Stats.height(id)*currentSize);      //must be changed to minimum grid size (block) to make things even
+            this.rect = new Rect((int)v.X, (int)v.Y, (int)v.X + Stats.width(id), (int)v.Y+ Stats.height(id)*currentSize);      //must be changed to minimum grid size (block) to make things even
         sprite = new BigSprite(id,currentSize, horizontal, rect);
 
     }

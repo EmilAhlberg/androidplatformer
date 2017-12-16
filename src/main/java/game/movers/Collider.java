@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import game.objectinformation.ID;
 import game.GameObject;
 import game.inanimates.Block;
+import game.util.Vector;
 
 /**
  * Created by Emil on 29/08/2017.
@@ -20,13 +21,13 @@ public abstract class Collider extends Mover {
     public static final int COLLISION_TOP = 4;
 
     protected int wallJumpDirection;
-    public double friction;
+    public float friction;
     public boolean grounded;
 
-    public Collider(Point p) {
-        super(p);
+    public Collider(Vector v) {
+        super(v);
         wallJumpDirection = 0;
-        friction = 0.2;
+        friction = 0.2f;
         grounded = false;
     }
 
@@ -129,19 +130,19 @@ public abstract class Collider extends Mover {
         if (collisionType == COLLISION_BOTTOM) {
             grounded = true;
             moveTo(rect.left, g.getRect().top - rect.height()+1);
-            verticalSpeed = 0;
+            speed.Y = 0;
             friction = g.getFriction();
         } else if (collisionType == COLLISION_TOP) {
             moveTo(rect.left, g.getRect().bottom);
-            verticalSpeed = 0;
+            speed.Y = 0;
         } else if (collisionType == COLLISION_LEFT) {
             wallJumpDirection = 1;
             moveTo(g.getRect().right, rect.top);
-            horizontalSpeed = 0;
+            speed.X = 0;
         } else if (collisionType == COLLISION_RIGHT) {
             wallJumpDirection = -1;
             moveTo(g.getRect().left-rect.width(), rect.top);
-            horizontalSpeed = 0;
+            speed.X = 0;
         }
     }
 }

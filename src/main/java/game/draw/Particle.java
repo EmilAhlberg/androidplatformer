@@ -8,6 +8,7 @@ import game.movers.Mover;
 import game.objectinformation.ID;
 import game.objectinformation.Stats;
 import game.util.GameTime;
+import game.util.Vector;
 
 /**
  * Created by Emil on 23/11/2017.
@@ -24,12 +25,12 @@ public class Particle extends Mover {
     private Paint color;
 
     public Particle() {
-        this(new Point(0,0),0,0,0,0);  //default stuff!
+        this(new Vector(0,0),0,0,0,0);  //default stuff!
     }
 
 
-    public Particle(Point p, float dx, float dy, int size, double life) {
-        super(p);
+    public Particle(Vector v, float dx, float dy, int size, double life) {
+        super(v);
         this.dx = dx;
         this.dy = dy;
         this.size = size;

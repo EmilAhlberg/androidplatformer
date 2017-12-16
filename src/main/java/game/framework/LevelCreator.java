@@ -20,6 +20,7 @@ import game.inanimates.Goal;
 import game.movers.Cat;
 import game.movers.Player;
 import game.objectinformation.Stats;
+import game.util.Vector;
 
 /**
  * Created by Emil on 2016-11-22.
@@ -68,29 +69,29 @@ public class LevelCreator {
     }
 
     private static void constructSingleObjects(String[] mapString, ArrayList<GameObject> is, ArrayList<GameObject> es, ArrayList<GameObject> pList){
-        Point p;
+        Vector v;
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
-                p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
+                v = new Vector((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //k-1 vänsterorienterar objekt
                 switch (mapString[i].charAt(k)) {
                     case 'P':
-                        activateObject(pList, p);
+                        activateObject(pList, v);
                         break;
                     case 'G':
-                        is.add(new Goal(p));
+                        is.add(new Goal(v));
                         break;
                     case 'C':
-                        activateObject(es, p);
+                        activateObject(es, v);
                         break;
                 }
             }
         }
     }
 
-    private static void activateObject(ArrayList<GameObject> list, Point p) {
+    private static void activateObject(ArrayList<GameObject> list, Vector v) {
         for(GameObject g : list) {
             if (!g.isActive()) {
-                g.activate(p.x, p.y);
+                g.activate(v.X, v.Y);
                 break;
             }
         }
@@ -98,22 +99,22 @@ public class LevelCreator {
 
     private static void constructBigObjects(String[] mapString, ArrayList<GameObject> list, ID id) {
         int currentSize = 0;
-        Point p = new Point(0, 0);
+        Vector v = new Vector(0, 0);
         for (int i = 0; i < mapString.length; i++) {
             for (int k = 0; k < mapString[i].length(); k++) {
                 if (mapString[i].charAt(k) == Stats.symbol(id)) {
                     if (currentSize == 0)
-                        p = new Point((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //blocks constitutes the minimum grid! has to scale correctly to txt
+                        v = new Vector((k-1) * Stats.width(ID.BLOCK), i * Stats.height(ID.BLOCK)); //blocks constitutes the minimum grid! has to scale correctly to txt
                     currentSize++;
                 } else if (currentSize > 0) {
                     if (currentSize > 1)
-                        list.add(factory(p, currentSize, true, id));
+                        list.add(factory(v, currentSize, true, id));
                     currentSize = 0;
                 }
             }
             if (currentSize > 0) {
                 if (currentSize > 1)
-                    list.add(factory(p, currentSize, true, id));
+                    list.add(factory(v, currentSize, true, id));
                 currentSize = 0;
             }
         }
@@ -132,35 +133,35 @@ public class LevelCreator {
                 if (i < lengths[k]) {
                     if (mapString[k].charAt(i) == Stats.symbol(id)) {
                         if (currentSize == 0)
-                            p = new Point((i-1) * Stats.width(ID.BLOCK), k * Stats.height(ID.BLOCK));   //blocks constitutes the minimum grid!
+                            v = new Vector((i-1) * Stats.width(ID.BLOCK), k * Stats.height(ID.BLOCK));   //blocks constitutes the minimum grid!
                         currentSize++;
                     } else if (currentSize > 0) {
                         if (currentSize > 1)
-                            list.add(factory(p, currentSize, false, id));
+                            list.add(factory(v, currentSize, false, id));
                         currentSize = 0;
                     }
                 } else if (currentSize > 0) {
                     if (currentSize > 1)
-                        list.add(factory(p, currentSize, false, id));
+                        list.add(factory(v, currentSize, false, id));
                     currentSize = 0;
                 }
             }
             if (currentSize > 0) {
                 if (currentSize > 1)
-                    list.add(factory(p, currentSize, false, id));
+                    list.add(factory(v, currentSize, false, id));
                 currentSize = 0;
             }
         }
     }
 
-    private static GameObject factory(Point p, int currentSize, boolean orientation, ID id) {
+    private static GameObject factory(Vector v, int currentSize, boolean orientation, ID id) {
         GameObject g = null;
         switch (id) {
             case BLOCK:
-                g = new Block(p,currentSize,orientation);
+                g = new Block(v,currentSize,orientation);
                 break;
             case FIRE:
-                g = new Fire(p,currentSize,orientation);
+                g = new Fire(v,currentSize,orientation);
                 break;
         }
         return g;
