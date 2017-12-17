@@ -15,7 +15,7 @@ public class GameLoop implements Runnable {
 
     private GameActivity game;
     private Handler handler;
-    private final int timeLimit = 25; //!!!
+    private final int timeLimit = 15; //!!!
     private GameLoopMonitor glMonitor;
 
     public GameLoop(GameActivity game, Handler handler, GameLoopMonitor glm) {

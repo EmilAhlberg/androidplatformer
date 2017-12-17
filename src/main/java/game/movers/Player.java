@@ -26,7 +26,7 @@ public class Player extends Collider {
     public static final int WALLJUMP_LEFT = 1; //!!
     public static final int WALLJUMP_RIGHT = -1; //!!
     public static int WALLJUMP_DIRECTION = 0; //! pls no public fix
-    private final Vector FORCE = new Vector (60,350); //!!
+    private final Vector FORCE = new Vector (50,300); //!!
     private final float WALLJUMP_FORCE = 400; //!!
     private final int WALLJUMP_FRAMES = 27; //!!
     private TouchEventDecoder ted;
