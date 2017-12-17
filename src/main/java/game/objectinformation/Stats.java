@@ -13,6 +13,7 @@ public class Stats {
 
     private static HashMap<ID, Integer> width = new HashMap<ID, Integer>() {
         {
+            put(ID.DEFAULT, 40);
             put(ID.PLAYER, 20);
             put(ID.BLOCK, 20);
             put(ID.FIRE, 20);
@@ -26,6 +27,7 @@ public class Stats {
 
     private static HashMap<ID, Integer> height = new HashMap<ID, Integer>() {
         {
+            put(ID.DEFAULT, 40);
             put(ID.PLAYER, 30);
             put(ID.BLOCK, 20);
             put(ID.FIRE, 20);

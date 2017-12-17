@@ -54,6 +54,7 @@ public class Particle extends Mover {
      * @param dy A speed factor along the y-axis.
      * @param id The type of particle desired.
      * @param currentAngle the angular orientation of the sprite.
+     * @param partType used by "objectDeath".
      */
     public void activate(Vector v, float dx, float dy, ID id, double currentAngle, int partType) {
         sprite = new ParticleSprite(id, partType, rect, v);
@@ -63,6 +64,27 @@ public class Particle extends Mover {
         affectedByGravity = Stats.affectedByGravity(id);
         sprite.setAngle(currentAngle);
         isActive = true;
+    }
+
+    /**
+     * Activate overload, used by "objectDeath".
+     * @param v The location where it will be activated
+     * @param dx A speed factor along the x-axis.
+     * @param dy A speed factor along the y-axis.
+     * @param objectID The type of sprite used.
+     * @param particleID The type of particle desired.
+     * @param currentAngle the angular orientation of the sprite.
+     * @param partType used by "objectDeath".
+     */
+
+    public void activate(Vector v, float dx, float dy, ID objectID, ID particleID, double currentAngle, int partType) {
+        activate(v,dx,dy,objectID,currentAngle,partType);
+        this.life = Stats.particleLife(particleID);
+        affectedByGravity = Stats.affectedByGravity(particleID);
+    }
+
+    private void activateParticle() {
+
     }
 
     /**

@@ -23,20 +23,19 @@ import game.util.Vector;
 
 public class Player extends Collider {
 
-    public static final int WALLJUMP_LEFT = 1; //!!
-    public static final int WALLJUMP_RIGHT = -1; //!!
-    public static int WALLJUMP_DIRECTION = 0; //! pls no public fix
-    private final Vector FORCE = new Vector (50,300); //!!
+    private static final int WALLJUMP_LEFT = 1; //!!
+    private static final int WALLJUMP_RIGHT = -1; //!!
+    private static int wallJumpDirection = 0; //!
+    private final Vector FORCE = new Vector(50, 300); //!!
     private final float WALLJUMP_FORCE = 400; //!!
     private final int WALLJUMP_FRAMES = 27; //!!
     private TouchEventDecoder ted;
     private Point clickPos;
-    private World world;
     private int wallJumpCounter;
 
     public Player(Vector v) {
         super(v);
-        ted = new TouchEventDecoder(new Point(0,0), new Point(0, 0));
+        ted = new TouchEventDecoder(new Point(0, 0), new Point(0, 0));
         wallJumpCounter = 0;
     }
 
@@ -54,7 +53,7 @@ public class Player extends Collider {
     private void performAction() {
         updateWallJumpCounter();
         handleControls();
-        WALLJUMP_DIRECTION = 0;
+        wallJumpDirection = 0;
     }
 
     private void updateAnimationInfo(int fingers) {
@@ -85,9 +84,9 @@ public class Player extends Collider {
                 jump(FORCE.y);
                 Particles.createParticles(new Vector(rect.centerX(), rect.bottom), ID.JUMP);
                 grounded = false;
-            } else if (WALLJUMP_DIRECTION != 0) {
+            } else if (wallJumpDirection != 0) {
                 wallJumpCounter = WALLJUMP_FRAMES;
-                applyForce(WALLJUMP_FORCE * WALLJUMP_DIRECTION, -FORCE.y * 2);
+                applyForce(WALLJUMP_FORCE * wallJumpDirection, -FORCE.y * 2);
                 wallJumpParticles();
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();
@@ -98,11 +97,10 @@ public class Player extends Collider {
     private void wallJumpParticles() {
         ID id;
         Vector v;
-        if (WALLJUMP_DIRECTION == WALLJUMP_LEFT) {
+        if (wallJumpDirection == WALLJUMP_LEFT) {
             id = ID.WALLJUMP_LEFT;
             v = new Vector(rect.left, rect.centerY());
-        }
-        else {
+        } else {
             id = ID.WALLJUMP_RIGHT;
             v = new Vector(rect.right, rect.centerY());
         }
@@ -124,7 +122,7 @@ public class Player extends Collider {
     }
 
     private void updateWallJumpCounter() {
-        if (grounded || WALLJUMP_DIRECTION != 0) {
+        if (grounded || wallJumpDirection != 0) {
             wallJumpCounter = 0;
         } else if (wallJumpCounter > 0) {
             wallJumpCounter--;
@@ -138,26 +136,25 @@ public class Player extends Collider {
                 speed.y = 0;
                 moveTo(rect.left, g.getRect().bottom);
             } else {
-                world.gameOver(); //Possible to change to lose lives or something instead of dying outright
+                isActive = false;
             }
         } else if (g instanceof Goal) {
-            ((Goal) g).affectPlayer(world);
+            ((Goal) g).affectPlayer();
         } else if (g.getID() == ID.CAT) {
             Rect cRect = g.getRect();
             if (collisionType == Collider.COLLISION_BOTTOM) {
-                Particles.createParticles(new Vector(cRect.left, cRect.top), ID.OBJECTDEATH);
+                Particles.createParticles(new Vector(cRect.left, cRect.top), ID.OBJECTDEATH, ID.CAT);
                 Particles.createParticles(new Vector(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
                 ((Cat) g).deactivateMover();
                 jump(FORCE.y);
+            } else
+                isActive = false;
+        } else if (g.getID() == ID.BLOCK) {
+            if (collisionType == COLLISION_LEFT)
+                wallJumpDirection = WALLJUMP_LEFT;
+            else if (collisionType == COLLISION_RIGHT) {
+                wallJumpDirection = WALLJUMP_RIGHT;
             }
-            else
-                world.gameOver();
         }
-    }
-
-    //should be removed, better put public static variables in world, which can be set from here?
-    //example: World.PLAYER_ALIVE = false; --> world checks this every loop, World.nextLevel = true; etc.
-    public void setWorld(World world) {
-        this.world = world;
     }
 }

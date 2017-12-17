@@ -48,6 +48,10 @@ public class IDHandler {
             put(Fire.class, ID.FIRE);
             put(Goal.class, ID.GOAL);
             put(Cat.class, ID.CAT);
+
+            put(Cat.class, ID.CAT);
+            put(Cat.class, ID.CAT);
+            put(Cat.class, ID.CAT);
         }
     };
 
@@ -60,7 +64,7 @@ public class IDHandler {
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inScaled = false;
 
-        IDHandler.sheets[ID.DEFAULT.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_startscreen, options), 50, 50);
+        IDHandler.sheets[ID.DEFAULT.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.error, options), Stats.width(ID.DEFAULT), Stats.height(ID.DEFAULT));
 
         IDHandler.sheets[ID.PLAYER.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_player, options), Stats.width(ID.PLAYER), Stats.height(ID.PLAYER));
 
@@ -76,6 +80,8 @@ public class IDHandler {
         //Particles!
         IDHandler.sheets[ID.EXPLOSION.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_goal, options), Stats.width(ID.GOAL), Stats.height(ID.GOAL));
         IDHandler.sheets[ID.JUMP.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_block, options), Stats.width(ID.CAT), Stats.height(ID.CAT));
+
+
 
         AnimationInfo.initAnimationInfo();
     }

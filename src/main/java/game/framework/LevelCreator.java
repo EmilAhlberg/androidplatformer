@@ -89,7 +89,7 @@ public class LevelCreator {
     private static void activateObject(ArrayList<GameObject> list, Vector v) {
         for(GameObject g : list) {
             if (!g.isActive()) {
-                g.activate(v.x, v.y);
+                g.activate(v);
                 break;
             }
         }

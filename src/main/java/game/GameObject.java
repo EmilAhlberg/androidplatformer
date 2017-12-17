@@ -72,9 +72,9 @@ public abstract class GameObject {
         return rect;
     }
 
-    public void activate(double x, double y) {
+    public void activate(Vector v) {
         if (this instanceof Mover)
-            ((Mover)this).moveTo(x, y);
+            ((Mover)this).moveTo(v);
         isActive = true;
     }
 

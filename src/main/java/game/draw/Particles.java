@@ -46,21 +46,31 @@ public class Particles {
     }
 
     /**
+     * Overloaded particle creation method, passing default params.
+     * @param v  The location of the particles.
+     * @param particleID The type of particle.
+     */
+    public static void createParticles(Vector v, ID particleID) {
+        createParticles(v, particleID, ID.DEFAULT);
+    }
+
+    /**
      * Creates particles new particles based on location and id.
      *
      * @param v  The location of the particles.
-     * @param id The type of particle.
+     * @param particleID The type of particle.
+     * @param objectID the type of object which the particles are invoked upon.
      */
-    public static void createParticles(Vector v, ID id) {
+    public static void createParticles(Vector v, ID particleID, ID objectID) {
         float startAngle = 0;
         float endAngle = 0;
         int nbrOfParticles = 0;
-        switch (id) {
+        switch (particleID) {
             case JUMP:
                 endAngle = (float) (3*Math.PI/4);
                 nbrOfParticles = 3;
                 startAngle = (float)Math.PI/4;
-                circularParticles(v, id, nbrOfParticles, startAngle, endAngle);
+                circularParticles(v, particleID, nbrOfParticles, startAngle, endAngle);
                 break;
             case WALLJUMP_LEFT:
                 endAngle = (float) Math.PI * 5 /4;
@@ -80,16 +90,16 @@ public class Particles {
                 startAngle = 0;
                 endAngle = 2 * (float) Math.PI;
                 nbrOfParticles = 20;
-                circularParticles(v, id, nbrOfParticles, startAngle, endAngle);
+                circularParticles(v, particleID, nbrOfParticles, startAngle, endAngle);
                 break;
             case OBJECTDEATH:
                 int rnd = new Random().nextInt(4);
                 if (rnd == 0)
-                    objectDeathHorizontal(v, id);
+                    objectDeathHorizontal(v, objectID, particleID);
                 else if (rnd == 1)
-                    objectDeathVertical(v, id);
+                    objectDeathVertical(v, objectID, particleID);
                 else
-                    objectDeathx4(v, id);
+                    objectDeathx4(v, objectID, particleID);
                 break;
         }
     }
@@ -114,33 +124,33 @@ public class Particles {
         }
     }
 
-    private static void objectDeathVertical(Vector v, ID id) {
+    private static void objectDeathVertical(Vector v, ID objectID, ID particleID) {
         int[] parts = new int[2];
         parts[0] = ParticleSprite.BOTTOM_PART_X2;
         parts[1] = ParticleSprite.TOP_PART_X2;
         double currentAngle = Math.PI / 2;
-        objectDeath(v, id, parts, currentAngle);
+        objectDeath(v, objectID, particleID, parts, currentAngle);
     }
 
-    private static void objectDeathHorizontal(Vector v, ID id) {
+    private static void objectDeathHorizontal(Vector v, ID objectID, ID particleID) {
         int[] parts = new int[2];
         parts[0] = ParticleSprite.LEFT_PART_X2;
         parts[1] = ParticleSprite.RIGHT_PART_X2;
         double currentAngle = 0;
-        objectDeath(v, id, parts, currentAngle);
+        objectDeath(v, objectID, particleID, parts, currentAngle);
     }
 
-    private static void objectDeathx4(Vector v, ID id) {
+    private static void objectDeathx4(Vector v, ID objectID, ID particleID) {
         int[] parts = new int[4];
         parts[0] = ParticleSprite.BOTTOMRIGHT_PART_X4;
         parts[1] = ParticleSprite.BOTTOMLEFT_PART_X4;
         parts[2] = ParticleSprite.TOPLEFT_PART_X4;
         parts[3] = ParticleSprite.TOPRIGHT_PART_X4;
         double currentAngle = Math.PI / 4;
-        objectDeath(v, id, parts, currentAngle);
+        objectDeath(v, objectID, particleID, parts, currentAngle);
     }
 
-    private static void objectDeath(Vector v, ID id, int[] parts, double currentAngle) {
+    private static void objectDeath(Vector v, ID objectID, ID particleID, int[] parts, double currentAngle) {
         double angle = 2 * Math.PI / parts.length;
         int counter = 0;
         for (int i = 0; i < maxParticles; i++) {
@@ -148,7 +158,7 @@ public class Particles {
             if (!p.isActive()) {
                 float dx = (float) Math.cos(currentAngle);
                 float dy = (float) Math.sin(currentAngle);
-                p.activate(v, dx, dy, id, 0, parts[counter]);
+                p.activate(v, dx, dy, objectID,particleID, 0, parts[counter]);
                 currentAngle += angle;
                 counter++;
             }
