@@ -1,4 +1,4 @@
-package game.framework;
+/*package game.framework;
 
 import game.util.GameTime;
 
@@ -6,7 +6,7 @@ import game.util.GameTime;
  * Created by Emil on 12/14/2017.
  */
 
-public class GameLoopMonitor {
+/*public class GameLoopMonitor {
 
     private GameTime gameTime;
 
@@ -26,3 +26,4 @@ public class GameLoopMonitor {
         return gameTime;
     }
 }
+*/

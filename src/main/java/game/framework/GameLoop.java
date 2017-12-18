@@ -1,10 +1,12 @@
 package game.framework;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 import game.android.GameActivity;
+import game.movers.Player;
 import game.util.GameTime;
 
 /**
@@ -16,25 +18,24 @@ public class GameLoop implements Runnable {
     private GameActivity game;
     private Handler handler;
     private final int timeLimit = 15; //!!!
-    private GameLoopMonitor glMonitor;
+    private GameTime gameTime;
+    private GameDraw draw;
 
-    public GameLoop(GameActivity game, Handler handler, GameLoopMonitor glm) {
+    public GameLoop(GameActivity game, Handler handler, Player p, World world) {
         this.game = game;
         this.handler = handler;
-        glMonitor = glm;
+        draw = new GameDraw(game, p, world);
     }
 
     @Override
     public void run() {
-        double currentTime = System.currentTimeMillis();
-        double newTime = 0;
-        glMonitor.setGameTime(new GameTime(currentTime));
+        long lastTime = System.currentTimeMillis();
+        long newTime;
+        gameTime = new GameTime(lastTime);
         while (!Thread.currentThread().isInterrupted()) {
 
-            // Fix busy wait!!! //aha! snyggt // Fixat ;)
             newTime = System.currentTimeMillis();
-
-            double temp = timeLimit - (newTime - currentTime);
+            long temp = timeLimit - (newTime - lastTime);
             if (temp > 0) {
                 try {
                     Thread.sleep((int)temp);
@@ -42,27 +43,20 @@ public class GameLoop implements Runnable {
                     Thread.currentThread().interrupt();
                 }
             }
-            //if (newTime - currentTime > timeLimit) {
-            glMonitor.updateGameTime(newTime);
-            updateLoop(glMonitor.getGameTime());
-            currentTime = newTime;
-            //}
+
+            gameTime.update(System.currentTimeMillis());
+            updateLoop(gameTime);
+            lastTime = newTime;
         }
     }
 
     private void updateLoop(GameTime gameTime) {
-        //long millis = System.currentTimeMillis();
         game.updateWorld(gameTime);
-        //Log.d("updateLoop", "Update world: " + (System.currentTimeMillis() - millis));
-        //millis = System.currentTimeMillis();
 
-        //game.drawWorld();
-
-        //Log.d("updateLoop", "draw world: " + (System.currentTimeMillis() - millis));
-        //millis = System.currentTimeMillis();
+        Bitmap b = draw.drawGame(gameTime);
         Message m = handler.obtainMessage();
         m.what = 0;
+        m.obj = b;
         m.sendToTarget();
-        //Log.d("updateLoop", "Handle messages: " + (System.currentTimeMillis() - millis));
     }
 }

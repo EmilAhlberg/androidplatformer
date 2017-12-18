@@ -1,10 +1,9 @@
 package game.android;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -13,15 +12,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import com.example.emil.app.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import game.GameObject;
-import game.draw.Background;
 import game.framework.GameLoop;
-import game.framework.GameLoopMonitor;
 import game.framework.LevelCreator;
 import game.framework.World;
 import game.movers.Player;
@@ -36,27 +32,24 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     private Handler gameLoopHandler;
     private SurfaceView surfaceView;
     private Player player;          //remove if possible when framework is finished
-    private Background bkg;
     private Thread gameThread;
-    private GameLoopMonitor glMonitor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         surfaceView = new SurfaceView(this);
-        glMonitor = new GameLoopMonitor();
         setContentView(surfaceView);
         surfaceView.getHolder().addCallback(this);
-        bkg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.bkg_game));
         loadDrawables();
         setFullscreen();
         handlerSetup();
 
-
+        //This information should be handled in GameLoop - will result in higher cohesion and less coupling (I think)
         HashMap<ID,ArrayList<GameObject>> levelInfo = LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
         player = (Player)levelInfo.get(ID.LEVELPLAYER).get(0);
-        gameThread = new Thread(new GameLoop(this, gameLoopHandler, glMonitor));
         world = new World(this, levelInfo, gameLoopHandler);
+
+        gameThread = new Thread(new GameLoop(this, gameLoopHandler, player, world));
         gameThread.start();
     }
 
@@ -73,7 +66,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
                 } else if (inputMessage.what == 2) {
                     nextLevel();
                 } else if (inputMessage.what == 0) {
-                    surfaceChanged(surfaceView.getHolder(), 0, 0, 0);
+                    tryDraw(surfaceView.getHolder(), (Bitmap) inputMessage.obj);
                 }
             }
         };
@@ -115,7 +108,6 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     }
 
     private void gameOver() {
-        //gameThread.running = false;
         gameThread.interrupt();
         try {
             gameThread.join();
@@ -141,66 +133,24 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         world.update(gameTime);
     }
 
-    public void drawWorld(Canvas canvas, GameTime gameTime) {
-        Rect r = player.getRect();
-        centerPlayer(r.left, r.top, canvas);
-        world.draw(canvas, gameTime);
-    }
-    private void centerPlayer(double x, double y, Canvas canvas) {
-        Rect r = canvas.getClipBounds();
-        double dx = calculateDx(r, x);
-        double dy = calculateDy(r, y);
-
-        //förhindrar 'flimmer' vid stillastående
-        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
-            canvas.translate((float) dx, (float) dy);
-        }
-    }
-
-    private double calculateDx(Rect r, double x) {
-        double dx = 0;
-        if (x >= World.WINDOW_WIDTH/2 && x <= World.MAP_WIDTH - World.WINDOW_WIDTH/2) {
-            dx = r.centerX() - x;
-        } else if (x <= World.WINDOW_WIDTH/2) {
-            dx = r.left;
-        } else if (x >=  World.MAP_WIDTH - World.WINDOW_WIDTH/2) {
-            dx = r.right - World.MAP_WIDTH;
-        }
-        return dx;
-    }
-
-    private double calculateDy(Rect r, double y) {
-        double dy = 0;
-        if (y >= World.WINDOW_HEIGHT/2 && y <= World.MAP_HEIGHT - World.WINDOW_HEIGHT/2) {
-            dy = r.centerY() - y;
-        } else if (y < World.WINDOW_HEIGHT / 2) {
-            dy = r.top;  //icke testad
-        } else if (y >= World.MAP_HEIGHT - World.WINDOW_HEIGHT/2) {
-            dy = r.bottom - World.MAP_HEIGHT;
-        }
-        return dy;
-    }
-
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        tryDraw(surfaceHolder);
+        tryDraw(surfaceHolder, Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
         surfaceHolder.setFixedSize(World.WINDOW_WIDTH, World.WINDOW_HEIGHT);  //sätta storlek här
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        tryDraw(surfaceHolder);
+        tryDraw(surfaceHolder, Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
     }
 
-    private void tryDraw(SurfaceHolder surfaceHolder) {
+    private void tryDraw(SurfaceHolder surfaceHolder, Bitmap currentFrame) {
 
         Canvas canvas = surfaceHolder.lockCanvas();      //OBS: kolla upp; ___lockHardwareCanvas()___
         if (canvas == null) {
             Log.e("", "Cannot draw onto the canvas as it's null");
         } else {
-            GameTime gameTime = glMonitor.getGameTime();
-            bkg.draw(canvas, gameTime);
-            drawWorld(canvas, gameTime);
+            canvas.drawBitmap(currentFrame, 0, 0, null);
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
