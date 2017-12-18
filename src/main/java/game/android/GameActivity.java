@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -150,7 +151,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         if (canvas == null) {
             Log.e("", "Cannot draw onto the canvas as it's null");
         } else {
-            canvas.drawBitmap(currentFrame, 0, 0, null);
+            canvas.drawBitmap(currentFrame, new Rect(0, 0, 800, 480), new Rect(0, 0, 800, 480), null);
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }

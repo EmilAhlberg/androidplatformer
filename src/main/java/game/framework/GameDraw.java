@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.Window;
 
 import com.example.emil.app.R;
 
@@ -43,17 +44,28 @@ public class GameDraw {
     public Bitmap drawGame(GameTime gt) {
         bkg.draw(canvas, gt);
         drawWorld(canvas, gt);
-        returnCanvas.drawBitmap(bMap, 0, -(height-480), null);
+        Log.d(".......", "drawGame: " + player.getRect().centerY());
+        //returnCanvas.drawBitmap(bMap, -(0+Math.max(0, player.getRect().centerX() - 400)), (-1000+480+Math.max(0, (World.MAP_HEIGHT-player.getRect().centerY()) - 240)), null);
+        returnCanvas.drawBitmap(bMap, getSrc(), new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT), null);
         return returnMap;
+    }
+
+    private Rect getSrc() {
+        Rect r = player.getRect();
+        int x = r.centerX() - World.WINDOW_WIDTH / 2;
+        int y = World.MAP_HEIGHT - r.centerY() - World.WINDOW_HEIGHT / 2;
+        int xt = (x < 0 ? 0 : x);
+        int yt = (y < 0 ? 0 : y);
+        return new Rect(xt, World.MAP_HEIGHT - World.WINDOW_HEIGHT - yt, World.WINDOW_WIDTH + xt, World.MAP_HEIGHT - yt);
     }
 
     private void drawWorld(Canvas canvas, GameTime gameTime) {
         Rect r = player.getRect();
-        centerPlayer(r.left, r.top, canvas);
+        //centerPlayer(r.left, r.top, canvas);
         world.draw(canvas, gameTime);
     }
 
-    private void centerPlayer(double x, double y, Canvas canvas) {
+    /*private void centerPlayer(double x, double y, Canvas canvas) {
         Rect r = canvas.getClipBounds();
         double dx = calculateDx(r, x);
         double dy = calculateDy(r, y);
@@ -86,5 +98,5 @@ public class GameDraw {
             dy = r.bottom - World.MAP_HEIGHT;
         }
         return dy;
-    }
+    }*/
 }

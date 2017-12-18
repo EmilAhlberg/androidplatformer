@@ -17,7 +17,7 @@ public class GameLoop implements Runnable {
 
     private GameActivity game;
     private Handler handler;
-    private final int timeLimit = 15; //!!!
+    private final int timeLimit = 12; //!!! ~77 ticks/second
     private GameTime gameTime;
     private GameDraw draw;
 
@@ -53,10 +53,12 @@ public class GameLoop implements Runnable {
     private void updateLoop(GameTime gameTime) {
         game.updateWorld(gameTime);
 
-        Bitmap b = draw.drawGame(gameTime);
-        Message m = handler.obtainMessage();
-        m.what = 0;
-        m.obj = b;
-        m.sendToTarget();
+        if (!handler.hasMessages(0)) {
+            Bitmap b = draw.drawGame(gameTime);
+            Message m = handler.obtainMessage();
+            m.what = 0;
+            m.obj = b;
+            m.sendToTarget();
+        }
     }
 }
