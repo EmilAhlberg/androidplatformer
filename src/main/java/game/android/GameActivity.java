@@ -151,7 +151,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         if (canvas == null) {
             Log.e("", "Cannot draw onto the canvas as it's null");
         } else {
-            canvas.drawBitmap(currentFrame, new Rect(0, 0, 800, 480), new Rect(0, 0, 800, 480), null);
+            canvas.drawBitmap(currentFrame, new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT), new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT), null);
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }

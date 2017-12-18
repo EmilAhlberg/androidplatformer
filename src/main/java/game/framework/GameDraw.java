@@ -44,7 +44,6 @@ public class GameDraw {
     public Bitmap drawGame(GameTime gt) {
         bkg.draw(canvas, gt);
         drawWorld(canvas, gt);
-        Log.d(".......", "drawGame: " + player.getRect().centerY());
         //returnCanvas.drawBitmap(bMap, -(0+Math.max(0, player.getRect().centerX() - 400)), (-1000+480+Math.max(0, (World.MAP_HEIGHT-player.getRect().centerY()) - 240)), null);
         returnCanvas.drawBitmap(bMap, getSrc(), new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT), null);
         return returnMap;
@@ -53,10 +52,10 @@ public class GameDraw {
     private Rect getSrc() {
         Rect r = player.getRect();
         int x = r.centerX() - World.WINDOW_WIDTH / 2;
-        int y = World.MAP_HEIGHT - r.centerY() - World.WINDOW_HEIGHT / 2;
-        int xt = (x < 0 ? 0 : x);
-        int yt = (y < 0 ? 0 : y);
-        return new Rect(xt, World.MAP_HEIGHT - World.WINDOW_HEIGHT - yt, World.WINDOW_WIDTH + xt, World.MAP_HEIGHT - yt);
+        int y = r.centerY() - World.WINDOW_HEIGHT / 2;
+        int xt = (x < 0 ? 0 : (x > World.MAP_WIDTH - World.WINDOW_WIDTH ? World.MAP_WIDTH - World.WINDOW_WIDTH : x));
+        int yt = (y > World.MAP_HEIGHT - World.WINDOW_HEIGHT ? World.MAP_HEIGHT - World.WINDOW_HEIGHT : (y < 0 ? 0 : y));
+        return new Rect(xt, yt, World.WINDOW_WIDTH + xt, World.WINDOW_HEIGHT + yt);
     }
 
     private void drawWorld(Canvas canvas, GameTime gameTime) {

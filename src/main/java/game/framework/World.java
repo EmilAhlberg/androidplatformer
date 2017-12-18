@@ -28,8 +28,8 @@ public class World {
     public static final Vector DEFAULT_POSITION = new Vector(-1000, -1000);
     public final static int MAP_WIDTH = 2000;
     public final static int MAP_HEIGHT = 1000;
-    public final static int WINDOW_WIDTH = 800;
-    public final static int WINDOW_HEIGHT = 480;
+    public final static int WINDOW_WIDTH = 1000;
+    public final static int WINDOW_HEIGHT = 600;
     public static boolean NEXT_LEVEL = false;
 
     private Player player;
@@ -81,8 +81,6 @@ public class World {
         hazards.draw(canvas, gameTime, player.getRect());
         interactives.draw(canvas, gameTime, player.getRect());
         Particles.draw(canvas, gameTime);
-
-
     }
 
     public void gameOver() {
