@@ -38,7 +38,7 @@ public class GameLoop implements Runnable {
             long temp = timeLimit - (newTime - lastTime);
             if (temp > 0) {
                 try {
-                    Thread.sleep((int)temp);
+                    Thread.sleep((int)temp); //TODO: Change this to a timed wait that can be notified by the ui-thread for smoother gameplay
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
