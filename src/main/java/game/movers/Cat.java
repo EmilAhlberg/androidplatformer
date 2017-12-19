@@ -14,7 +14,7 @@ public class Cat extends Collider {
     private final int TURN_FREQUENCY = 300; //! maybe a problem on small platforms
     private int direction = 1; //!! default move direction is right
     private int turnCounter = TURN_FREQUENCY;
-    private static final int CAT_FORCE = 15; //!
+    private static final int CAT_FORCE = 10; //!
 
     public Cat(Vector v) {
         super(v);

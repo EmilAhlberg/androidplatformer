@@ -26,8 +26,8 @@ public class Player extends Collider {
     private static final int WALLJUMP_LEFT = 1; //!!
     private static final int WALLJUMP_RIGHT = -1; //!!
     private static int wallJumpDirection = 0; //!
-    private final Vector FORCE = new Vector(50, 300); //!!
-    private final float WALLJUMP_FORCE = 400; //!!
+    private final Vector FORCE = new Vector(38, 270); //!!
+    private final float WALLJUMP_FORCE = 300; //!!
     private final int WALLJUMP_FRAMES = 27; //!!
     private TouchEventDecoder ted;
     private Point clickPos;
@@ -86,7 +86,7 @@ public class Player extends Collider {
                 grounded = false;
             } else if (wallJumpDirection != 0) {
                 wallJumpCounter = WALLJUMP_FRAMES;
-                applyForce(WALLJUMP_FORCE * wallJumpDirection, -FORCE.y * 2);
+                applyForce(WALLJUMP_FORCE * wallJumpDirection, (float) (-FORCE.y));
                 wallJumpParticles();
                 ted.switchPositions();
                 clickPos = ted.getFirstClickPos();

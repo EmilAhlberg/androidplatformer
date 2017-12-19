@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -27,7 +28,7 @@ import game.objectinformation.IDHandler;
 import game.util.GameTime;
 
 //NEW VERSION
-public class GameActivity extends AppActivity implements SurfaceHolder.Callback {
+public class GameActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
     private World world;
     private Handler gameLoopHandler;
@@ -42,7 +43,6 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         setContentView(surfaceView);
         surfaceView.getHolder().addCallback(this);
         loadDrawables();
-        setFullscreen();
         handlerSetup();
 
         //This information should be handled in GameLoop - will result in higher cohesion and less coupling (I think)

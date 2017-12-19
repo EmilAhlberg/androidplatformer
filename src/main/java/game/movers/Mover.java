@@ -12,8 +12,8 @@ import game.util.Vector;
  */
 
 public abstract class Mover extends GameObject {
-    private final int GRAVITY = 11;
-    private final Vector MAX_SPEED = new Vector((float)(Stats.height(ID.BLOCK) / 4), (float)(Stats.height(ID.BLOCK) / 2.4));
+    private final int GRAVITY = 12;
+    private final Vector MAX_SPEED = new Vector((float)(Stats.height(ID.BLOCK) / 1.5), (float)(Stats.height(ID.BLOCK) / 1.5));
     private Vector force =  new Vector(0, GRAVITY);
     private Vector acceleration = new Vector();
     protected Vector speed = new Vector();

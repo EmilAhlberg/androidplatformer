@@ -2,16 +2,16 @@ package game.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.emil.app.R;
 
-public class LevelClearedActivity extends AppActivity {
+public class LevelClearedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFullscreen();
         setContentView(R.layout.activity_level_cleared);
     }
 

@@ -2,17 +2,17 @@ package game.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 
 import com.example.emil.app.R;
 
-public class StartMenuActivity extends AppActivity {
+public class StartMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFullscreen();
         setContentView(R.layout.activity_main);
     }
 

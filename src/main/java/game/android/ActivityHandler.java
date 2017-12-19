@@ -2,19 +2,19 @@ package game.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
 import com.example.emil.app.R;
 
-public class ActivityHandler extends AppActivity {
+public class ActivityHandler extends AppCompatActivity {
 
 //    private AnimationDrawable bkgAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setFullscreen();
         Log.d("onCreate: ", "1");
         setContentView(R.layout.activity_splash_screen);
         View v = findViewById(R.id.activity_splash_screen);
@@ -29,7 +29,7 @@ public class ActivityHandler extends AppActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1000);
+                    sleep(600);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
