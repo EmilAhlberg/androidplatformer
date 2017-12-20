@@ -18,6 +18,7 @@ public class Fire extends GameObject{
         super(v, nbrFires, horizontal);
         animationType = AnimationInfo.DEFAULT;
         isActive = true;
+        sprite.animationThreshold = 80;
     }
 
 

@@ -19,7 +19,7 @@ public abstract class Sprite {
     protected int currentCol =0;
     protected int currentRow = 0;
     protected double animationCounter = 0;
-    protected int animationThreshold = 150; //!!
+    public int animationThreshold = 150; //!!
     protected int oldAnimationType = AnimationInfo.DEFAULT;
 
     /**
