@@ -3,13 +3,15 @@
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
-* Fixa uppritningen i ui-tråden, flytta så mycket funktionalitet som möjligt till en "worker-thread"
-
 * GameTime implementerad --> ändra alla counters till gameTime-typ (beroende av tiden, ej random counters)
 
 * Musik och ljud! (yeah)
 
 * Rullande / statisk / annan animerad bakgrund ?
+
+* Dubbelbuffra handlermessages för snyggare uppritning?
+
+* Ändra sleep() till wait() i gameloop
 
 
 
@@ -17,7 +19,12 @@
 
 
 ###DONE:###
+
 * Particles framework implementerad!
+
+* Fixa uppritningen i ui-tråden, flytta så mycket funktionalitet som möjligt till en "worker-thread"
+
+* Konstig respons på touchEvents, får ibland delay? ##### se fixlist (fixa uppritning i ui), det borde fixa problemet
 
 Generell bigObject-hantering i levelCreator.
 
@@ -53,8 +60,6 @@ Story! (cut scene /  boss/enemy dialogue)
 ##Bugs##
 
 * Hantera telefonfunktioner; skärmsläckare / rotationer / home button / return button / etc
-
-* Konstig respons på touchEvents, får ibland delay? ##### se fixlist (fixa uppritning i ui), det borde fixa problemet
 
 * Lagg vid switch från gameActivity
 
