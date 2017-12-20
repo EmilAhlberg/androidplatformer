@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/bkg_gameover"
-    tools:context="game.android.GameOverActivity">
+    tools:context="game.activities.GameOverActivity">
 
     <Button
         android:layout_centerInParent="true"

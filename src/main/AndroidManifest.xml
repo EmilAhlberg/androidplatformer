@@ -18,11 +18,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:screenOrientation="landscape" android:name="game.android.ActivityHandler" />
-        <activity android:screenOrientation="landscape" android:name="game.android.GameActivity" />
-        <activity android:screenOrientation="landscape" android:name="game.android.LevelClearedActivity" />
-        <activity android:screenOrientation="landscape" android:name="game.android.GameOverActivity" />
-        <activity android:screenOrientation="landscape" android:name="game.android.StartMenuActivity" >
+        <activity android:screenOrientation="landscape" android:name="game.activities.ActivityHandler" />
+        <activity android:screenOrientation="landscape" android:name="game.activities.GameActivity" />
+        <activity android:screenOrientation="landscape" android:name="game.activities.LevelClearedActivity" />
+        <activity android:screenOrientation="landscape" android:name="game.activities.GameOverActivity" />
+        <activity android:screenOrientation="landscape" android:name="game.activities.StartMenuActivity" >
             android.StartMenuActivity
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:screenOrientation="landscape" android:name="game.android.SelectLevelActivity" />
+        <activity android:screenOrientation="landscape" android:name="game.activities.SelectLevelActivity" />
     </application>
 
 </manifest>

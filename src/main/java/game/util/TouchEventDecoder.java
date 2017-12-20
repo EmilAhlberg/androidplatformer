@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import game.framework.World;
+import game.framework.game.World;
 
 
 /**
