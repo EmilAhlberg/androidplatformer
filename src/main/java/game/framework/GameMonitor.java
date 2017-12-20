@@ -47,13 +47,12 @@ public class GameMonitor {
     public synchronized void nextGameCycle() {
         long waitTime = (long) gameTime.getCurrentTime() - System.currentTimeMillis();
         System.out.println(waitTime);
-        while (waitTime > 0) {
+        if (waitTime > 0) {
             try {
                 wait(waitTime);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-            waitTime = (long) gameTime.getCurrentTime() - System.currentTimeMillis();
         }
         gameTime.update();
         if (lastMotionEvent != null && lastMotionEvent != oldMotionEvent) {

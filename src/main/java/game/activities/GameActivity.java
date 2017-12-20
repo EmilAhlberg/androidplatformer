@@ -84,8 +84,11 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
         super.onDestroy();
         if (!gameThread.isInterrupted())
             gameThread.interrupt();
+        if (!touchEventThread.isInterrupted())
+            touchEventThread.interrupt();
         try {
             gameThread.join();
+            touchEventThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -94,7 +97,9 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     private void nextLevel() {
         gameThread.interrupt();
+        touchEventThread.interrupt();
         try {
+            touchEventThread.join();
             gameThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -109,7 +114,9 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     private void gameOver() {
         gameThread.interrupt();
+        touchEventThread.interrupt();
         try {
+            touchEventThread.join();
             gameThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
