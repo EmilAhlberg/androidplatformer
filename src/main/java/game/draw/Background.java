@@ -2,7 +2,9 @@ package game.draw;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
+import game.framework.World;
 import game.util.GameTime;
 
 /**
@@ -14,6 +16,7 @@ public class Background {
     private Bitmap bkg;
     private int x,y;
     private int scrollSpeed = 3;      //!
+
 
     /**
      * Creates the background of the game.
@@ -34,8 +37,9 @@ public class Background {
      * Draws the background to the screen.
      * @param canvas The canvas used in the game.
      */
-    public void draw (Canvas canvas, GameTime gameTime) {
+    public void draw (Canvas canvas, Rect source, GameTime gameTime) {
         update();
+        canvas.drawBitmap(bkg, source, new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT), null);
         canvas.drawBitmap(bkg, x, y, null);
         if (y>0) {
             canvas.drawBitmap(bkg, x, y - bkg.getHeight(), null);

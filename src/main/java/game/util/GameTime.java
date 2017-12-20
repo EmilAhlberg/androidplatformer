@@ -9,8 +9,8 @@ package game.util;
 public class GameTime {
 
     private double startTime;
-    private double previousTime;
     private double currentTime;
+    private final int timeLimit = 12; //!!! ~77 ticks/second
 
     /**
      * Creates an instance of GameTime, which syncs the time of the game.
@@ -19,17 +19,18 @@ public class GameTime {
     public GameTime(double startTime) {
         this.startTime = startTime;
         this.currentTime = startTime;
-        this.previousTime = startTime;
     }
 
     /**
      * Updates the GameTime class.
-     * @param newTime the new syncing time of the updateLoop.
      */
 
-    public void update(double newTime) {
-        previousTime = currentTime;
-        currentTime = newTime;
+    public void update() {
+        currentTime += timeLimit;
+    }
+
+    public double getCurrentTime() {
+        return currentTime;
     }
 
     /**
@@ -37,7 +38,7 @@ public class GameTime {
      * @return the elapsed time (milliseconds) of the latest updateLoop.
      */
     public double elapsedTime() {
-        return currentTime - previousTime;
+        return timeLimit;
     }
 
 }

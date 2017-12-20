@@ -48,10 +48,6 @@ public class IDHandler {
             put(Fire.class, ID.FIRE);
             put(Goal.class, ID.GOAL);
             put(Cat.class, ID.CAT);
-
-            put(Cat.class, ID.CAT);
-            put(Cat.class, ID.CAT);
-            put(Cat.class, ID.CAT);
         }
     };
 
