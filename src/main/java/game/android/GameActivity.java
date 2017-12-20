@@ -14,26 +14,24 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-import game.GameObject;
 import game.framework.GameLoop;
-import game.framework.LevelCreator;
+import game.framework.GameMonitor;
+import game.framework.TouchEventHandler;
 import game.framework.World;
-import game.movers.Player;
-import game.objectinformation.ID;
 import game.objectinformation.IDHandler;
-import game.util.GameTime;
+import game.util.MotionEventInfo;
 
 //NEW VERSION
 public class GameActivity extends AppActivity implements SurfaceHolder.Callback {
 
-    private World world;
     private Handler gameLoopHandler;
     private SurfaceView surfaceView;
-    private Player player;          //remove if possible when framework is finished
     private Thread gameThread;
+    private Thread touchEventThread; //needed as field for proper shutdown?
+    private LinkedBlockingQueue<MotionEventInfo> blockingQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +42,16 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         loadDrawables();
         setFullscreen();
         handlerSetup();
+        initThreads();
+    }
 
-        //This information should be handled in GameLoop - will result in higher cohesion and less coupling (I think)
-        HashMap<ID,ArrayList<GameObject>> levelInfo = LevelCreator.createLevel(this, getIntent().getExtras().getInt("level"));
-        player = (Player)levelInfo.get(ID.LEVELPLAYER).get(0);
-        world = new World(this, levelInfo, gameLoopHandler);
-
-        gameThread = new Thread(new GameLoop(this, gameLoopHandler, player, world));
+    private void initThreads() {
+        blockingQueue = new LinkedBlockingQueue<MotionEventInfo>();
+        GameMonitor monitor = new GameMonitor(this, gameLoopHandler);
+        gameThread = new Thread(new GameLoop(gameLoopHandler, monitor));
+        touchEventThread = new Thread(new TouchEventHandler(blockingQueue, monitor));
         gameThread.start();
+        touchEventThread.start();
     }
 
     private void loadDrawables() {
@@ -75,8 +75,9 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
 
     public boolean onTouchEvent(MotionEvent event) {
         Point p = new Point();
-        getWindowManager().getDefaultDisplay().getSize(p); //behvös denna?
-        world.decodeTouchEvent(event, p);
+        getWindowManager().getDefaultDisplay().getSize(p);
+        blockingQueue.add(new MotionEventInfo(event, p));
+//        world.decodeTouchEvent(event, p);
         return true;
     }
 
@@ -127,11 +128,6 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         gameLoopHandler.removeMessages(0);
         gameLoopHandler.removeMessages(1);
         gameLoopHandler.removeMessages(2);
-    }
-
-    public void updateWorld(GameTime gameTime) {
-        //handle gameTime here? if syncing with clock --> send timeParam to world.update
-        world.update(gameTime);
     }
 
     @Override
@@ -236,8 +232,8 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
 //    }
 //
 //    public void updateWorld() {
-//        //handle gameTime here? if syncing with clock --> send timeParam to world.update
-//        world.update();
+//        //handle gameTime here? if syncing with clock --> send timeParam to world.nextFrame
+//        world.nextFrame();
 //    }
 //
 //    public void drawWorld() {

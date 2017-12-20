@@ -24,14 +24,13 @@ public class GameDraw {
     private int height;
     private Background bkg;
     private Player player;
-    private World world;
     private Bitmap bMap;
     private volatile Bitmap returnMap;
     private Canvas canvas, returnCanvas;
+    private Rect destination = new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT);
 
-    public GameDraw(GameActivity ga, Player player, World world) {
+    public GameDraw(GameActivity ga, Player player) {
         this.player = player;
-        this.world = world;
         Bitmap temp = BitmapFactory.decodeResource(ga.getResources(), R.drawable.bkg_game);
         bkg = new Background(temp);
         bMap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.RGB_565);
@@ -41,11 +40,11 @@ public class GameDraw {
         height = bMap.getHeight();
     }
 
-    public Bitmap drawGame(GameTime gt) {
-        bkg.draw(canvas, gt);
-        drawWorld(canvas, gt);
+    public Bitmap drawGame(GameTime gt, World world) {
+        bkg.draw(canvas, destination, gt);
+        drawWorld(canvas, gt, world);
         //returnCanvas.drawBitmap(bMap, -(0+Math.max(0, player.getRect().centerX() - 400)), (-1000+480+Math.max(0, (World.MAP_HEIGHT-player.getRect().centerY()) - 240)), null);
-        returnCanvas.drawBitmap(bMap, getSrc(), new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT), null);
+        returnCanvas.drawBitmap(bMap, getSrc(), destination, null);
         return returnMap;
     }
 
@@ -58,7 +57,7 @@ public class GameDraw {
         return new Rect(xt, yt, World.WINDOW_WIDTH + xt, World.WINDOW_HEIGHT + yt);
     }
 
-    private void drawWorld(Canvas canvas, GameTime gameTime) {
+    private void drawWorld(Canvas canvas, GameTime gameTime, World world) {
         Rect r = player.getRect();
         //centerPlayer(r.left, r.top, canvas);
         world.draw(canvas, gameTime);

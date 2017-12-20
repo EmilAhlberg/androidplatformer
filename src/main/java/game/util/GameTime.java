@@ -32,6 +32,10 @@ public class GameTime {
         currentTime = newTime;
     }
 
+    public double getCurrentTime() {
+        return currentTime;
+    }
+
     /**
      * Used to add time to various updating counters in game related classes.
      * @return the elapsed time (milliseconds) of the latest updateLoop.
