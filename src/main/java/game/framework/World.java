@@ -32,20 +32,22 @@ public class World {
     public final static int WINDOW_HEIGHT = 600;
     public static boolean NEXT_LEVEL = false;
 
+    public static int GAME_STATE;
+    public static final int RUNNING_STATE = 0;
+    public static final int NEXT_LEVEL_STATE = 1;
+    public static final int GAME_OVER_STATE = 2;
+
     private Player player;
     private Container blocks;
     private Container hazards;
     private Container interactives;
     private Container enemies;
     private CollisionHandler ch;
-    private GameActivity gameActivity;
-    private Handler signal;
 
-    public World(GameActivity ga, HashMap<ID, ArrayList<GameObject>> levelInfo, Handler signal) {
-        gameActivity = ga;
+    public World(HashMap<ID, ArrayList<GameObject>> levelInfo) {
         initWorld(levelInfo);
         ch = new CollisionHandler();
-        this.signal = signal;
+        GAME_STATE = RUNNING_STATE;
     }
 
     private void initWorld(HashMap<ID, ArrayList<GameObject>> levelInfo) {
@@ -59,19 +61,22 @@ public class World {
     public void update(GameTime gameTime) {
         player.update(gameTime);
         enemies.update(gameTime);
-
         Particles.update(gameTime);
         ch.handleAllCollisions(player, blocks, hazards, interactives, enemies);
         checkGameState();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     private void checkGameState() {
         if (NEXT_LEVEL) {
-            nextLevel();
+            GAME_STATE = NEXT_LEVEL_STATE;
             NEXT_LEVEL = false;
         }
         if (!player.isActive())
-            gameOver();
+            GAME_STATE = GAME_OVER_STATE;
     }
 
     public void draw(Canvas canvas, GameTime gameTime) {
@@ -81,32 +86,6 @@ public class World {
         hazards.draw(canvas, gameTime, player.getRect());
         interactives.draw(canvas, gameTime, player.getRect());
         Particles.draw(canvas, gameTime);
-    }
-
-    public void gameOver() {
-        Message m = signal.obtainMessage();
-        m.what = 1;
-        signal.sendMessageAtFrontOfQueue(m);
-        synchronized (this) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-
-    public void nextLevel() {
-        Message m = signal.obtainMessage();
-        m.what = 2;
-        signal.sendMessageAtFrontOfQueue(m);
-        synchronized (this) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

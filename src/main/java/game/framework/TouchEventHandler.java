@@ -22,13 +22,13 @@ public class TouchEventHandler implements Runnable {
 
     @Override
     public void run() {
-        try {
         while (!Thread.currentThread().isInterrupted()) {
-                MotionEventInfo eventInfo = blockingQueue.take();
-                monitor.putTouchEvent(eventInfo.getEvent(), eventInfo.getPoint());
-        }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                monitor.putTouchEvent(blockingQueue.take());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

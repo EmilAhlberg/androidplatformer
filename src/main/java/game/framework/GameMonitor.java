@@ -3,17 +3,14 @@ package game.framework;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Handler;
-import android.view.MotionEvent;
-
+import android.os.Message;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-
 import game.GameObject;
 import game.android.GameActivity;
-import game.movers.Player;
 import game.objectinformation.ID;
 import game.util.GameTime;
+import game.util.MotionEventInfo;
 
 /**
  * Created by Emil on 12/14/2017.
@@ -21,43 +18,74 @@ import game.util.GameTime;
 
 public class GameMonitor {
 
-    //private LinkedList<MotionEventInfo> touchEvents;
-    private Player player;
+
     private World world;
     private GameDraw draw;
+    private GameTime gameTime;
+    private MotionEventInfo lastMotionEvent;
+    private MotionEventInfo oldMotionEvent;
+    private Handler handler;
+    private long time;
 
     public GameMonitor(GameActivity game, Handler handler) {
-        //touchEvents = new LinkedList<>();
+        this.handler = handler;
         HashMap<ID,ArrayList<GameObject>> levelInfo = LevelCreator.createLevel(game, game.getIntent().getExtras().getInt("level"));
-        Player player = (Player)levelInfo.get(ID.LEVELPLAYER).get(0);
-        world = new World(game, levelInfo, handler); // game param should perhaps be removed?
-        draw = new GameDraw(game, player);
-
-
+        world = new World(levelInfo);
+        draw = new GameDraw(game);
+        time = System.currentTimeMillis();
+        gameTime = new GameTime(time);
     }
 
-    public synchronized void putTouchEvent(MotionEvent event, Point p) {
-        world.decodeTouchEvent(event, p);
-        notifyAll();
+    public synchronized void putTouchEvent(MotionEventInfo e) {
+        lastMotionEvent = e; // minimal blocking of gameLoop
     }
 
 
-    public synchronized Bitmap nextFrame(GameTime gameTime, boolean shouldDraw, long timeLimit) {
-        //should be double checked
-        try {
-            long waitTime = timeLimit - (System.currentTimeMillis() - (long) gameTime.getCurrentTime());
-            while (0 < waitTime) {
+    public synchronized void nextGameCycle() {
+        long waitTime = (long)gameTime.getCurrentTime() - System.currentTimeMillis();
+        System.out.println(waitTime);
+        while (waitTime > 0) {
+            try {
                 wait(waitTime);
-                waitTime = timeLimit - (System.currentTimeMillis() - (long) gameTime.getCurrentTime());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            waitTime = (long)gameTime.getCurrentTime() - System.currentTimeMillis();
+        }
+        gameTime.update();
+        if (lastMotionEvent != null && lastMotionEvent != oldMotionEvent) {
+            world.decodeTouchEvent(lastMotionEvent.getEvent(), lastMotionEvent.getPoint());
+            oldMotionEvent = lastMotionEvent;
         }
         world.update(gameTime);
-        if (shouldDraw)
-            return draw.drawGame(gameTime, world);
-        else
-            return null;
+        handleGameState();
     }
 
+    private void handleGameState() {
+        try {
+            Message m = handler.obtainMessage();
+            switch (World.GAME_STATE) {
+                case World.RUNNING_STATE:
+                    if (!handler.hasMessages(0)) {
+                        m.what = 0;
+                        m.obj = draw.drawGame(gameTime, world);
+                        ;
+                        m.sendToTarget();
+                    }
+                    break;
+                case World.GAME_OVER_STATE:
+                    m.what = 1;
+                    handler.sendMessageAtFrontOfQueue(m);
+                    wait();
+                    break;
+                case World.NEXT_LEVEL_STATE:
+                    m.what = 2;
+                    handler.sendMessageAtFrontOfQueue(m);
+                    wait();
+                    break;
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }

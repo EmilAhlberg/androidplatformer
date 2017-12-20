@@ -48,7 +48,7 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
     private void initThreads() {
         blockingQueue = new LinkedBlockingQueue<MotionEventInfo>();
         GameMonitor monitor = new GameMonitor(this, gameLoopHandler);
-        gameThread = new Thread(new GameLoop(gameLoopHandler, monitor));
+        gameThread = new Thread(new GameLoop(monitor));
         touchEventThread = new Thread(new TouchEventHandler(blockingQueue, monitor));
         gameThread.start();
         touchEventThread.start();
@@ -77,7 +77,6 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
         blockingQueue.add(new MotionEventInfo(event, p));
-//        world.decodeTouchEvent(event, p);
         return true;
     }
 
@@ -232,8 +231,8 @@ public class GameActivity extends AppActivity implements SurfaceHolder.Callback 
 //    }
 //
 //    public void updateWorld() {
-//        //handle gameTime here? if syncing with clock --> send timeParam to world.nextFrame
-//        world.nextFrame();
+//        //handle gameTime here? if syncing with clock --> send timeParam to world.nextGameCycle
+//        world.nextGameCycle();
 //    }
 //
 //    public void drawWorld() {
