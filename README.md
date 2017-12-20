@@ -1,8 +1,4 @@
-#UML#
-https://drive.google.com/open?id=1cDizRlXC_Gv7lvoQM9IXb1rCRkoIK0am
-
 #Fixlist:#
-
 
 * Fixa så man inte accelererar när man glider nedåt mot en vägg
 
@@ -14,14 +10,17 @@ https://drive.google.com/open?id=1cDizRlXC_Gv7lvoQM9IXb1rCRkoIK0am
 
 * Dubbelbuffra handlermessages för snyggare uppritning?
 
-* Ändra sleep() till wait() i gameloop
+* Horizontell - Vertikala blockhörn, kollisionsbugg
 
+* "Sned uppritning", ser ut som flimmer när player rör sig sidledes.
 
 
 
 
 
 ###DONE:###
+
+* Ändra sleep() till wait()
 
 * Particles framework implementerad!
 
