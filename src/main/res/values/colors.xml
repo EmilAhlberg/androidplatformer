@@ -5,5 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="descriptionColor">#FFA500</color>
     <color name="levelClearedColor">#800000</color>
-    <color name="black">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

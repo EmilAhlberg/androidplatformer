@@ -14,9 +14,11 @@ public class AnimationInfo {
 
     public final static int NO_ANIMATION = -1;
     public final static int DEFAULT = 0;
-    public final static int RUNNING = 1;
-    public final static int JUMPING_LEFT = 2;
-    public final static int JUMPING_RIGHT = 3;
+    public final static int RUNNING_RIGHT = 1;
+    public final static int RUNNING_LEFT = 2;
+    public final static int JUMPING_LEFT = 3;
+    public final static int JUMPING_RIGHT = 4;
+    public final static int STANDING_STILL = 5;
 
     private static HashMap<Integer, AnimationInfo>[] animationInfos;
 
@@ -42,14 +44,20 @@ public class AnimationInfo {
         }
 
         //PLAYER
-        AnimationInfo pRunning = new AnimationInfo(0, 0, 2, 0);
-        animationInfos[ID.PLAYER.ordinal()].put(RUNNING, pRunning);
+        AnimationInfo pRightRunning = new AnimationInfo(0, 0, 3, 0);
+        animationInfos[ID.PLAYER.ordinal()].put(RUNNING_RIGHT, pRightRunning);
 
-        AnimationInfo pLeftJumping = new AnimationInfo(0, 1, 0, 1);
+        AnimationInfo pLeftRunning = new AnimationInfo(4, 0, 7, 0);
+        animationInfos[ID.PLAYER.ordinal()].put(RUNNING_LEFT, pLeftRunning);
+
+        AnimationInfo pLeftJumping = new AnimationInfo(2, 1, 2, 1);
         animationInfos[ID.PLAYER.ordinal()].put(JUMPING_LEFT, pLeftJumping);
 
         AnimationInfo pRightJumping = new AnimationInfo(1, 1, 1, 1);
         animationInfos[ID.PLAYER.ordinal()].put(JUMPING_RIGHT, pRightJumping);
+
+        AnimationInfo pStandingStill = new AnimationInfo(0, 1, 0, 1);
+        animationInfos[ID.PLAYER.ordinal()].put(STANDING_STILL, pStandingStill);
 
         //BLOCK
 

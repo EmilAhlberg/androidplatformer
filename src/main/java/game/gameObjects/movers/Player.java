@@ -38,6 +38,8 @@ public class Player extends Collider {
         super(v);
         ted = new TouchEventDecoder(new Point(0, 0), new Point(0, 0));
         wallJumpCounter = 0;
+        rect.right = rect.left + 25; //!! width = 25
+        rect.bottom = rect.top + 25; //!! height = 25 (I have to do this because I don't want the width or height to be the same as the size of the sprite...)
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {
@@ -59,10 +61,14 @@ public class Player extends Collider {
 
     private void updateAnimationInfo(int fingers) {
         if (fingers == 0)
-            animationType = AnimationInfo.DEFAULT;
+            animationType = AnimationInfo.STANDING_STILL;
         else {
             if (grounded) {
-                animationType = AnimationInfo.RUNNING;
+                if (speed.x > 0) {
+                    animationType = AnimationInfo.RUNNING_RIGHT;
+                } else {
+                    animationType = AnimationInfo.RUNNING_LEFT;
+                }
             } else {
                 if (speed.x > 0) {
                     animationType = AnimationInfo.JUMPING_RIGHT;

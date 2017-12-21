@@ -62,7 +62,7 @@ public class IDHandler {
 
         IDHandler.sheets[ID.DEFAULT.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.error, options), Stats.width(ID.DEFAULT), Stats.height(ID.DEFAULT));
 
-        IDHandler.sheets[ID.PLAYER.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_player, options), Stats.width(ID.PLAYER), Stats.height(ID.PLAYER));
+        IDHandler.sheets[ID.PLAYER.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_doge, options), Stats.width(ID.PLAYER), Stats.height(ID.PLAYER));
 
         IDHandler.sheets[ID.BLOCK.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_block, options), Stats.width(ID.BLOCK), Stats.height(ID.BLOCK));
 

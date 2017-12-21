@@ -23,12 +23,25 @@
         android:onClick="newGame"/>
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
         android:text="@string/game_description"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tutorial_info"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         android:textStyle="bold" />
 </RelativeLayout>
