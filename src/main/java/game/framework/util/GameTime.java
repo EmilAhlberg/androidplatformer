@@ -10,7 +10,7 @@ public class GameTime {
 
     private double startTime;
     private double currentTime;
-    private final int timeLimit = 12; //!!! ~77 ticks/second
+    private final int timeLimit = 20; //!!! 50 ticks/second
 
     /**
      * Creates an instance of GameTime, which syncs the time of the game.

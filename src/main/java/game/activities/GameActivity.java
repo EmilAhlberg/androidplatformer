@@ -32,10 +32,12 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private Thread gameThread;
     private Thread touchEventThread; //needed as field for proper shutdown?
     private LinkedBlockingQueue<MotionEventInfo> blockingQueue;
+    public volatile int handlerMsgNbr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        handlerMsgNbr = 0;
         surfaceView = new SurfaceView(this);
         setContentView(surfaceView);
         surfaceView.getHolder().addCallback(this);
@@ -66,6 +68,7 @@ public class GameActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 } else if (inputMessage.what == 2) {
                     nextLevel();
                 } else if (inputMessage.what == 0) {
+                    handlerMsgNbr--;
                     tryDraw(surfaceView.getHolder(), (Bitmap) inputMessage.obj);
                 }
             }

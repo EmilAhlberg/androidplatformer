@@ -40,6 +40,7 @@ public class Player extends Collider {
         wallJumpCounter = 0;
         rect.right = rect.left + 25; //!! width = 25
         rect.bottom = rect.top + 25; //!! height = 25 (I have to do this because I don't want the width or height to be the same as the size of the sprite...)
+        sprite.animationThreshold = 60; //!!
     }
 
     public void decodeTouchEvent(MotionEvent event, Point p) {

@@ -29,8 +29,10 @@ public class GameMonitor {
     private MotionEventInfo lastMotionEvent;
     private MotionEventInfo oldMotionEvent;
     private Handler handler;
+    private GameActivity game;
 
     public GameMonitor(GameActivity game, Handler handler) {
+        this.game = game;
         this.handler = handler;
         HashMap<ID, ArrayList<GameObject>> levelInfo = LevelCreator.createLevel(game, game.getIntent().getExtras().getInt("level"));
         world = new World(levelInfo);
@@ -68,7 +70,8 @@ public class GameMonitor {
             Message m = handler.obtainMessage();
             switch (gameState.getGameState()) {
                 case GameState.RUNNING_STATE:
-                    if (!handler.hasMessages(0)) {
+                    if (game.handlerMsgNbr < 2) {
+                        game.handlerMsgNbr++;
                         m.what = 0;
                         m.obj = draw.drawGame(gameTime, world);
                         m.sendToTarget();
