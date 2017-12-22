@@ -16,7 +16,7 @@ import game.visuals.Particles;
 import game.gameObjects.inanimates.Block;
 import game.gameObjects.inanimates.Fire;
 import game.gameObjects.inanimates.Goal;
-import game.gameObjects.movers.Cat;
+import game.gameObjects.movers.Vacuum;
 import game.gameObjects.movers.Player;
 import game.util.Stats;
 import game.util.Vector;
@@ -63,7 +63,7 @@ public class LevelCreator {
     private static void initActivateables(ArrayList<GameObject> p, ArrayList<GameObject> es) {
         p.add(new Player(World.DEFAULT_POSITION));
         for(int i = 0; i < ENEMY_NUMBER; i++) {
-            es.add(new Cat(World.DEFAULT_POSITION));
+            es.add(new Vacuum(World.DEFAULT_POSITION));
         }
     }
 
@@ -79,7 +79,7 @@ public class LevelCreator {
                     case 'G':
                         is.add(new Goal(v));
                         break;
-                    case 'C':
+                    case 'V':
                         activateObject(es, v);
                         break;
                 }

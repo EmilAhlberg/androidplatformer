@@ -2,8 +2,6 @@ package game.util;
 
 import java.util.HashMap;
 
-import game.util.ID;
-
 /**
  * Class keeping track of hard-coded parameters.
  * Created by Emil on 08/09/2017.
@@ -20,7 +18,7 @@ public class Stats {
             put(ID.BLOCK, 20);
             put(ID.FIRE, 20);
             put(ID.GOAL, 40);
-            put(ID.CAT, 20);
+            put(ID.VACUUM, 40); //20
             put(ID.EXPLOSION, 3);
             put(ID.JUMP, 6);
             put(ID.OBJECTDEATH, 20);
@@ -34,7 +32,7 @@ public class Stats {
             put(ID.BLOCK, 20);
             put(ID.FIRE, 20);
             put(ID.GOAL, 40);
-            put(ID.CAT, 20);
+            put(ID.VACUUM, 40);
             put(ID.EXPLOSION, 3);
             put(ID.JUMP, 2);
             put(ID.OBJECTDEATH, 20);
@@ -47,7 +45,7 @@ public class Stats {
             put(ID.BLOCK, 'B');
             put(ID.FIRE, 'F');
             put(ID.GOAL, 'G');
-            put(ID.CAT, 'C');
+            put(ID.VACUUM, 'V');
         }
     };
 

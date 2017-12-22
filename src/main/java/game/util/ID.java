@@ -23,7 +23,7 @@ public enum ID {
     DEFAULT,
     PLAYER,
     FIRE,
-    CAT,
+    VACUUM,
     BLOCK,
     GOAL,
 

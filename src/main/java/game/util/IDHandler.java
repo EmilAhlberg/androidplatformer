@@ -13,7 +13,7 @@ import game.visuals.sprite.SpriteSheet;
 import game.gameObjects.inanimates.Block;
 import game.gameObjects.inanimates.Fire;
 import game.gameObjects.inanimates.Goal;
-import game.gameObjects.movers.Cat;
+import game.gameObjects.movers.Vacuum;
 import game.gameObjects.movers.Player;
 
 /**
@@ -47,7 +47,7 @@ public class IDHandler {
             put(Block.class, ID.BLOCK);
             put(Fire.class, ID.FIRE);
             put(Goal.class, ID.GOAL);
-            put(Cat.class, ID.CAT);
+            put(Vacuum.class, ID.VACUUM);
         }
     };
 
@@ -70,12 +70,12 @@ public class IDHandler {
 
         IDHandler.sheets[ID.GOAL.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_goal, options), Stats.width(ID.GOAL), Stats.height(ID.GOAL));
 
-        IDHandler.sheets[ID.CAT.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_block, options), Stats.width(ID.CAT), Stats.height(ID.CAT));
+        IDHandler.sheets[ID.VACUUM.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_vacuum, options), Stats.width(ID.VACUUM), Stats.height(ID.VACUUM));
 
 
         //Particles!
         IDHandler.sheets[ID.EXPLOSION.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.obj_goal, options), Stats.width(ID.GOAL), Stats.height(ID.GOAL));
-        IDHandler.sheets[ID.JUMP.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_block, options), Stats.width(ID.CAT), Stats.height(ID.CAT));
+        IDHandler.sheets[ID.JUMP.ordinal()] = new SpriteSheet(BitmapFactory.decodeResource(gA.getResources(), R.drawable.will_remove_block, options), Stats.width(ID.VACUUM), Stats.height(ID.VACUUM));
 
 
 

@@ -5,20 +5,22 @@ import game.util.ID;
 import game.gameObjects.GameObject;
 import game.framework.util.GameTime;
 import game.util.Vector;
+import game.visuals.AnimationInfo;
 
 /**
  * Created by Emil on 19/09/2017.
  */
 
-public class Cat extends Collider {
+public class Vacuum extends Collider {
     private GameObject ground;
     private final int TURN_FREQUENCY = 300; //! maybe a problem on small platforms
     private int direction = 1; //!! default move direction is right
     private int turnCounter = TURN_FREQUENCY;
     private static final int CAT_FORCE = 10; //!
 
-    public Cat(Vector v) {
+    public Vacuum(Vector v) {
         super(v);
+        animationType = AnimationInfo.VACUUM_RIGHT;
     }
 
     @Override
@@ -32,6 +34,11 @@ public class Cat extends Collider {
         turnCounter -= gameTime.elapsedTime();
         applyForce(CAT_FORCE* direction, 0);
         move(friction, true);
+        if(direction == -1) {
+            animationType = AnimationInfo.VACUUM_RIGHT;
+        } else {
+            animationType = AnimationInfo.VACUUM_LEFT;
+        }
     }
 
     @Override

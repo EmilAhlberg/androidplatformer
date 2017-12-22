@@ -148,12 +148,12 @@ public class Player extends Collider {
             }
         } else if (g instanceof Goal) {
             ((Goal) g).affectPlayer();
-        } else if (g.getID() == ID.CAT) {
+        } else if (g.getID() == ID.VACUUM) {
             Rect cRect = g.getRect();
             if (collisionType == Collider.COLLISION_BOTTOM) {
-                Particles.createParticles(new Vector(cRect.left, cRect.top), ID.OBJECTDEATH, ID.CAT);
+                Particles.createParticles(new Vector(cRect.left, cRect.top), ID.OBJECTDEATH, ID.VACUUM);
                 Particles.createParticles(new Vector(cRect.centerX(), cRect.centerY()), ID.EXPLOSION);
-                ((Cat) g).deactivateMover();
+                ((Vacuum) g).deactivateMover();
                 jump(FORCE.y);
             } else
                 isActive = false;

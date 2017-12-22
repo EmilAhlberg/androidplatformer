@@ -19,6 +19,8 @@ public class AnimationInfo {
     public final static int JUMPING_LEFT = 3;
     public final static int JUMPING_RIGHT = 4;
     public final static int STANDING_STILL = 5;
+    public final static int VACUUM_LEFT = 6;
+    public final static int VACUUM_RIGHT = 7;
 
     private static HashMap<Integer, AnimationInfo>[] animationInfos;
 
@@ -65,8 +67,11 @@ public class AnimationInfo {
         AnimationInfo fire = new AnimationInfo(0, 0, 2, 0);
         animationInfos[ID.FIRE.ordinal()].put(DEFAULT, fire);
 
-        //etc
-
+        //ENEMIES
+        AnimationInfo vacuumLeft = new AnimationInfo(0,1,1,1);
+        AnimationInfo vacuumRight = new AnimationInfo(0,0,1,0);
+        animationInfos[ID.VACUUM.ordinal()].put(VACUUM_LEFT, vacuumLeft);
+        animationInfos[ID.VACUUM.ordinal()].put(VACUUM_RIGHT, vacuumRight);
     }
 
     public int getStartColumn() {

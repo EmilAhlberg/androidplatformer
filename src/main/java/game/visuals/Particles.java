@@ -94,13 +94,13 @@ public class Particles {
                 circularParticles(v, particleID, nbrOfParticles, startAngle, endAngle);
                 break;
             case OBJECTDEATH:
-                int rnd = new Random().nextInt(4);
-                if (rnd == 0)
+                //int rnd = new Random().nextInt(4);
+                //if (rnd == 0)
                     objectDeathHorizontal(v, objectID, particleID);
-                else if (rnd == 1)
-                    objectDeathVertical(v, objectID, particleID);
-                else
-                    objectDeathx4(v, objectID, particleID);
+                //else if (rnd == 1)
+                  //  objectDeathVertical(v, objectID, particleID);
+                //else
+                  //  objectDeathx4(v, objectID, particleID);
                 break;
         }
     }
