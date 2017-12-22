@@ -48,7 +48,6 @@ public class GameMonitor {
 
     public synchronized void nextGameCycle() {
         long waitTime = (long) gameTime.getCurrentTime() - System.currentTimeMillis();
-        System.out.println(waitTime);
         if (waitTime > 0) {
             try {
                 wait(waitTime);
