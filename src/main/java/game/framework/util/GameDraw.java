@@ -24,11 +24,13 @@ public class GameDraw {
     private volatile Bitmap returnMap;
     private Canvas canvas, returnCanvas;
     private Rect destination = new Rect(0, 0, World.WINDOW_WIDTH, World.WINDOW_HEIGHT);
+    private GameText gameText;
 
     public GameDraw(GameActivity ga) {
         Bitmap temp = BitmapFactory.decodeResource(ga.getResources(), R.drawable.bkg_game);
         bkg = new Background(temp);
         bMap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.RGB_565);
+        gameText = new GameText(ga);
         returnMap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(), Bitmap.Config.RGB_565);
         canvas = new Canvas(bMap);
         returnCanvas = new Canvas(returnMap);
@@ -38,6 +40,7 @@ public class GameDraw {
     public Bitmap drawGame(GameTime gt, World world) {
         bkg.draw(canvas, destination, gt);
         world.draw(canvas, gt);
+        gameText.draw(canvas, gt, getSrc(world.getPlayer()));
         //returnCanvas.drawBitmap(bMap, -(0+Math.max(0, player.getRect().centerX() - 400)), (-1000+480+Math.max(0, (World.MAP_HEIGHT-player.getRect().centerY()) - 240)), null);
         returnCanvas.drawBitmap(bMap, getSrc(world.getPlayer()), destination, null);
         return returnMap;
