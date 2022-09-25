@@ -1,5 +1,7 @@
 Android platform game, just for fun!
 
+Self developed game engine.
+
 ![image](https://user-images.githubusercontent.com/15932746/192160423-b70d8f08-51be-4f4d-8904-0f37d8ac1806.png)
 ![image](https://user-images.githubusercontent.com/15932746/192160451-11c963a3-48d2-4b62-b984-695fbee531f4.png)
 
