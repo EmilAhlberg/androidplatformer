@@ -89,18 +89,18 @@ public abstract class Collider extends Mover {
             // Now compare them to know the side of collision
             if (hd < vd) {
                 if (myTemp.centerY() > oTemp.centerY()) {
-                    // Collision on top side of obj_debug
+                    // Collision on top side of object
                     return COLLISION_TOP;
                 } else {
-                    // Collision on bottom side of obj_debug
+                    // Collision on bottom side of object
                     return COLLISION_BOTTOM;
                 }
             } else {
                 if (myTemp.centerX() < oTemp.centerX()) {
-                    // Collision on right side of obj_debug
+                    // Collision on right side of object
                     return COLLISION_RIGHT;
                 } else {
-                    // Collision on left side of obj_debug
+                    // Collision on left side of object
                     return COLLISION_LEFT;
                 }
             }

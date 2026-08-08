@@ -23,13 +23,16 @@ public class CollisionHandler {
                 Rect temp = new Rect(gRect.left, gRect.top, gRect.right, gRect.bottom);
                 if (temp.intersect(c.getRect())) {
                     int area = temp.width() * temp.height();
-                    if (intersectingObjects.size() == 0)
-                        intersectingObjects.add(new Pair(g, area));
-                    int size = intersectingObjects.size();
-                    for (int i = 0; i < size; i++) {
-                        if (intersectingObjects.get(i).area < area || i == size - 1)
-                            intersectingObjects.add(i, new Pair(g, area));
+                    // Insertion sort: keep intersectingObjects sorted by descending area
+                    // so that the largest overlap is resolved first.
+                    int insertIndex = intersectingObjects.size();
+                    for (int i = 0; i < intersectingObjects.size(); i++) {
+                        if (intersectingObjects.get(i).area < area) {
+                            insertIndex = i;
+                            break;
+                        }
                     }
+                    intersectingObjects.add(insertIndex, new Pair(g, area));
                 }
             }
         }

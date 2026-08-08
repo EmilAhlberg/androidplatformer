@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 import game.visuals.sprite.ParticleSprite;
 import game.util.ID;
@@ -83,24 +82,16 @@ public class Particles {
                 endAngle = (float) Math.PI * 9 / 4;
                 nbrOfParticles = 3;
                 startAngle = (float) Math.PI * 5 / 4;
-                ;
                 circularParticles(v, ID.JUMP, nbrOfParticles, startAngle, endAngle);
                 break;
             case EXPLOSION:
-                ;
                 startAngle = 0;
                 endAngle = 2 * (float) Math.PI;
                 nbrOfParticles = 20;
                 circularParticles(v, particleID, nbrOfParticles, startAngle, endAngle);
                 break;
             case OBJECTDEATH:
-                //int rnd = new Random().nextInt(4);
-                //if (rnd == 0)
-                    objectDeathHorizontal(v, objectID, particleID);
-                //else if (rnd == 1)
-                  //  objectDeathVertical(v, objectID, particleID);
-                //else
-                  //  objectDeathx4(v, objectID, particleID);
+                objectDeathHorizontal(v, objectID, particleID);
                 break;
         }
     }
